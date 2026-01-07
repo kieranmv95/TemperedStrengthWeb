@@ -1,3 +1,4 @@
+// app/actions.ts
 "use server";
 import { Resend } from "resend";
 
@@ -13,17 +14,27 @@ export async function subscribeUser(prevState: unknown, formData: FormData) {
     });
 
     await resend.emails.send({
-      from: "Waitlist <hello@yourdomain.com>",
+      from: "Waitlist - Tempered Strength - No Reply <hello@temperedstrength.com>", // Must be a verified domain
       to: email,
-      subject: "Welcome!",
-      html: "<p>You are officially on the list.</p>",
+      subject: "You're in! Welcome to the waitlist!",
+      headers: {
+        "List-Unsubscribe": "<https://temperedstrength.com/unsubscribe>",
+      },
+      html: `
+        <h1>You're in! Welcome to the waitlist!</h1>
+        <p>Thanks for signing up. We'll notify you as soon as we launch.</p>
+        <hr />
+        <br />
+        <p style="font-size: 12px; color: #666;">
+          Don't want these emails?
+          <a href="https://temperedstrength.com/unsubscribe">Unsubscribe here</a>
+        </p>
+      `,
     });
 
     return { success: true, message: "Check your inbox!" };
   } catch (e) {
-    return {
-      success: false,
-      message: "Something went wrong. Please try again.",
-    };
+    console.error(e);
+    return { success: false, message: "Something went wrong." };
   }
 }
