@@ -1,10 +1,10 @@
 "use client";
 
-import { useActionState } from "react";
+import { Suspense, useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import { unsubscribeAction } from "./actions";
 
-export default function UnsubscribePage() {
+function UnsubscribeForm() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const [state, formAction, isPending] = useActionState(
@@ -36,5 +36,19 @@ export default function UnsubscribePage() {
         )}
       </form>
     </div>
+  );
+}
+
+export default function UnsubscribePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+          Loading...
+        </div>
+      }
+    >
+      <UnsubscribeForm />
+    </Suspense>
   );
 }
