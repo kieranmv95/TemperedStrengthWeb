@@ -34,6 +34,18 @@ export default function Home() {
             minutes or 2 hours, a full garage or a single dumbbell, Tempered
             Strength builds the perfect session for the athlete you are today.
           </p>
+          <div className="pt-6">
+            <button
+              onClick={() => {
+                document
+                  .getElementById("waitlist-form")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="bg-gradient-to-r from-blue-600 via-blue-600 to-purple-600 hover:from-blue-500 hover:via-blue-500 hover:to-purple-500 text-white font-semibold px-8 py-4 rounded-xl shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:shadow-2xl transition-all duration-200 text-base transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Join the Waitlist
+            </button>
+          </div>
         </section>
 
         {/* The "Why": Three Key Pillars */}
@@ -220,7 +232,10 @@ export default function Home() {
         </section>
 
         {/* Registration CTA */}
-        <section className="relative border-t border-zinc-800 pt-16 pb-8">
+        <section
+          id="waitlist-form"
+          className="relative border-t border-zinc-800 pt-16 pb-8"
+        >
           <div className="absolute inset-0 bg-gradient-to-t from-blue-600/5 via-transparent to-transparent -z-10"></div>
           <div className="text-center space-y-8 max-w-2xl mx-auto">
             <div className="space-y-5">
