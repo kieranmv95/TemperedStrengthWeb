@@ -9,10 +9,26 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Subtle grid background */}
-      <div className="fixed inset-0 bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      {/* Background image - 50vh on mobile, 100vh on desktop, scrolls with content */}
+      <div className="absolute top-0 left-0 right-0 h-[65vh] md:h-screen z-0">
+        <Image
+          src="/lifting.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+          quality={90}
+        />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/70" />
+        {/* Bottom fade to background */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
+      </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 py-8 md:py-12">
+      {/* Subtle grid background */}
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-12">
         {/* Header */}
         <header className="flex justify-center mb-16 animate-fade-in">
           <Image
