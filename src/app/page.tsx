@@ -60,10 +60,10 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <a
-              href="#programs"
+              href="#waitlist-form"
               className="inline-flex items-center justify-center gap-2 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-8 py-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] gold-glow"
             >
-              Explore Programs
+              Join the waitlist
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -340,10 +340,10 @@ export default function Home() {
 
             <div className="relative text-center space-y-6 max-w-xl mx-auto">
               <h2 className="text-2xl md:text-3xl font-bold">
-                Stay in the Loop
+                Join the waitlist
               </h2>
               <p className="text-neutral-400">
-                Get notified when we launch new programs, features, and
+                Get notified when we launch the app, new programs, features, and
                 exclusive content. No spam, just gains.
               </p>
 
