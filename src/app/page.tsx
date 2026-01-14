@@ -42,7 +42,7 @@ export default function Home() {
         </header>
 
         {/* Hero Section */}
-        <section className="text-center space-y-8 mb-32 animate-fade-in-delay-1">
+        <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#c9b072]/30 bg-[#c9b072]/5 text-[#c9b072] text-sm font-medium tracking-wide">
             <span className="w-2 h-2 rounded-full bg-[#c9b072] animate-pulse" />
             COMING SOON TO iOS
@@ -91,6 +91,43 @@ export default function Home() {
           </div>
         </section>
 
+        {/* App Preview - Phone Showcase */}
+        <section className="mb-32 animate-fade-in-delay-2">
+          <div className="relative flex justify-center items-end gap-4 md:gap-8">
+            {/* Left Phone */}
+            <div className="hidden md:block relative w-48 lg:w-56 opacity-70 transform -translate-y-8">
+              <Image
+                src="/workouts_3d.png"
+                alt="Workouts screen"
+                width={280}
+                height={560}
+                className="w-full h-auto drop-shadow-2xl"
+              />
+            </div>
+            {/* Center Phone - Main */}
+            <div className="relative w-64 md:w-72 lg:w-80 z-10">
+              <Image
+                src="/active_program_3d.png"
+                alt="Active program screen"
+                width={320}
+                height={640}
+                className="w-full h-auto drop-shadow-2xl"
+                priority
+              />
+            </div>
+            {/* Right Phone */}
+            <div className="hidden md:block relative w-48 lg:w-56 opacity-70 transform -translate-y-8">
+              <Image
+                src="/brief_3d.png"
+                alt="The Brief screen"
+                width={280}
+                height={560}
+                className="w-full h-auto drop-shadow-2xl"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Stats Bar */}
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-32 animate-fade-in-delay-2">
           {[
@@ -113,15 +150,46 @@ export default function Home() {
 
         {/* Programs Section */}
         <section id="programs" className="mb-32 scroll-mt-8">
-          <div className="text-center animate-fade-in-delay-2">
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
-              Programs for Every Lifter
-            </h2>
-            <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
-              From free foundational programs to Pro periodized training.
-              Launching with strength and Olympic disciplines, with more coming
-              soon.
-            </p>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1 flex justify-center">
+              <div className="relative w-64 md:w-72">
+                <Image
+                  src="/program_popup_3d.png"
+                  alt="Program selection screen"
+                  width={320}
+                  height={640}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
+            <div className="order-1 md:order-2 text-center md:text-left">
+              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
+                Programs for Every Lifter
+              </h2>
+              <p className="text-neutral-400 leading-relaxed mb-6">
+                From free foundational programs to Pro periodized training.
+                Launching with strength and Olympic disciplines, with more
+                coming soon.
+              </p>
+              <ul className="space-y-3 text-neutral-300">
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
+                  Push/Pull/Legs splits
+                </li>
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
+                  Foundation strength programs
+                </li>
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
+                  Olympic lifting progressions
+                </li>
+                <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
+                  Customizable workout days
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -137,9 +205,20 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* On-Demand Workouts */}
-            <div className="relative group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-[#c9b072]/30 transition-all duration-300">
+          {/* On-Demand Workouts Feature */}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
+            <div className="order-2 md:order-1 flex justify-center">
+              <div className="relative w-56 md:w-64">
+                <Image
+                  src="/workouts_3d.png"
+                  alt="On-demand workouts screen"
+                  width={280}
+                  height={560}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
@@ -161,22 +240,25 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 leading-snug">
+              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
                 On-Demand Workouts
               </h3>
-              <p className="text-neutral-400 leading-loose">
+              <p className="text-neutral-400 leading-loose mb-4">
                 Need to feel the burn but don&apos;t have time for a full
-                program? Pick from our library of one-off workouts for quick,
-                effective sessions. Pro unlocks the full library.
+                program? Pick from our library of 40+ one-off workouts for
+                quick, effective sessions. Filter by type, difficulty, and
+                equipment.
               </p>
-              <div className="mt-4 inline-flex items-center text-[#c9b072] text-sm font-medium">
+              <div className="inline-flex items-center text-[#c9b072] text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
                 Full library with Pro
               </div>
             </div>
+          </div>
 
-            {/* The Brief */}
-            <div className="relative group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-[#c9b072]/30 transition-all duration-300">
+          {/* The Brief Feature */}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
+            <div className="order-1">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
@@ -192,22 +274,46 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 leading-snug">
+              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
                 The Brief
               </h3>
-              <p className="text-neutral-400 leading-loose">
-                Curated content to level up your knowledge. Fitness articles,
-                Apple Music playlists for your sessions, and a glossary of gym
-                terminology to decode common lingo.
+              <p className="text-neutral-400 leading-loose mb-4">
+                Your daily intel for the iron game. Curated fitness articles on
+                methodology, nutrition, recovery, and mindset. Plus Apple Music
+                playlists for your sessions.
               </p>
-              <div className="mt-4 inline-flex items-center text-green-500 text-sm font-medium">
+              <div className="inline-flex items-center text-green-500 text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
                 Free for everyone
               </div>
             </div>
+            <div className="order-2 flex justify-center">
+              <div className="relative w-56 md:w-64">
+                <Image
+                  src="/brief_3d.png"
+                  alt="The Brief screen"
+                  width={280}
+                  height={560}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
+          </div>
 
-            {/* Smart Swapping */}
-            <div className="relative group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-[#c9b072]/30 transition-all duration-300">
+          {/* Smart Swapping Feature */}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
+            <div className="order-2 md:order-1 flex justify-center">
+              <div className="relative w-56 md:w-64">
+                <Image
+                  src="/exercise_swap_3d.png"
+                  alt="Exercise swap screen"
+                  width={280}
+                  height={560}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
@@ -223,22 +329,24 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 leading-snug">
+              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
                 Smart Exercise Swapping
               </h3>
-              <p className="text-neutral-400 leading-loose">
+              <p className="text-neutral-400 leading-loose mb-4">
                 Equipment unavailable? Tap to swap any exercise for an
-                alternative that targets the same muscle groups with different
-                kit.
+                alternative that targets the same muscle groups. Choose from
+                cable, machine, bodyweight, or dumbbell alternatives.
               </p>
-              <div className="mt-4 inline-flex items-center text-[#c9b072] text-sm font-medium">
+              <div className="inline-flex items-center text-[#c9b072] text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
                 Unlimited swaps with Pro
               </div>
             </div>
+          </div>
 
-            {/* Growing Library */}
-            <div className="relative group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-[#c9b072]/30 transition-all duration-300">
+          {/* Glossary Feature */}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="order-1">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
@@ -250,20 +358,32 @@ export default function Home() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3 leading-snug">
-                Constantly Evolving
+              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
+                Gym Terminology
               </h3>
-              <p className="text-neutral-400 leading-loose">
-                New programs added regularly. We&apos;re building toward
-                hundreds of programs covering every training style and goal.
+              <p className="text-neutral-400 leading-loose mb-4">
+                New to the gym? Our searchable glossary decodes common lingo
+                like AMRAP, DOMS, concentric, and hypertrophy. Filter by
+                training, movements, or nutrition categories.
               </p>
-              <div className="mt-4 inline-flex items-center text-neutral-500 text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2 animate-pulse" />
-                Expanding Monthly
+              <div className="inline-flex items-center text-green-500 text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
+                Free for everyone
+              </div>
+            </div>
+            <div className="order-2 flex justify-center">
+              <div className="relative w-56 md:w-64">
+                <Image
+                  src="/glossary_3d.png"
+                  alt="Terminology glossary screen"
+                  width={280}
+                  height={560}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
               </div>
             </div>
           </div>
