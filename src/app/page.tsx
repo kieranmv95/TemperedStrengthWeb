@@ -1,21 +1,101 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { subscribeUser } from "./actions";
+
+// Custom hook for parallax scroll effect
+function useParallax() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return scrollY;
+}
+
+// Custom hook for scroll-triggered animations
+function useScrollAnimation() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
+// Animated section wrapper component
+function AnimatedSection({
+  children,
+  className = "",
+  animation = "slide-up",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  animation?: "slide-up" | "slide-left" | "slide-right" | "scale";
+  delay?: number;
+}) {
+  const { ref, isVisible } = useScrollAnimation();
+
+  const animationClass = {
+    "slide-up": "scroll-animate",
+    "slide-left": "scroll-animate-left",
+    "slide-right": "scroll-animate-right",
+    scale: "scroll-animate-scale",
+  }[animation];
+
+  return (
+    <div
+      ref={ref}
+      className={`${animationClass} ${
+        isVisible ? "animate-in" : ""
+      } ${className}`}
+      style={{ animationDelay: `${delay}s` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   const [state, formAction, isPending] = useActionState(subscribeUser, null);
+  const scrollY = useParallax();
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Background image - 50vh on mobile, 100vh on desktop, scrolls with content */}
-      <div className="absolute top-0 left-0 right-0 h-[65vh] md:h-screen z-0">
+      {/* Background image - 50vh on mobile, 100vh on desktop, with parallax */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[65vh] md:h-screen z-0 overflow-hidden"
+        style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+      >
         <Image
           src="/lifting.jpg"
           alt=""
           fill
-          className="object-cover"
+          className="object-cover scale-110"
           priority
           quality={90}
         />
@@ -91,11 +171,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* App Preview - Phone Showcase */}
+        {/* App Preview - Phone Showcase with Parallax */}
         <section className="mb-32 animate-fade-in-delay-2">
           <div className="relative flex justify-center items-end gap-4 md:gap-8">
-            {/* Left Phone */}
-            <div className="hidden md:block relative w-48 lg:w-56 opacity-70 transform -translate-y-8">
+            {/* Left Phone - Faster parallax */}
+            <div
+              className="hidden md:block relative w-48 lg:w-56 opacity-70"
+              style={{ transform: `translateY(${-32 + scrollY * 0.08}px)` }}
+            >
               <Image
                 src="/workouts_3d.png"
                 alt="Workouts screen"
@@ -104,8 +187,11 @@ export default function Home() {
                 className="w-full h-auto drop-shadow-2xl"
               />
             </div>
-            {/* Center Phone - Main */}
-            <div className="relative w-64 md:w-72 lg:w-80 z-10">
+            {/* Center Phone - Main - Slower parallax */}
+            <div
+              className="relative w-64 md:w-72 lg:w-80 z-10"
+              style={{ transform: `translateY(${scrollY * 0.04}px)` }}
+            >
               <Image
                 src="/active_program_3d.png"
                 alt="Active program screen"
@@ -115,8 +201,11 @@ export default function Home() {
                 priority
               />
             </div>
-            {/* Right Phone */}
-            <div className="hidden md:block relative w-48 lg:w-56 opacity-70 transform -translate-y-8">
+            {/* Right Phone - Faster parallax */}
+            <div
+              className="hidden md:block relative w-48 lg:w-56 opacity-70"
+              style={{ transform: `translateY(${-32 + scrollY * 0.08}px)` }}
+            >
               <Image
                 src="/brief_3d.png"
                 alt="The Brief screen"
@@ -129,29 +218,35 @@ export default function Home() {
         </section>
 
         {/* Stats Bar */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-32 animate-fade-in-delay-2">
-          {[
-            { value: "6", label: "Programs Available" },
-            { value: "4", label: "Free Programs" },
-            { value: "2", label: "Disciplines" },
-            { value: "40+", label: "On-demand workouts" },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className="text-center p-6 rounded-xl border border-neutral-800 bg-neutral-900/50"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-[#c9b072]">
-                {stat.value}
-              </div>
-              <div className="text-sm text-neutral-500 mt-1">{stat.label}</div>
-            </div>
-          ))}
-        </section>
+        <AnimatedSection className="mb-32">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: "6", label: "Programs Available" },
+              { value: "4", label: "Free Programs" },
+              { value: "2", label: "Disciplines" },
+              { value: "40+", label: "On-demand workouts" },
+            ].map((stat, i) => (
+              <AnimatedSection key={i} animation="scale" delay={i * 0.1}>
+                <div className="text-center p-6 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                  <div className="text-3xl md:text-4xl font-bold text-[#c9b072]">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-neutral-500 mt-1">
+                    {stat.label}
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </AnimatedSection>
 
         {/* Programs Section */}
         <section id="programs" className="mb-32 scroll-mt-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1 flex justify-center">
+            <AnimatedSection
+              animation="slide-left"
+              className="order-2 md:order-1 flex justify-center"
+            >
               <div className="relative w-64 md:w-72">
                 <Image
                   src="/program_popup_3d.png"
@@ -161,8 +256,11 @@ export default function Home() {
                   className="w-full h-auto drop-shadow-2xl"
                 />
               </div>
-            </div>
-            <div className="order-1 md:order-2 text-center md:text-left">
+            </AnimatedSection>
+            <AnimatedSection
+              animation="slide-right"
+              className="order-1 md:order-2 text-center md:text-left"
+            >
               <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
                 Programs for Every Lifter
               </h2>
@@ -189,13 +287,13 @@ export default function Home() {
                   Customizable workout days
                 </li>
               </ul>
-            </div>
+            </AnimatedSection>
           </div>
         </section>
 
         {/* Features Section */}
         <section className="mb-32">
-          <div className="text-center mb-16">
+          <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
               Smart Features
             </h2>
@@ -203,11 +301,14 @@ export default function Home() {
               Training tools that adapt to real life. Because the perfect
               workout is the one you can actually do.
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* On-Demand Workouts Feature */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-            <div className="order-2 md:order-1 flex justify-center">
+            <AnimatedSection
+              animation="slide-left"
+              className="order-2 md:order-1 flex justify-center"
+            >
               <div className="relative w-56 md:w-64">
                 <Image
                   src="/workouts_3d.png"
@@ -217,9 +318,12 @@ export default function Home() {
                   className="w-full h-auto drop-shadow-2xl"
                 />
               </div>
-            </div>
-            <div className="order-1 md:order-2">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
+            </AnimatedSection>
+            <AnimatedSection
+              animation="slide-right"
+              className="order-1 md:order-2 text-center md:text-left"
+            >
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
                   fill="none"
@@ -253,13 +357,16 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
                 Full library with Pro
               </div>
-            </div>
+            </AnimatedSection>
           </div>
 
           {/* The Brief Feature */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-            <div className="order-1">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
+            <AnimatedSection
+              animation="slide-left"
+              className="order-1 text-center md:text-left"
+            >
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
                   fill="none"
@@ -286,8 +393,11 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
                 Free for everyone
               </div>
-            </div>
-            <div className="order-2 flex justify-center">
+            </AnimatedSection>
+            <AnimatedSection
+              animation="slide-right"
+              className="order-2 flex justify-center"
+            >
               <div className="relative w-56 md:w-64">
                 <Image
                   src="/brief_3d.png"
@@ -297,12 +407,15 @@ export default function Home() {
                   className="w-full h-auto drop-shadow-2xl"
                 />
               </div>
-            </div>
+            </AnimatedSection>
           </div>
 
           {/* Smart Swapping Feature */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-            <div className="order-2 md:order-1 flex justify-center">
+            <AnimatedSection
+              animation="slide-left"
+              className="order-2 md:order-1 flex justify-center"
+            >
               <div className="relative w-56 md:w-64">
                 <Image
                   src="/exercise_swap_3d.png"
@@ -312,9 +425,12 @@ export default function Home() {
                   className="w-full h-auto drop-shadow-2xl"
                 />
               </div>
-            </div>
-            <div className="order-1 md:order-2">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
+            </AnimatedSection>
+            <AnimatedSection
+              animation="slide-right"
+              className="order-1 md:order-2 text-center md:text-left"
+            >
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
                   fill="none"
@@ -341,13 +457,16 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
                 Unlimited swaps with Pro
               </div>
-            </div>
+            </AnimatedSection>
           </div>
 
           {/* Glossary Feature */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="order-1">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
+            <AnimatedSection
+              animation="slide-left"
+              className="order-1 text-center md:text-left"
+            >
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
                 <svg
                   className="w-7 h-7 text-[#c9b072]"
                   fill="none"
@@ -374,8 +493,11 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
                 Free for everyone
               </div>
-            </div>
-            <div className="order-2 flex justify-center">
+            </AnimatedSection>
+            <AnimatedSection
+              animation="slide-right"
+              className="order-2 flex justify-center"
+            >
               <div className="relative w-56 md:w-64">
                 <Image
                   src="/glossary_3d.png"
@@ -385,13 +507,13 @@ export default function Home() {
                   className="w-full h-auto drop-shadow-2xl"
                 />
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </section>
 
         {/* Free vs Pro */}
         <section className="mb-32">
-          <div className="text-center mb-16">
+          <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
               Free & Pro
             </h2>
@@ -399,143 +521,165 @@ export default function Home() {
               Start free, upgrade when you&apos;re ready. Most of our programs
               are completely free.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Free Tier */}
-            <div className="p-8 rounded-2xl border border-neutral-700 bg-neutral-900/30">
-              <div className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
-                Free
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Get Started</h3>
-              <ul className="space-y-3 mb-8">
-                {[
-                  "Multiple complete training programs",
-                  "On-demand workouts (limited)",
-                  "The Brief: articles, playlists & glossary",
-                  "10 Smart exercise swaps per month",
-                ].map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-center gap-3 text-neutral-300"
-                  >
-                    <svg
-                      className="w-5 h-5 text-green-500 flex-shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+            <AnimatedSection animation="slide-left">
+              <div className="p-8 rounded-2xl border border-neutral-700 bg-neutral-900/30 backdrop-blur-sm h-full">
+                <div className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
+                  Free
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Get Started</h3>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Multiple complete training programs",
+                    "On-demand workouts (limited)",
+                    "The Brief: articles, playlists & glossary",
+                    "10 Smart exercise swaps per month",
+                  ].map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3 text-neutral-300"
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="text-3xl font-bold">
-                £0
-                <span className="text-base font-normal text-neutral-500">
-                  {" "}
-                  / forever
-                </span>
+                      <svg
+                        className="w-5 h-5 text-green-500 flex-shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-3xl font-bold">
+                  £0
+                  <span className="text-base font-normal text-neutral-500">
+                    {" "}
+                    / forever
+                  </span>
+                </div>
               </div>
-            </div>
+            </AnimatedSection>
 
             {/* Pro Tier */}
-            <div className="relative p-8 rounded-2xl border border-[#c9b072]/50 bg-gradient-to-b from-[#c9b072]/5 to-transparent overflow-hidden">
-              <div className="absolute top-0 right-0 px-4 py-1 bg-[#c9b072] text-black text-xs font-bold uppercase">
-                Pro
-              </div>
-              <div className="text-sm font-medium text-[#c9b072] uppercase tracking-wider mb-2">
-                Pro
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Level Up</h3>
-              <ul className="space-y-3 mb-8">
-                {[
-                  "Everything in Free",
-                  "All PRO programs available",
-                  "Full on-demand workouts library",
-                  "Unlimited Smart exercise swaps",
-                  "Exclusive content & features",
-                ].map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-center gap-3 text-neutral-300"
-                  >
-                    <svg
-                      className="w-5 h-5 text-[#c9b072] flex-shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+            <AnimatedSection animation="slide-right" delay={0.1}>
+              <div className="relative p-8 rounded-2xl border border-[#c9b072]/50 bg-gradient-to-b from-[#c9b072]/5 to-transparent overflow-hidden backdrop-blur-sm h-full">
+                <div className="absolute top-0 right-0 px-4 py-1 bg-[#c9b072] text-black text-xs font-bold uppercase">
+                  Pro
+                </div>
+                <div className="text-sm font-medium text-[#c9b072] uppercase tracking-wider mb-2">
+                  Pro
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Level Up</h3>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Everything in Free",
+                    "All PRO programs available",
+                    "Full on-demand workouts library",
+                    "Unlimited Smart exercise swaps",
+                    "Exclusive content & features",
+                  ].map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3 text-neutral-300"
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="text-3xl font-bold text-[#c9b072]">
-                Available at Launch
+                      <svg
+                        className="w-5 h-5 text-[#c9b072] flex-shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-3xl font-bold text-[#c9b072]">
+                  £4.99mo / £49.99yr
+                </div>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </section>
 
         {/* Waitlist CTA */}
-        <section id="waitlist-form" className="relative mb-16 scroll-mt-8">
-          <div className="relative p-8 md:p-12 rounded-2xl border border-[#c9b072]/30 bg-gradient-to-br from-[#c9b072]/5 via-transparent to-transparent overflow-hidden">
-            <div className="absolute inset-0 shimmer pointer-events-none" />
+        <AnimatedSection animation="scale">
+          <section id="waitlist-form" className="relative mb-16 scroll-mt-8">
+            <div className="relative p-8 md:p-12 rounded-2xl border border-[#c9b072]/30 bg-gradient-to-br from-[#c9b072]/5 via-transparent to-transparent overflow-hidden backdrop-blur-sm">
+              <div className="absolute inset-0 shimmer pointer-events-none" />
 
-            <div className="relative text-center space-y-6 max-w-xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold">
-                Join the waitlist
-              </h2>
-              <p className="text-neutral-400">
-                Get notified when we launch the app, new programs, features, and
-                exclusive content. No spam, just gains.
-              </p>
+              <div className="relative text-center space-y-6 max-w-xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold">
+                  Join the waitlist
+                </h2>
+                <p className="text-neutral-400">
+                  Get notified when we launch the app, new programs, features,
+                  and exclusive content. No spam, just gains.
+                </p>
 
-              <form action={formAction} className="space-y-4 pt-2">
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  required
-                  className="w-full border border-neutral-700 bg-neutral-900/80 text-white placeholder:text-neutral-500 px-5 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9b072]/50 focus:border-[#c9b072]/50 transition-all duration-200"
-                />
+                <form action={formAction} className="space-y-4 pt-2">
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    required
+                    className="w-full border border-neutral-700 bg-neutral-900/80 text-white placeholder:text-neutral-500 px-5 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9b072]/50 focus:border-[#c9b072]/50 transition-all duration-200"
+                  />
 
-                <button
-                  type="submit"
-                  disabled={isPending}
-                  className="w-full bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-6 py-4 rounded-lg disabled:bg-neutral-600 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99]"
-                >
-                  {isPending ? "Joining..." : "Join the List"}
-                </button>
-
-                {state?.message && (
-                  <p
-                    className={`text-sm font-medium px-4 py-3 rounded-lg ${
-                      state.success
-                        ? "text-green-400 bg-green-500/10 border border-green-500/20"
-                        : "text-red-400 bg-red-500/10 border border-red-500/20"
-                    }`}
+                  <button
+                    type="submit"
+                    disabled={isPending}
+                    className="w-full bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-6 py-4 rounded-lg disabled:bg-neutral-600 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    {state.message}
-                  </p>
-                )}
-              </form>
+                    {isPending ? "Joining..." : "Join the List"}
+                  </button>
+
+                  {state?.message && (
+                    <p
+                      className={`text-sm font-medium px-4 py-3 rounded-lg ${
+                        state.success
+                          ? "text-green-400 bg-green-500/10 border border-green-500/20"
+                          : "text-red-400 bg-red-500/10 border border-red-500/20"
+                      }`}
+                    >
+                      {state.message}
+                    </p>
+                  )}
+                </form>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
 
         {/* Footer */}
-        <footer className="text-center text-sm text-neutral-600 pt-8 border-t border-neutral-800">
-          <p>&copy; {new Date().getFullYear()} localhostdevelopment ltd</p>
+        <footer className="text-sm text-neutral-600 pt-8 border-t border-neutral-800">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
+            <div className="flex gap-6">
+              <a
+                href="/terms"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Terms & Conditions
+              </a>
+              <a
+                href="/privacy"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Privacy Policy
+              </a>
+            </div>
+          </div>
         </footer>
       </div>
     </main>
