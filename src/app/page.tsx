@@ -97,7 +97,7 @@ export default function Home() {
             { value: "6", label: "Programs Available" },
             { value: "4", label: "Free Programs" },
             { value: "2", label: "Disciplines" },
-            { value: "100+", label: "Coming Soon" },
+            { value: "40+", label: "On-demand workouts" },
           ].map((stat, i) => (
             <div
               key={i}
@@ -137,8 +137,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* On-Demand Exercises */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* On-Demand Workouts */}
             <div className="relative group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-[#c9b072]/30 transition-all duration-300">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
                 <svg
@@ -162,16 +162,47 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-3 leading-snug">
-                On-Demand Exercises
+                On-Demand Workouts
               </h3>
               <p className="text-neutral-400 leading-loose">
                 Need to feel the burn but don&apos;t have time for a full
-                program? Pick from our library of one-off exercises for quick,
-                effective sessions.
+                program? Pick from our library of one-off workouts for quick,
+                effective sessions. Pro unlocks the full library.
               </p>
-              <div className="mt-4 inline-flex items-center text-neutral-500 text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2 animate-pulse" />
-                Coming in v2
+              <div className="mt-4 inline-flex items-center text-[#c9b072] text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
+                Full library with Pro
+              </div>
+            </div>
+
+            {/* The Brief */}
+            <div className="relative group p-8 rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-[#c9b072]/30 transition-all duration-300">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6">
+                <svg
+                  className="w-7 h-7 text-[#c9b072]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 leading-snug">
+                The Brief
+              </h3>
+              <p className="text-neutral-400 leading-loose">
+                Curated content to level up your knowledge. Fitness articles,
+                Apple Music playlists for your sessions, and a glossary of gym
+                terminology to decode common lingo.
+              </p>
+              <div className="mt-4 inline-flex items-center text-green-500 text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
+                Free for everyone
               </div>
             </div>
 
@@ -200,9 +231,9 @@ export default function Home() {
                 alternative that targets the same muscle groups with different
                 kit.
               </p>
-              <div className="mt-4 inline-flex items-center text-neutral-500 text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2 animate-pulse" />
-                Coming Soon
+              <div className="mt-4 inline-flex items-center text-[#c9b072] text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
+                Unlimited swaps with Pro
               </div>
             </div>
 
@@ -260,7 +291,8 @@ export default function Home() {
               <ul className="space-y-3 mb-8">
                 {[
                   "Multiple complete training programs",
-                  "On-demand exercise library",
+                  "On-demand workouts (limited)",
+                  "The Brief: articles, playlists & glossary",
                   "10 Smart exercise swaps per month",
                 ].map((item, i) => (
                   <li
@@ -304,6 +336,7 @@ export default function Home() {
                 {[
                   "Everything in Free",
                   "All PRO programs available",
+                  "Full on-demand workouts library",
                   "Unlimited Smart exercise swaps",
                   "Exclusive content & features",
                 ].map((item, i) => (
