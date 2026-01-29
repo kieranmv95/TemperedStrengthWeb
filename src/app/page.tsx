@@ -171,52 +171,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* App Preview - Phone Showcase with Parallax */}
-        <section className="mb-32 animate-fade-in-delay-2">
-          <div className="relative flex justify-center items-end gap-4 md:gap-8">
-            {/* Left Phone - Faster parallax */}
-            <div
-              className="hidden md:block relative w-48 lg:w-56 opacity-70"
-              style={{ transform: `translateY(${-32 + scrollY * 0.08}px)` }}
-            >
-              <Image
-                src="/workouts_3d.png"
-                alt="Workouts screen"
-                width={280}
-                height={560}
-                className="w-full h-auto drop-shadow-2xl"
-              />
-            </div>
-            {/* Center Phone - Main - Slower parallax */}
-            <div
-              className="relative w-64 md:w-72 lg:w-80 z-10"
-              style={{ transform: `translateY(${scrollY * 0.04}px)` }}
-            >
-              <Image
-                src="/active_program_3d.png"
-                alt="Active program screen"
-                width={320}
-                height={640}
-                className="w-full h-auto drop-shadow-2xl"
-                priority
-              />
-            </div>
-            {/* Right Phone - Faster parallax */}
-            <div
-              className="hidden md:block relative w-48 lg:w-56 opacity-70"
-              style={{ transform: `translateY(${-32 + scrollY * 0.08}px)` }}
-            >
-              <Image
-                src="/brief_3d.png"
-                alt="The Brief screen"
-                width={280}
-                height={560}
-                className="w-full h-auto drop-shadow-2xl"
-              />
-            </div>
-          </div>
-        </section>
-
         {/* Stats Bar */}
         <AnimatedSection className="mb-32">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
