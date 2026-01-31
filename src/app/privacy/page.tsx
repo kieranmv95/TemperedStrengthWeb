@@ -330,10 +330,10 @@ export default function PrivacyPage() {
               <p className="leading-relaxed mt-4">
                 To exercise any of these rights, please contact us at{" "}
                 <a
-                  href="mailto:kieran.venison@icloud.com"
+                  href="mailto:contact@localhostdevelopment.com"
                   className="text-[#c9b072] hover:underline"
                 >
-                  kieran.venison@icloud.com
+                  contact@localhostdevelopment.com
                 </a>
                 .
               </p>
@@ -394,10 +394,10 @@ export default function PrivacyPage() {
                 <p className="mt-2">
                   Email:{" "}
                   <a
-                    href="mailto:kieran.venison@icloud.com"
+                    href="mailto:contact@localhostdevelopment.com"
                     className="text-[#c9b072] hover:underline"
                   >
-                    kieran.venison@icloud.com
+                    contact@localhostdevelopment.com
                   </a>
                 </p>
               </div>

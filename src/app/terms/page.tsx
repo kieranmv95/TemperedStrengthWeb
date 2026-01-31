@@ -323,10 +323,10 @@ export default function TermsPage() {
                 <p className="mt-2">
                   Email:{" "}
                   <a
-                    href="mailto:kieran.venison@icloud.com"
+                    href="mailto:contact@localhostdevelopment.com"
                     className="text-[#c9b072] hover:underline"
                   >
-                    kieran.venison@icloud.com
+                    contact@localhostdevelopment.com
                   </a>
                 </p>
               </div>
