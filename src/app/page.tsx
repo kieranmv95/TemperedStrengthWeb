@@ -4,6 +4,44 @@ import Image from "next/image";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { subscribeUser } from "./actions";
 
+// Release date: 18 March 2026 14:00 GMT
+const RELEASE_DATE = new Date("2026-03-18T14:00:00Z");
+
+function useCountdown() {
+  const [timeLeft, setTimeLeft] = useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    isPast: boolean;
+  } | null>(null);
+
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const diff = RELEASE_DATE.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, isPast: true });
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds, isPast: false });
+    };
+
+    tick();
+    const interval = setInterval(tick, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return timeLeft;
+}
+
 // Custom hook for parallax scroll effect
 function useParallax() {
   const [scrollY, setScrollY] = useState(0);
@@ -70,9 +108,8 @@ function AnimatedSection({
   return (
     <div
       ref={ref}
-      className={`${animationClass} ${
-        isVisible ? "animate-in" : ""
-      } ${className}`}
+      className={`${animationClass} ${isVisible ? "animate-in" : ""
+        } ${className}`}
       style={{ animationDelay: `${delay}s` }}
     >
       {children}
@@ -83,6 +120,7 @@ function AnimatedSection({
 export default function Home() {
   const [state, formAction, isPending] = useActionState(subscribeUser, null);
   const scrollY = useParallax();
+  const countdown = useCountdown();
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
@@ -123,9 +161,40 @@ export default function Home() {
 
         {/* Hero Section */}
         <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#c9b072]/30 bg-[#c9b072]/5 text-[#c9b072] text-sm font-medium tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-[#c9b072] animate-pulse" />
-            COMING SOON TO iOS
+          {/* Live countdown to release */}
+          <div className="flex flex-col items-center gap-4 md:gap-5">
+            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium">
+              Launching 18 March 2026 · 14:00 GMT
+            </p>
+            {countdown ? (
+              countdown.isPast ? (
+                <p className="text-3xl md:text-4xl font-bold text-[#c9b072] drop-shadow-[0_0_20px_rgba(201,176,114,0.5)]">
+                  We&apos;re live!
+                </p>
+              ) : (
+                <div className="flex items-baseline justify-center gap-2 md:gap-4">
+                  {[
+                    { value: countdown.days, label: "Days" },
+                    { value: countdown.hours, label: "Hours" },
+                    { value: countdown.minutes, label: "Min" },
+                    { value: countdown.seconds, label: "Sec" },
+                  ].map(({ value, label }) => (
+                    <div key={label} className="text-center">
+                      <div className="text-4xl md:text-6xl lg:text-7xl font-bold tabular-nums text-[#c9b072] drop-shadow-[0_0_24px_rgba(201,176,114,0.4)] tracking-tight">
+                        {String(value).padStart(2, "0")}
+                      </div>
+                      <div className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-neutral-500 mt-1">
+                        {label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            ) : (
+              <div className="text-4xl md:text-6xl font-bold tabular-nums text-neutral-600">
+                00 00 00 00
+              </div>
+            )}
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-4xl mx-auto">
@@ -600,11 +669,10 @@ export default function Home() {
 
                   {state?.message && (
                     <p
-                      className={`text-sm font-medium px-4 py-3 rounded-lg ${
-                        state.success
+                      className={`text-sm font-medium px-4 py-3 rounded-lg ${state.success
                           ? "text-green-400 bg-green-500/10 border border-green-500/20"
                           : "text-red-400 bg-red-500/10 border border-red-500/20"
-                      }`}
+                        }`}
                     >
                       {state.message}
                     </p>
