@@ -1,48 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState, useEffect, useRef, useState } from "react";
-import { subscribeUser } from "./actions";
+import { useEffect, useRef, useState } from "react";
 
-// Release date: 18 March 2026 14:00 GMT
-const RELEASE_DATE = new Date("2026-03-18T14:00:00Z");
+const APP_STORE_URL =
+  "https://apps.apple.com/gb/app/tempered-strength/id6757619534";
 
-function useCountdown() {
-  const [timeLeft, setTimeLeft] = useState<{
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-    isPast: boolean;
-  } | null>(null);
-
-  useEffect(() => {
-    const tick = () => {
-      const now = new Date();
-      const diff = RELEASE_DATE.getTime() - now.getTime();
-
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, isPast: true });
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds, isPast: false });
-    };
-
-    tick();
-    const interval = setInterval(tick, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return timeLeft;
-}
-
-// Custom hook for parallax scroll effect
 function useParallax() {
   const [scrollY, setScrollY] = useState(0);
 
@@ -58,7 +21,6 @@ function useParallax() {
   return scrollY;
 }
 
-// Custom hook for scroll-triggered animations
 function useScrollAnimation() {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -84,7 +46,6 @@ function useScrollAnimation() {
   return { ref, isVisible };
 }
 
-// Animated section wrapper component
 function AnimatedSection({
   children,
   className = "",
@@ -108,8 +69,7 @@ function AnimatedSection({
   return (
     <div
       ref={ref}
-      className={`${animationClass} ${isVisible ? "animate-in" : ""
-        } ${className}`}
+      className={`${animationClass} ${isVisible ? "animate-in" : ""} ${className}`}
       style={{ animationDelay: `${delay}s` }}
     >
       {children}
@@ -118,13 +78,11 @@ function AnimatedSection({
 }
 
 export default function Home() {
-  const [state, formAction, isPending] = useActionState(subscribeUser, null);
   const scrollY = useParallax();
-  const countdown = useCountdown();
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Background image - 50vh on mobile, 100vh on desktop, with parallax */}
+      {/* Background image with parallax */}
       <div
         className="absolute top-0 left-0 right-0 h-[65vh] md:h-screen z-0 overflow-hidden"
         style={{ transform: `translateY(${scrollY * 0.3}px)` }}
@@ -137,9 +95,7 @@ export default function Home() {
           priority
           quality={90}
         />
-        {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/70" />
-        {/* Bottom fade to background */}
         <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
       </div>
 
@@ -161,40 +117,10 @@ export default function Home() {
 
         {/* Hero Section */}
         <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
-          {/* Live countdown to release */}
           <div className="flex flex-col items-center gap-4 md:gap-5">
             <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium">
-              Launching 18 March 2026 · 14:00 GMT
+              Available now on the App Store
             </p>
-            {countdown ? (
-              countdown.isPast ? (
-                <p className="text-3xl md:text-4xl font-bold text-[#c9b072] drop-shadow-[0_0_20px_rgba(201,176,114,0.5)]">
-                  We&apos;re live!
-                </p>
-              ) : (
-                <div className="flex items-baseline justify-center gap-2 md:gap-4">
-                  {[
-                    { value: countdown.days, label: "Days" },
-                    { value: countdown.hours, label: "Hours" },
-                    { value: countdown.minutes, label: "Min" },
-                    { value: countdown.seconds, label: "Sec" },
-                  ].map(({ value, label }) => (
-                    <div key={label} className="text-center">
-                      <div className="text-4xl md:text-6xl lg:text-7xl font-bold tabular-nums text-[#c9b072] drop-shadow-[0_0_24px_rgba(201,176,114,0.4)] tracking-tight">
-                        {String(value).padStart(2, "0")}
-                      </div>
-                      <div className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-neutral-500 mt-1">
-                        {label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )
-            ) : (
-              <div className="text-4xl md:text-6xl font-bold tabular-nums text-neutral-600">
-                00 00 00 00
-              </div>
-            )}
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-4xl mx-auto">
@@ -207,12 +133,23 @@ export default function Home() {
             experts. Smart features that adapt when life gets in the way.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <a
-              href="#waitlist-form"
-              className="inline-flex items-center justify-center gap-2 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-8 py-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] gold-glow"
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-8 py-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] gold-glow"
             >
-              Join the waitlist
+              <svg className="w-5 h-5" viewBox="0 0 384 512" fill="currentColor">
+                <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+              </svg>
+              Download on the App Store
+            </a>
+            <a
+              href="/roadmap"
+              className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
+            >
+              View Roadmap
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -227,16 +164,6 @@ export default function Home() {
                 />
               </svg>
             </a>
-            <button
-              onClick={() =>
-                document
-                  .getElementById("waitlist-form")
-                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
-              }
-              className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
-            >
-              Get Updates
-            </button>
           </div>
         </section>
 
@@ -635,49 +562,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Waitlist CTA */}
+        {/* Download CTA */}
         <AnimatedSection animation="scale">
-          <section id="waitlist-form" className="relative mb-16 scroll-mt-8">
+          <section className="relative mb-16">
             <div className="relative p-8 md:p-12 rounded-2xl border border-[#c9b072]/30 bg-gradient-to-br from-[#c9b072]/5 via-transparent to-transparent overflow-hidden backdrop-blur-sm">
               <div className="absolute inset-0 shimmer pointer-events-none" />
 
               <div className="relative text-center space-y-6 max-w-xl mx-auto">
                 <h2 className="text-2xl md:text-3xl font-bold">
-                  Join the waitlist
+                  Ready to start training?
                 </h2>
                 <p className="text-neutral-400">
-                  Get notified when we launch the app, new programs, features,
-                  and exclusive content. No spam, just gains.
+                  Download Tempered Strength for free and start your first
+                  program today. Upgrade to Pro when you&apos;re ready.
                 </p>
 
-                <form action={formAction} className="space-y-4 pt-2">
-                  <input
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    required
-                    className="w-full border border-neutral-700 bg-neutral-900/80 text-white placeholder:text-neutral-500 px-5 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9b072]/50 focus:border-[#c9b072]/50 transition-all duration-200"
-                  />
-
-                  <button
-                    type="submit"
-                    disabled={isPending}
-                    className="w-full bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-6 py-4 rounded-lg disabled:bg-neutral-600 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99]"
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
+                  <a
+                    href={APP_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2.5 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-8 py-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    {isPending ? "Joining..." : "Join the List"}
-                  </button>
-
-                  {state?.message && (
-                    <p
-                      className={`text-sm font-medium px-4 py-3 rounded-lg ${state.success
-                          ? "text-green-400 bg-green-500/10 border border-green-500/20"
-                          : "text-red-400 bg-red-500/10 border border-red-500/20"
-                        }`}
-                    >
-                      {state.message}
-                    </p>
-                  )}
-                </form>
+                    <svg className="w-5 h-5" viewBox="0 0 384 512" fill="currentColor">
+                      <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+                    </svg>
+                    Download on the App Store
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -688,6 +600,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
             <div className="flex gap-6">
+              <a
+                href="/roadmap"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Roadmap
+              </a>
               <a
                 href="/terms"
                 className="hover:text-[#c9b072] transition-colors"
