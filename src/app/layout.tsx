@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Tempered Strength | Gym Programs That Actually Work",
   description:
-    "Download Tempered Strength — free and Pro strength & Olympic lifting programs for iOS. Smart exercise swapping, on-demand workouts, and training that adapts to your equipment.",
+    "Download Tempered Strength — nine structured strength & Olympic lifting programs (five free) for iOS. Smart exercise swapping, on-demand workouts, and training that adapts to your equipment.",
 };
 
 export default function RootLayout({

@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-const APP_STORE_URL =
-  "https://apps.apple.com/gb/app/tempered-strength/id6757619534";
+import { APP_STORE_URL, INSTAGRAM_URL } from "@/lib/site";
 
 function useParallax() {
   const [scrollY, setScrollY] = useState(0);
@@ -133,7 +132,7 @@ export default function Home() {
             experts. Smart features that adapt when life gets in the way.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex flex-col items-center gap-4 pt-4">
             <a
               href={APP_STORE_URL}
               target="_blank"
@@ -145,35 +144,71 @@ export default function Home() {
               </svg>
               Download on the App Store
             </a>
-            <a
-              href="/roadmap"
-              className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
-            >
-              View Roadmap
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center w-full max-w-3xl flex-wrap">
+              <Link
+                href="/programs"
+                className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
+                Browse all programs
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </Link>
+              <a
+                href="/roadmap"
+                className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
+              >
+                View Roadmap
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
+              >
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden
+                >
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+                Follow on Instagram
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* Stats Bar */}
-        <AnimatedSection className="mb-32">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Stats Bar + programs CTA */}
+        <AnimatedSection className="mb-32 space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { value: "6", label: "Programs Available" },
-              { value: "4", label: "Free Programs" },
-              { value: "2", label: "Disciplines" },
+              { value: "9", label: "Programs Available" },
+              { value: "5", label: "Free Programs" },
               { value: "40+", label: "On-demand workouts" },
             ].map((stat, i) => (
               <AnimatedSection key={i} animation="scale" delay={i * 0.1}>
@@ -188,6 +223,36 @@ export default function Home() {
               </AnimatedSection>
             ))}
           </div>
+          <Link
+            href="/programs"
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-5 md:p-6 rounded-xl border border-[#c9b072]/25 bg-[#c9b072]/5 hover:border-[#c9b072]/45 hover:bg-[#c9b072]/10 transition-colors text-left"
+          >
+            <div>
+              <p className="text-sm font-semibold text-[#c9b072] uppercase tracking-wider mb-1">
+                Full program breakdown
+              </p>
+              <p className="text-neutral-300 text-sm md:text-base">
+                Nine blocks — session frequency, duration, and Free vs Pro at a
+                glance.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 text-white font-semibold text-sm shrink-0">
+              Browse all programs
+              <svg
+                className="w-5 h-5 text-[#c9b072]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </span>
+          </Link>
         </AnimatedSection>
 
         {/* Programs Section */}
@@ -215,9 +280,9 @@ export default function Home() {
                 Programs for Every Lifter
               </h2>
               <p className="text-neutral-400 leading-relaxed mb-6">
-                From free foundational programs to Pro periodized training.
-                Launching with strength and Olympic disciplines, with more
-                coming soon.
+                Nine structured programs in the app — five free, four Pro —
+                covering hypertrophy, powerbuilding, powerlifting peaking, and
+                Olympic lifting. Pick a block that fits your schedule and goals.
               </p>
               <ul className="space-y-3 text-neutral-300">
                 <li className="flex items-center gap-3 justify-center md:justify-start">
@@ -237,6 +302,25 @@ export default function Home() {
                   Customizable workout days
                 </li>
               </ul>
+              <Link
+                href="/programs"
+                className="inline-flex items-center gap-2 mt-8 mx-auto md:mx-0 border border-[#c9b072]/50 hover:bg-[#c9b072]/10 text-[#c9b072] font-semibold px-6 py-3 rounded-lg transition-all duration-200"
+              >
+                See every program
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </Link>
             </AnimatedSection>
           </div>
         </section>
@@ -599,12 +683,26 @@ export default function Home() {
         <footer className="text-sm text-neutral-600 pt-8 border-t border-neutral-800">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link
+                href="/programs"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Programs
+              </Link>
               <a
                 href="/roadmap"
                 className="hover:text-[#c9b072] transition-colors"
               >
                 Roadmap
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Instagram
               </a>
               <a
                 href="/terms"

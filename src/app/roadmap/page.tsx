@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { APP_STORE_URL, INSTAGRAM_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Roadmap | Tempered Strength",
   description:
     "See what's coming next for Tempered Strength. Our public roadmap for upcoming features, improvements, and content updates.",
 };
-
-const APP_STORE_URL =
-  "https://apps.apple.com/gb/app/tempered-strength/id6757619534";
 
 interface RoadmapItem {
   title: string;
@@ -317,13 +315,21 @@ export default function RoadmapPage() {
         <footer className="text-sm text-neutral-600 pt-8 mt-16 border-t border-neutral-800">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap justify-center gap-6">
               <Link
                 href="/"
                 className="hover:text-[#c9b072] transition-colors"
               >
                 Home
               </Link>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Instagram
+              </a>
               <Link
                 href="/terms"
                 className="hover:text-[#c9b072] transition-colors"
