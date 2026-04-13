@@ -59,7 +59,10 @@ export default function ArticlesPage() {
           </p>
         </div>
 
-        <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm p-4 md:p-5 mb-8">
+        <section
+          id="browse"
+          className="rounded-2xl border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm p-4 md:p-5 mb-8 scroll-mt-6"
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="md:col-span-2">
               <label
