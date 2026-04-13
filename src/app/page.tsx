@@ -423,6 +423,27 @@ export default function Home() {
                 methodology, nutrition, recovery, and mindset. Plus Apple Music
                 playlists for your sessions.
               </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start items-stretch sm:items-center mb-4">
+                <Link
+                  href="/articles"
+                  className="inline-flex items-center justify-center gap-2 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Browse articles
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
               <div className="inline-flex items-center text-green-500 text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
                 Free for everyone
