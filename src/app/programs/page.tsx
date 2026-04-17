@@ -144,12 +144,6 @@ export default function ProgramsPage() {
               >
                 Home
               </Link>
-              <Link
-                href="/roadmap"
-                className="hover:text-[#c9b072] transition-colors"
-              >
-                Roadmap
-              </Link>
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
