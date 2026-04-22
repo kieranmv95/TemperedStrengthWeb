@@ -711,6 +711,12 @@ export default function Home() {
               >
                 Programs
               </Link>
+              <Link
+                href="/patch-notes"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Patch Notes
+              </Link>
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
