@@ -49,8 +49,8 @@ export default function ProgramsPage() {
             Programs
           </h1>
           <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
-            Nine complete blocks in the app — five free, four Pro — from
-            hypertrophy and powerbuilding to SBD peaking and Olympic lifting.
+            {programs.length} complete programs in the app, from
+            hypertrophy and powerbuilding to SBD peaking, Olympic lifting and more.
           </p>
         </div>
 

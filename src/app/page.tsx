@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { APP_STORE_URL, INSTAGRAM_URL } from "@/lib/site";
+import { programs } from "@/data/programs";
 
 function useParallax() {
   const [scrollY, setScrollY] = useState(0);
@@ -118,18 +119,17 @@ export default function Home() {
         <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
           <div className="flex flex-col items-center gap-4 md:gap-5">
             <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium">
-              Available now on the App Store
+              2.0 Available now on the App Store
             </p>
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-4xl mx-auto">
-            Gym programs that
-            <span className="block text-[#c9b072]">actually work.</span>
+            Gym programs built
+            <span className="block text-[#c9b072]">for real life.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-loose">
-            Free and Pro strength & Olympic lifting programs designed by
-            experts. Smart features that adapt when life gets in the way.
+            Free and Pro strength and conditioning programs designed by experts, from heavy strength work to metcons and athletic prep. Smart features that adapt when life gets in the way.
           </p>
 
           <div className="flex flex-col items-center gap-4 pt-4">
@@ -207,9 +207,9 @@ export default function Home() {
         <AnimatedSection className="mb-32 space-y-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { value: "9", label: "Programs Available" },
-              { value: "5", label: "Free Programs" },
-              { value: "40+", label: "On-demand workouts" },
+              { value: programs.length.toString(), label: "Programs Available" },
+              { value: programs.filter((program) => program.tier === "Free").length.toString(), label: "Free Programs" },
+              { value: "100+", label: "Workouts" },
             ].map((stat, i) => (
               <AnimatedSection key={i} animation="scale" delay={i * 0.1}>
                 <div className="text-center p-6 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
@@ -232,8 +232,7 @@ export default function Home() {
                 Full program breakdown
               </p>
               <p className="text-neutral-300 text-sm md:text-base">
-                Nine blocks — session frequency, duration, and Free vs Pro at a
-                glance.
+                Check out all {programs.length} programs, see the description, duration and sessions per week.
               </p>
             </div>
             <span className="inline-flex items-center gap-2 text-white font-semibold text-sm shrink-0">
@@ -280,9 +279,8 @@ export default function Home() {
                 Programs for Every Lifter
               </h2>
               <p className="text-neutral-400 leading-relaxed mb-6">
-                Nine structured programs in the app — five free, four Pro —
-                covering hypertrophy, powerbuilding, powerlifting peaking, and
-                Olympic lifting. Pick a block that fits your schedule and goals.
+                {programs.length} structured programs in the app covering hypertrophy, powerbuilding, powerlifting, and
+                more. Pick a program that fits your schedule and goals. Some examples include:
               </p>
               <ul className="space-y-3 text-neutral-300">
                 <li className="flex items-center gap-3 justify-center md:justify-start">
@@ -291,7 +289,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
-                  Foundation strength programs
+                  HiiT Shred Programs
                 </li>
                 <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
@@ -299,7 +297,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
-                  Customizable workout days
+                  Pilates intro programs
                 </li>
               </ul>
               <Link
@@ -383,7 +381,7 @@ export default function Home() {
               </h3>
               <p className="text-neutral-400 leading-loose mb-4">
                 Need to feel the burn but don&apos;t have time for a full
-                program? Pick from our library of 40+ one-off workouts for
+                program? Pick from our library of 100+ one-off workouts for
                 quick, effective sessions. Filter by type, difficulty, and
                 equipment.
               </p>
@@ -420,8 +418,7 @@ export default function Home() {
               </h3>
               <p className="text-neutral-400 leading-loose mb-4">
                 Your daily intel for the iron game. Curated fitness articles on
-                methodology, nutrition, recovery, and mindset. Plus Apple Music
-                playlists for your sessions.
+                methodology, nutrition, recovery, and mindset.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start items-stretch sm:items-center mb-4">
                 <Link
