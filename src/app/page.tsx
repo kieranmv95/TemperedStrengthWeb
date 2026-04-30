@@ -95,7 +95,8 @@ export default function Home() {
           priority
           quality={90}
         />
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,rgba(201,176,114,0.14),transparent_55%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
       </div>
 
@@ -118,14 +119,25 @@ export default function Home() {
         {/* Hero Section */}
         <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
           <div className="flex flex-col items-center gap-4 md:gap-5">
-            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium">
-              2.0 Available now on the App Store
-            </p>
+            <div className="inline-flex flex-col items-center gap-2 rounded-full border border-[#c9b072]/40 bg-black/50 px-5 py-2.5 shadow-[0_0_32px_-8px_rgba(201,176,114,0.45)] backdrop-blur-md sm:flex-row sm:gap-3">
+              <span className="relative hidden h-2 w-2 shrink-0 sm:flex">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c9b072] opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#c9b072]" />
+              </span>
+              <p className="text-center text-[11px] font-semibold uppercase leading-snug tracking-[0.2em] text-[#c9b072] sm:text-xs sm:tracking-[0.22em]">
+                <span className="block sm:inline">Tempered Strength 2.0</span>
+                <span className="mx-0 mt-1 block text-[10px] font-medium normal-case tracking-normal text-neutral-300 sm:mx-2 sm:mt-0 sm:inline">
+                  Biggest update yet, live on the App Store
+                </span>
+              </p>
+            </div>
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-4xl mx-auto">
             Gym programs built
-            <span className="block text-[#c9b072]">for real life.</span>
+            <span className="mt-1 block bg-gradient-to-br from-[#f0e6c8] via-[#c9b072] to-[#8f7645] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(201,176,114,0.25)]">
+              for real life.
+            </span>
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-loose">
