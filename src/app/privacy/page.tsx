@@ -93,6 +93,19 @@ export default function PrivacyPage() {
                 personally identifiable information.
               </p>
 
+              <p className="leading-relaxed mt-4">
+                <strong className="text-white">Usage Analytics:</strong> We use
+                PostHog to track a small number of{" "}
+                <strong className="text-white">anonymised</strong>,{" "}
+                <strong className="text-white">manually captured</strong> events
+                (for example, when you trigger specific actions in the App) to
+                help us understand feature usage and improve the App experience.
+                We do not use PostHog autocapture, session replay, heatmaps,
+                experiments, or feature flags, and we do not intentionally send
+                information that directly identifies you (such as your name,
+                email address, or precise location).
+              </p>
+
               <h3 className="text-lg font-medium text-white mt-6 mb-3">
                 2.2 Information Collected Through the Website
               </h3>
@@ -120,9 +133,11 @@ export default function PrivacyPage() {
                   information to use the App
                 </li>
                 <li>
-                  <strong className="text-white">No Analytics:</strong> We do
-                  not use third-party analytics services to track your behaviour
-                  within the App
+                  <strong className="text-white">No Behavioural Profiling:</strong>{" "}
+                  We do not build advertising profiles, sell your data, or use
+                  analytics to identify you. Any analytics we collect is limited
+                  to anonymised, manually captured events for product
+                  improvement.
                 </li>
                 <li>
                   <strong className="text-white">No Location Data:</strong> We
@@ -245,6 +260,23 @@ export default function PrivacyPage() {
                     </a>
                   </p>
                 </div>
+
+                <div className="p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
+                  <p className="font-semibold text-white">PostHog</p>
+                  <p className="text-sm mt-1">
+                    Processes anonymised, manually captured in-app analytics
+                    events to help us improve the App. Subject to{" "}
+                    <a
+                      href="https://posthog.com/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#c9b072] hover:underline"
+                    >
+                      PostHog&apos;s Privacy Policy
+                    </a>
+                    .
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -283,6 +315,13 @@ export default function PrivacyPage() {
               <p className="leading-relaxed mt-4">
                 <strong className="text-white">Crash Reports:</strong> Retained
                 by Apple according to their data retention policies.
+              </p>
+
+              <p className="leading-relaxed mt-4">
+                <strong className="text-white">Analytics Events:</strong>{" "}
+                Retained by PostHog according to their retention settings and
+                applicable policies. We configure our analytics to collect only
+                anonymised, manually captured events for product improvement.
               </p>
             </section>
 
