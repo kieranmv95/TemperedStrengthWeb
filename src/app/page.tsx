@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { APP_STORE_URL, INSTAGRAM_URL } from "@/lib/site";
 import { programs } from "@/data/programs";
 
@@ -235,6 +236,9 @@ export default function Home() {
               </AnimatedSection>
             ))}
           </div>
+          <AnimatedSection animation="slide-up" delay={0.12}>
+            <NewsletterSignup className="max-w-3xl mx-auto border-[#c9b072]/35 bg-gradient-to-br from-[#c9b072]/[0.12] via-neutral-900/50 to-neutral-900/30 shadow-[0_0_48px_-20px_rgba(201,176,114,0.35)]" />
+          </AnimatedSection>
           <Link
             href="/programs"
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-5 md:p-6 rounded-xl border border-[#c9b072]/25 bg-[#c9b072]/5 hover:border-[#c9b072]/45 hover:bg-[#c9b072]/10 transition-colors text-left"
