@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPatchNotesMarkdown, getPatchNotesVersions } from "@/lib/patchNotes";
+import { SiteHeader } from "../../../components/SiteHeader";
 
 type PageProps = {
   params: Promise<{ version: string }>;
@@ -136,44 +136,35 @@ export default async function PatchNotesVersionPage({ params }: PageProps) {
   const { version: rawVersion } = await params;
   const version = decodeURIComponent(rawVersion);
 
+  let markdown: string;
   try {
-    const markdown = await getPatchNotesMarkdown(version);
-
-    return (
-      <main className="min-h-screen bg-[#0a0a0a] text-white">
-        <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
-          <header className="flex justify-center mb-10">
-            <Link href="/">
-              <Image
-                src="/logo_stacked.svg"
-                alt="Tempered Strength"
-                width={140}
-                height={40}
-                className="opacity-90 hover:opacity-100 transition-opacity"
-              />
-            </Link>
-          </header>
-
-          <div className="text-center mb-10">
-            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-4">
-              Patch Notes
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
-              Version {version}
-            </h1>
-            <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
-              What’s new, improved, and fixed in this release.
-            </p>
-          </div>
-
-          <Markdown version={version}>{markdown}</Markdown>
-        </div>
-      </main>
-    );
+    markdown = await getPatchNotesMarkdown(version);
   } catch {
     notFound();
   }
+
+  return (
+    <main className="min-h-screen bg-[#0a0a0a] text-white">
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
+        <SiteHeader className="mb-10" />
+
+        <div className="text-center mb-10">
+          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-4">
+            Patch Notes
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+            Version {version}
+          </h1>
+          <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
+            What’s new, improved, and fixed in this release.
+          </p>
+        </div>
+
+        <Markdown version={version}>{markdown}</Markdown>
+      </div>
+    </main>
+  );
 }
 

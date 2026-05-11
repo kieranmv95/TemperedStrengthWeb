@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleMarkdownContent } from "@/components/brief/ArticleMarkdownContent";
+import { SiteHeader } from "../../../components/SiteHeader";
 import { articles } from "@/data/articles";
 
 type Params = { slug: string };
@@ -45,7 +46,8 @@ export default async function ArticlePage({
       <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
-        <header className="flex items-center justify-between gap-4 mb-8">
+        <SiteHeader className="mb-6" />
+        <div className="mb-8">
           <Link
             href="/articles"
             className="inline-flex items-center gap-2 text-sm font-semibold text-[#c9b072] hover:text-[#d4c08a] transition-colors"
@@ -53,10 +55,7 @@ export default async function ArticlePage({
             <span aria-hidden>←</span>
             Back to Articles
           </Link>
-          <Link href="/" className="text-sm text-neutral-500 hover:text-white">
-            Home
-          </Link>
-        </header>
+        </div>
 
         <article className="rounded-2xl border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm overflow-hidden">
           <div className="relative aspect-[16/9] bg-neutral-900">

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { SiteHeader } from "../components/SiteHeader";
 import { APP_STORE_URL, INSTAGRAM_URL } from "@/lib/site";
 import { programs } from "@/data/programs";
 
@@ -94,8 +95,20 @@ export default function Home() {
           fill
           className="object-cover scale-110"
           priority
-          quality={90}
+          quality={75}
         />
+        <video
+          className="absolute inset-0 h-full w-full object-cover scale-110 pointer-events-none motion-reduce:hidden"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/lifting.jpg"
+          aria-hidden="true"
+        >
+          <source src="/BG.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,rgba(201,176,114,0.14),transparent_55%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
@@ -105,35 +118,10 @@ export default function Home() {
       <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-12">
-        {/* Header */}
-        <header className="flex justify-center mb-16 animate-fade-in">
-          <Image
-            src="/logo_stacked.svg"
-            alt="Tempered Strength"
-            width={180}
-            height={50}
-            priority
-            className="opacity-90"
-          />
-        </header>
+        <SiteHeader className="mb-16 animate-fade-in" />
 
         {/* Hero Section */}
         <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
-          <div className="flex flex-col items-center gap-4 md:gap-5">
-            <div className="inline-flex flex-col items-center gap-2 rounded-full border border-[#c9b072]/40 bg-black/50 px-5 py-2.5 shadow-[0_0_32px_-8px_rgba(201,176,114,0.45)] backdrop-blur-md sm:flex-row sm:gap-3">
-              <span className="relative hidden h-2 w-2 shrink-0 sm:flex">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c9b072] opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#c9b072]" />
-              </span>
-              <p className="text-center text-[11px] font-semibold uppercase leading-snug tracking-[0.2em] text-[#c9b072] sm:text-xs sm:tracking-[0.22em]">
-                <span className="block sm:inline">Tempered Strength 2.0</span>
-                <span className="mx-0 mt-1 block text-[10px] font-medium normal-case tracking-normal text-neutral-300 sm:mx-2 sm:mt-0 sm:inline">
-                  Biggest update yet, live on the App Store
-                </span>
-              </p>
-            </div>
-          </div>
-
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-4xl mx-auto">
             Gym programs built
             <span className="mt-1 block bg-gradient-to-br from-[#f0e6c8] via-[#c9b072] to-[#8f7645] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(201,176,114,0.25)]">
@@ -157,62 +145,7 @@ export default function Home() {
               </svg>
               Download on the App Store
             </a>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center w-full max-w-3xl flex-wrap">
-              <Link
-                href="/programs"
-                className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
-              >
-                Browse all programs
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
-              <Link
-                href="/articles"
-                className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
-              >
-                Read articles
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
-              >
-                <svg
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden
-                >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-                Follow on Instagram
-              </a>
-            </div>
+            <NewsletterSignup className="mt-6 w-full max-w-2xl mx-auto border-[#c9b072]/35 bg-gradient-to-br from-[#c9b072]/[0.12] via-neutral-900/50 to-neutral-900/30 shadow-[0_0_48px_-20px_rgba(201,176,114,0.35)]" />
           </div>
         </section>
 
@@ -236,9 +169,6 @@ export default function Home() {
               </AnimatedSection>
             ))}
           </div>
-          <AnimatedSection animation="slide-up" delay={0.12}>
-            <NewsletterSignup className="max-w-3xl mx-auto border-[#c9b072]/35 bg-gradient-to-br from-[#c9b072]/[0.12] via-neutral-900/50 to-neutral-900/30 shadow-[0_0_48px_-20px_rgba(201,176,114,0.35)]" />
-          </AnimatedSection>
           <Link
             href="/programs"
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-5 md:p-6 rounded-xl border border-[#c9b072]/25 bg-[#c9b072]/5 hover:border-[#c9b072]/45 hover:bg-[#c9b072]/10 transition-colors text-left"

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { articles } from "@/data/articles";
+import { SiteHeader } from "../../components/SiteHeader";
 
 type Category = (typeof articles)[number]["category"];
 
@@ -34,17 +35,7 @@ export default function ArticlesPage() {
       <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
-        <header className="flex justify-center mb-10">
-          <Link href="/">
-            <Image
-              src="/logo_stacked.svg"
-              alt="Tempered Strength"
-              width={140}
-              height={40}
-              className="opacity-90 hover:opacity-100 transition-opacity"
-            />
-          </Link>
-        </header>
+        <SiteHeader className="mb-10" />
 
         <div className="text-center mb-10">
           <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-4">
