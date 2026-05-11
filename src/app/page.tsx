@@ -48,6 +48,57 @@ function useScrollAnimation() {
   return { ref, isVisible };
 }
 
+function BackgroundVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    const hide = () => setShow(false);
+
+    const tryPlay = async () => {
+      try {
+        // Some iOS versions only autoplay reliably after an explicit play() call.
+        await v.play();
+      } catch {
+        // Autoplay blocked (e.g. iOS Low Power Mode). Fall back to the poster image.
+        hide();
+      }
+    };
+
+    void tryPlay();
+
+    v.addEventListener("error", hide);
+    v.addEventListener("stalled", hide);
+    return () => {
+      v.removeEventListener("error", hide);
+      v.removeEventListener("stalled", hide);
+    };
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <video
+      ref={videoRef}
+      className="absolute inset-0 h-full w-full object-cover scale-110 pointer-events-none motion-reduce:hidden"
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      poster="/lifting.jpg"
+      aria-hidden="true"
+      controls={false}
+      disablePictureInPicture
+    >
+      <source src="/BG.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
 function AnimatedSection({
   children,
   className = "",
@@ -97,18 +148,7 @@ export default function Home() {
           priority
           quality={75}
         />
-        <video
-          className="absolute inset-0 h-full w-full object-cover scale-110 pointer-events-none motion-reduce:hidden"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/lifting.jpg"
-          aria-hidden="true"
-        >
-          <source src="/BG.mp4" type="video/mp4" />
-        </video>
+        <BackgroundVideo />
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,rgba(201,176,114,0.14),transparent_55%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
