@@ -6,7 +6,7 @@ export const INSTAGRAM_URL = "https://www.instagram.com/temperedstrength/";
 export const YOUTUBE_URL = "https://www.youtube.com/@TemperedStrength";
 
 /** Canonical public website URL */
-export const PUBLIC_SITE_URL = "https://temperedstrength.app";
+export const PUBLIC_SITE_URL = "https://temperedstrength.com";
 
 /** Optimal Plates — sister app (barbell plate calculator) */
 export const OPTIMAL_PLATES_SITE_URL = "https://optimalplates.com/";
