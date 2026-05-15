@@ -43,6 +43,11 @@ export const STRAVA_DEAUTHORIZE_URL = "https://www.strava.com/oauth/deauthorize"
 
 export const PENDING_OAUTH_TTL_SECONDS = 600;
 export const SYNC_RATE_LIMIT_SECONDS = 60;
-export const SYNC_MAX_ACTIVITY_PAGES = 10;
-export const SYNC_MAX_ACTIVITY_AGE_MS = 2 * 365 * 24 * 60 * 60 * 1000;
-export const SYNC_MAX_DETAIL_FETCHES = 80;
+
+export const MAX_LIST_PAGES = 10;
+export const MAX_LIST_PAGES_INCREMENTAL = 3;
+export const ACTIVITY_AFTER_DAYS_FIRST = 730;
+export const ACTIVITY_OVERLAP_DAYS = 7;
+export const MAX_DETAIL_FETCHES = 30;
+export const DETAIL_FETCH_CONCURRENCY = 3;
+export const PROCESSED_ACTIVITY_IDS_CAP = 500;

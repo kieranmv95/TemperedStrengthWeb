@@ -5,6 +5,7 @@ import {
   STRAVA_DEAUTHORIZE_URL,
   STRAVA_TOKEN_URL,
 } from "./config";
+import type { StravaApiTracker } from "./api-metrics";
 
 export type StravaTokenResponse = {
   token_type: string;
@@ -15,6 +16,12 @@ export type StravaTokenResponse = {
   athlete: { id: number };
 };
 
+export type StravaBestEffort = {
+  distance: number;
+  moving_time: number;
+  elapsed_time: number;
+};
+
 export type StravaActivitySummary = {
   id: number;
   type: string;
@@ -22,17 +29,11 @@ export type StravaActivitySummary = {
   moving_time: number;
   elapsed_time: number;
   start_date: string;
-};
-
-export type StravaBestEffort = {
-  distance: number;
-  moving_time: number;
-  elapsed_time: number;
-};
-
-export type StravaActivityDetail = StravaActivitySummary & {
+  /** Present on some list payloads; usually only on detailed activities. */
   best_efforts?: StravaBestEffort[];
 };
+
+export type StravaActivityDetail = StravaActivitySummary;
 
 class StravaApiError extends Error {
   constructor(
@@ -53,6 +54,14 @@ async function parseStravaError(res: Response): Promise<string> {
   }
 }
 
+function trackRateLimit(res: Response, tracker?: StravaApiTracker): void {
+  if (!tracker) return;
+  const usage =
+    res.headers.get("X-RateLimit-Usage") ??
+    res.headers.get("x-ratelimit-usage");
+  tracker.setRateLimitUsage(usage);
+}
+
 export async function exchangeAuthorizationCode(
   code: string
 ): Promise<StravaTokenResponse> {
@@ -68,18 +77,18 @@ export async function exchangeAuthorizationCode(
   });
 
   if (!res.ok) {
-    throw new StravaApiError(
-      await parseStravaError(res),
-      res.status
-    );
+    throw new StravaApiError(await parseStravaError(res), res.status);
   }
 
   return res.json() as Promise<StravaTokenResponse>;
 }
 
 export async function refreshAccessToken(
-  refreshToken: string
+  refreshToken: string,
+  tracker?: StravaApiTracker
 ): Promise<StravaTokenResponse> {
+  if (tracker) tracker.apiCalls++;
+
   const res = await fetch(STRAVA_TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -91,11 +100,10 @@ export async function refreshAccessToken(
     }),
   });
 
+  trackRateLimit(res, tracker);
+
   if (!res.ok) {
-    throw new StravaApiError(
-      await parseStravaError(res),
-      res.status
-    );
+    throw new StravaApiError(await parseStravaError(res), res.status);
   }
 
   return res.json() as Promise<StravaTokenResponse>;
@@ -110,18 +118,18 @@ export async function deauthorizeAthlete(
     body: JSON.stringify({ access_token: accessToken }),
   });
   if (!res.ok && res.status !== 401) {
-    throw new StravaApiError(
-      await parseStravaError(res),
-      res.status
-    );
+    throw new StravaApiError(await parseStravaError(res), res.status);
   }
 }
 
 async function stravaFetch<T>(
   path: string,
   accessToken: string,
+  tracker?: StravaApiTracker,
   init?: RequestInit
 ): Promise<T> {
+  if (tracker) tracker.apiCalls++;
+
   const res = await fetch(`${STRAVA_API_BASE}${path}`, {
     ...init,
     headers: {
@@ -130,11 +138,10 @@ async function stravaFetch<T>(
     },
   });
 
+  trackRateLimit(res, tracker);
+
   if (!res.ok) {
-    throw new StravaApiError(
-      await parseStravaError(res),
-      res.status
-    );
+    throw new StravaApiError(await parseStravaError(res), res.status);
   }
 
   return res.json() as Promise<T>;
@@ -142,26 +149,37 @@ async function stravaFetch<T>(
 
 export async function listAthleteActivities(
   accessToken: string,
-  page: number,
-  perPage = 200
+  options: { page: number; perPage?: number; after?: number },
+  tracker?: StravaApiTracker
 ): Promise<StravaActivitySummary[]> {
   const params = new URLSearchParams({
-    page: String(page),
-    per_page: String(perPage),
+    page: String(options.page),
+    per_page: String(options.perPage ?? 200),
   });
+  if (options.after != null) {
+    params.set("after", String(options.after));
+  }
+
+  tracker?.recordListPage();
+
   return stravaFetch<StravaActivitySummary[]>(
     `/athlete/activities?${params}`,
-    accessToken
+    accessToken,
+    tracker
   );
 }
 
 export async function getActivityDetail(
   accessToken: string,
-  activityId: number
+  activityId: number,
+  tracker?: StravaApiTracker
 ): Promise<StravaActivityDetail> {
+  tracker?.recordDetailFetch();
+
   return stravaFetch<StravaActivityDetail>(
     `/activities/${activityId}`,
-    accessToken
+    accessToken,
+    tracker
   );
 }
 

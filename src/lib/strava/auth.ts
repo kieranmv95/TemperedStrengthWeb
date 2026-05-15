@@ -1,3 +1,4 @@
+import type { StravaApiTracker } from "./api-metrics";
 import { refreshAccessToken } from "./client";
 import { getDeviceRecord, updateDeviceTokens } from "./storage";
 import type { DeviceStravaRecord } from "./types";
@@ -20,14 +21,15 @@ export async function resolveDeviceToken(
 }
 
 export async function ensureFreshAccessToken(
-  record: DeviceStravaRecord
+  record: DeviceStravaRecord,
+  tracker?: StravaApiTracker
 ): Promise<{ accessToken: string; record: DeviceStravaRecord }> {
   const now = Math.floor(Date.now() / 1000);
   if (record.accessTokenExpiresAt > now + EXPIRY_BUFFER_SECONDS) {
     return { accessToken: record.accessToken, record };
   }
 
-  const refreshed = await refreshAccessToken(record.refreshToken);
+  const refreshed = await refreshAccessToken(record.refreshToken, tracker);
   await updateDeviceTokens(
     record.deviceToken,
     refreshed.access_token,

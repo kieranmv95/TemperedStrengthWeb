@@ -70,16 +70,28 @@ export function allowedKeysForDiscipline(
 
 export function matchDistanceKey(
   meters: number,
-  allowed: Set<DistanceKey>
+  allowed: Set<DistanceKey>,
+  tolerancePercent = 1
 ): DistanceKey | null {
   for (const preset of DISTANCE_PRESETS) {
     if (!allowed.has(preset.key)) continue;
-    const tolerance = preset.meters * 0.01;
+    const tolerance = preset.meters * (tolerancePercent / 100);
     if (Math.abs(meters - preset.meters) <= tolerance) {
       return preset.key;
     }
   }
   return null;
+}
+
+/** Whether activity distance is close enough to warrant a detail fetch for best_efforts. */
+export function isNearAnyPresetForDiscipline(
+  discipline: Discipline,
+  meters: number,
+  tolerancePercent = 5
+): boolean {
+  if (meters <= 0) return false;
+  const allowed = allowedKeysForDiscipline(discipline);
+  return matchDistanceKey(meters, allowed, tolerancePercent) != null;
 }
 
 const STRAVA_TYPE_TO_DISCIPLINE: Record<string, Discipline> = {

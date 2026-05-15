@@ -33,6 +33,24 @@ export type StravaSyncPayload = {
   };
 };
 
+export type DeviceSyncState = {
+  deviceToken: string;
+  lastSyncedAt: string;
+  lastActivityEpoch: number;
+  processedActivityIds?: string[];
+};
+
+export type StravaSyncMetrics = {
+  apiCalls: number;
+  listPages: number;
+  detailFetches: number;
+  activitiesScanned: number;
+  detailCapHit: boolean;
+  durationMs: number;
+  rateLimitUsage?: string;
+  isFirstSync: boolean;
+};
+
 export type PendingOAuthSession = {
   linkId: string;
   returnTo: string;

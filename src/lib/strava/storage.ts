@@ -6,6 +6,7 @@ import {
 import { decryptSecret, encryptSecret } from "./crypto";
 import type {
   DeviceStravaRecord,
+  DeviceSyncState,
   PendingOAuthSession,
   StravaOAuthTokens,
 } from "./types";
@@ -14,6 +15,7 @@ const PREFIX_PENDING = "strava:pending:";
 const PREFIX_OAUTH = "strava:oauth:";
 const PREFIX_DEVICE = "strava:device:";
 const PREFIX_SYNC_LIMIT = "strava:sync-limit:";
+const PREFIX_SYNC_STATE = "strava:sync-state:";
 
 type StoredDevice = Omit<DeviceStravaRecord, "refreshToken" | "accessToken"> & {
   refreshTokenEnc: string;
@@ -193,6 +195,19 @@ export async function getDeviceRecord(
 export async function deleteDeviceRecord(deviceToken: string): Promise<void> {
   await kvDel(`${PREFIX_DEVICE}${deviceToken}`);
   await kvDel(`${PREFIX_SYNC_LIMIT}${deviceToken}`);
+  await kvDel(`${PREFIX_SYNC_STATE}${deviceToken}`);
+}
+
+export async function getDeviceSyncState(
+  deviceToken: string
+): Promise<DeviceSyncState | null> {
+  return kvGet<DeviceSyncState>(`${PREFIX_SYNC_STATE}${deviceToken}`);
+}
+
+export async function saveDeviceSyncState(
+  state: DeviceSyncState
+): Promise<void> {
+  await kvSet(`${PREFIX_SYNC_STATE}${state.deviceToken}`, state);
 }
 
 export async function getLastSyncAt(deviceToken: string): Promise<number | null> {
