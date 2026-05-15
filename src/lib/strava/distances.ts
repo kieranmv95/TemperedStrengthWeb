@@ -3,18 +3,21 @@ export {
   disciplineFromStravaActivityType,
   disciplineFromStravaActivityType as disciplineFromStravaType,
   DISTANCE_PRESETS,
-  distanceMatchesPreset,
   DISTANCE_TOLERANCE,
+  distanceMatchesPreset,
+  FULL_ACTIVITY_KEYS,
   isNearStandardPresetForDiscipline,
   isNearStandardPresetForDiscipline as isNearAnyPresetForDiscipline,
   matchPreset,
+  TOLERANCE_STANDARD,
+  TOLERANCE_ULTRA,
+  toleranceForKey,
   ULTRA_DISTANCE_KEYS,
 } from "./cardioDistances";
 
 import {
   CARDIO_DISTANCES_BY_DISCIPLINE,
   matchPreset,
-  ULTRA_DISTANCE_KEYS,
 } from "./cardioDistances";
 import type { Discipline, DistanceKey } from "./types";
 
@@ -26,24 +29,21 @@ export function allowedKeysForDiscipline(
   );
 }
 
-/** @deprecated Use matchPreset from cardioDistances with ultraOnly flag. */
+/** @deprecated Use matchPreset with best_effort or full_activity mode. */
 export function matchDistanceKey(
   meters: number,
-  allowed: Set<DistanceKey>,
-  tolerancePercent = 3
+  allowed: Set<DistanceKey>
 ): DistanceKey | null {
-  const tolerance = tolerancePercent / 100;
   for (const discipline of Object.keys(
     CARDIO_DISTANCES_BY_DISCIPLINE
   ) as Discipline[]) {
-    for (const preset of CARDIO_DISTANCES_BY_DISCIPLINE[discipline]) {
-      if (!allowed.has(preset.key)) continue;
-      const ultraOnly = ULTRA_DISTANCE_KEYS.has(preset.key);
-      const matched = matchPreset(meters, [preset], ultraOnly);
-      if (matched) {
-        const delta = Math.abs(meters - preset.meters);
-        if (delta <= preset.meters * tolerance) return preset.key;
-      }
+    for (const mode of ["best_effort", "full_activity"] as const) {
+      const matched = matchPreset(
+        meters,
+        CARDIO_DISTANCES_BY_DISCIPLINE[discipline],
+        mode
+      );
+      if (matched && allowed.has(matched.key)) return matched.key;
     }
   }
   return null;

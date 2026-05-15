@@ -273,7 +273,8 @@ export async function buildSyncPayload(
     rateLimitUsage: tracker.rateLimitUsage,
     isFirstSync: window.isFirstSync,
     fullHistoryScan: window.fullHistoryScan,
-    ultrasMatched: scan.stats.ultrasMatched,
+    fullActivityMatches: scan.stats.fullActivityMatches,
+    bestEffortMatches: scan.stats.bestEffortMatches,
     distanceKeysInResponse: countDistanceKeys(disciplines),
     runActivitiesScanned: scan.stats.runActivitiesScanned,
   };

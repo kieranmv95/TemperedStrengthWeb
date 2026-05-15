@@ -1,6 +1,10 @@
 import type { Discipline, DistanceKey } from "./types";
 
-export const DISTANCE_TOLERANCE = 0.03;
+export const TOLERANCE_STANDARD = 0.03;
+export const TOLERANCE_ULTRA = 0.05;
+
+/** @deprecated Use toleranceForKey */
+export const DISTANCE_TOLERANCE = TOLERANCE_STANDARD;
 
 export const ULTRA_DISTANCE_KEYS = new Set<DistanceKey>([
   "ultra_50k",
@@ -9,7 +13,16 @@ export const ULTRA_DISTANCE_KEYS = new Set<DistanceKey>([
   "ultra_100mile",
 ]);
 
+export const FULL_ACTIVITY_KEYS = new Set<DistanceKey>([
+  "half",
+  "full",
+  "40k",
+  ...ULTRA_DISTANCE_KEYS,
+]);
+
 export type DistancePreset = { key: DistanceKey; meters: number };
+
+export type MatchPresetMode = "best_effort" | "full_activity";
 
 export const DISTANCE_PRESETS: DistancePreset[] = [
   { meters: 500, key: "500m" },
@@ -73,10 +86,14 @@ export const CARDIO_DISTANCES_BY_DISCIPLINE: Record<Discipline, DistancePreset[]
     cycle: CYCLE_PRESETS,
   };
 
+export function toleranceForKey(key: DistanceKey): number {
+  return ULTRA_DISTANCE_KEYS.has(key) ? TOLERANCE_ULTRA : TOLERANCE_STANDARD;
+}
+
 export function distanceMatchesPreset(
   distanceMeters: number,
   presetMeters: number,
-  tolerance = DISTANCE_TOLERANCE
+  tolerance = TOLERANCE_STANDARD
 ): boolean {
   if (!Number.isFinite(distanceMeters) || distanceMeters <= 0) return false;
   return (
@@ -87,15 +104,28 @@ export function distanceMatchesPreset(
 export function matchPreset(
   distanceMeters: number,
   presets: DistancePreset[],
-  ultraOnly: boolean
+  mode: MatchPresetMode
 ): DistancePreset | null {
-  const candidates = presets.filter((p) => ultraOnly === ULTRA_DISTANCE_KEYS.has(p.key));
+  if (!Number.isFinite(distanceMeters) || distanceMeters <= 0) return null;
+
+  const candidates =
+    mode === "full_activity"
+      ? presets.filter((p) => FULL_ACTIVITY_KEYS.has(p.key))
+      : presets.filter((p) => !ULTRA_DISTANCE_KEYS.has(p.key));
+
+  let best: DistancePreset | null = null;
+  let bestDelta = Infinity;
+
   for (const preset of candidates) {
-    if (distanceMatchesPreset(distanceMeters, preset.meters)) {
-      return preset;
+    const tol = toleranceForKey(preset.key);
+    const delta = Math.abs(distanceMeters - preset.meters);
+    if (delta <= preset.meters * tol && delta < bestDelta) {
+      best = preset;
+      bestDelta = delta;
     }
   }
-  return null;
+
+  return best;
 }
 
 export function disciplineFromStravaActivityType(
@@ -120,12 +150,12 @@ export function disciplineFromStravaActivityType(
   }
 }
 
-/** Whether activity distance is close enough to warrant a detail fetch for best_efforts. */
+/** Whether activity distance may have standard best_efforts worth a detail fetch. */
 export function isNearStandardPresetForDiscipline(
   discipline: Discipline,
   meters: number
 ): boolean {
   if (meters < 1000) return false;
   const presets = CARDIO_DISTANCES_BY_DISCIPLINE[discipline];
-  return matchPreset(meters, presets, false) != null;
+  return matchPreset(meters, presets, "best_effort") != null;
 }

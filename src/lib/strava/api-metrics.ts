@@ -51,7 +51,8 @@ export function logSyncMetrics(
     rateLimitUsage?: string;
     isFirstSync: boolean;
     fullHistoryScan?: boolean;
-    ultrasMatched?: number;
+    fullActivityMatches?: Partial<Record<string, number>>;
+    bestEffortMatches?: number;
     distanceKeysInResponse?: number;
     runActivitiesScanned?: number;
   }

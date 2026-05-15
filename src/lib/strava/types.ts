@@ -52,7 +52,8 @@ export type StravaSyncMetrics = {
   rateLimitUsage?: string;
   isFirstSync: boolean;
   fullHistoryScan: boolean;
-  ultrasMatched: number;
+  fullActivityMatches: Partial<Record<DistanceKey, number>>;
+  bestEffortMatches: number;
   distanceKeysInResponse: number;
   runActivitiesScanned: number;
 };

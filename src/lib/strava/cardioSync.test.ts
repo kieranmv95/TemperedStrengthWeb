@@ -2,8 +2,9 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   CARDIO_DISTANCES_BY_DISCIPLINE,
-  distanceMatchesPreset,
   matchPreset,
+  TOLERANCE_ULTRA,
+  toleranceForKey,
 } from "./cardioDistances";
 import { buildStravaSyncPayloadFromActivities } from "./cardioSync";
 import type { StravaActivitySummary } from "./client";
@@ -24,44 +25,64 @@ function runActivity(
   };
 }
 
-describe("distanceMatchesPreset", () => {
-  it("matches ~50k run within 3% tolerance", () => {
-    assert.equal(distanceMatchesPreset(50120, 50000), true);
-  });
-
-  it("matches ~50 mile run within 3% tolerance", () => {
-    assert.equal(distanceMatchesPreset(80500, 80467.2), true);
-  });
-
-  it("does not match marathon to ultra_50k", () => {
-    const ultra50k = CARDIO_DISTANCES_BY_DISCIPLINE.run.find(
-      (p) => p.key === "ultra_50k"
-    )!;
-    assert.notEqual(
-      matchPreset(42195, CARDIO_DISTANCES_BY_DISCIPLINE.run, true)?.key,
-      "ultra_50k"
+describe("matchPreset", () => {
+  it("matches ultra_50k at ~50120 m with 5% ultra tolerance", () => {
+    const matched = matchPreset(
+      50120,
+      CARDIO_DISTANCES_BY_DISCIPLINE.run,
+      "full_activity"
     );
-    assert.equal(distanceMatchesPreset(42195, ultra50k.meters), false);
+    assert.equal(matched?.key, "ultra_50k");
+  });
+
+  it("matches full (marathon) at 42195 m on whole activity", () => {
+    const matched = matchPreset(
+      42195,
+      CARDIO_DISTANCES_BY_DISCIPLINE.run,
+      "full_activity"
+    );
+    assert.equal(matched?.key, "full");
+  });
+
+  it("does not match marathon to ultra_50k when both in range", () => {
+    const matched = matchPreset(
+      42195,
+      CARDIO_DISTANCES_BY_DISCIPLINE.run,
+      "full_activity"
+    );
+    assert.notEqual(matched?.key, "ultra_50k");
+  });
+
+  it("uses 5% tolerance for ultra keys only", () => {
+    assert.equal(toleranceForKey("ultra_50k"), TOLERANCE_ULTRA);
+    assert.equal(toleranceForKey("full"), 0.03);
   });
 });
 
 describe("buildStravaSyncPayloadFromActivities", () => {
-  it("returns ultra_50k and ultra_50mi for qualifying runs", () => {
+  it("returns half, full, and ultra_50k from whole-activity runs", () => {
     const { disciplines } = buildStravaSyncPayloadFromActivities([
-      runActivity(12345678, 50120, 16320),
-      runActivity(87654321, 80500, 32400, "2025-07-01T08:00:00Z"),
+      runActivity(111, 21097, 6300, "2025-03-01T08:00:00Z"),
+      runActivity(222, 42195, 13500, "2025-04-01T08:00:00Z"),
+      runActivity(333, 50120, 16320, "2025-05-01T08:00:00Z"),
     ]);
 
-    assert.deepEqual(disciplines.run?.ultra_50k, {
-      durationSeconds: 16320,
-      achievedAt: "2025-06-01T08:00:00Z",
-      stravaActivityId: "12345678",
-    });
-    assert.deepEqual(disciplines.run?.ultra_50mi, {
-      durationSeconds: 32400,
-      achievedAt: "2025-07-01T08:00:00Z",
-      stravaActivityId: "87654321",
-    });
+    assert.equal(disciplines.run?.half?.stravaActivityId, "111");
+    assert.equal(disciplines.run?.half?.durationSeconds, 6300);
+    assert.equal(disciplines.run?.full?.stravaActivityId, "222");
+    assert.equal(disciplines.run?.full?.durationSeconds, 13500);
+    assert.equal(disciplines.run?.ultra_50k?.stravaActivityId, "333");
+    assert.equal(disciplines.run?.ultra_50k?.durationSeconds, 16320);
+  });
+
+  it("returns marathon activity as full, not ultra_50k", () => {
+    const { disciplines } = buildStravaSyncPayloadFromActivities([
+      runActivity(42, 42195, 10800),
+    ]);
+
+    assert.equal(disciplines.run?.full?.durationSeconds, 10800);
+    assert.equal(disciplines.run?.full?.stravaActivityId, "42");
+    assert.equal(disciplines.run?.ultra_50k, undefined);
   });
 
   it("keeps the fastest 50k when two qualify", () => {
@@ -74,7 +95,7 @@ describe("buildStravaSyncPayloadFromActivities", () => {
     assert.equal(disciplines.run?.ultra_50k?.stravaActivityId, "2");
   });
 
-  it("returns 5km from best_efforts, not activity distance", () => {
+  it("returns 5km from best_efforts, not whole-activity distance", () => {
     const { disciplines } = buildStravaSyncPayloadFromActivities(
       [runActivity(99, 5200, 9999)],
       {
@@ -96,12 +117,20 @@ describe("buildStravaSyncPayloadFromActivities", () => {
     assert.equal(disciplines.run?.ultra_50k, undefined);
   });
 
-  it("does not treat marathon distance as ultra_50k", () => {
-    const { disciplines } = buildStravaSyncPayloadFromActivities([
-      runActivity(42, 42195, 10800),
-    ]);
+  it("prefers faster time when half comes from activity and best_effort", () => {
+    const { disciplines } = buildStravaSyncPayloadFromActivities(
+      [runActivity(7, 21100, 7000)],
+      {
+        "7": [
+          {
+            distance: 21097.5,
+            elapsed_time: 6500,
+            start_date: "2025-02-01T08:00:00Z",
+          },
+        ],
+      }
+    );
 
-    assert.equal(disciplines.run?.ultra_50k, undefined);
-    assert.equal(disciplines.run?.full, undefined);
+    assert.equal(disciplines.run?.half?.durationSeconds, 6500);
   });
 });

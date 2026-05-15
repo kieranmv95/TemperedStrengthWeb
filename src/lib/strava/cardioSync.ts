@@ -89,7 +89,8 @@ export function isDisciplinesPayloadEmpty(
 export type CardioSyncStats = {
   activitiesScanned: number;
   runActivitiesScanned: number;
-  ultrasMatched: number;
+  fullActivityMatches: Partial<Record<DistanceKey, number>>;
+  bestEffortMatches: number;
   distanceKeysInResponse: number;
 };
 
@@ -101,7 +102,8 @@ export function buildStravaSyncPayloadFromActivities(
   const stats: CardioSyncStats = {
     activitiesScanned: 0,
     runActivitiesScanned: 0,
-    ultrasMatched: 0,
+    fullActivityMatches: {},
+    bestEffortMatches: 0,
     distanceKeysInResponse: 0,
   };
 
@@ -116,14 +118,15 @@ export function buildStravaSyncPayloadFromActivities(
     const ledger = (ledgers[discipline] ??= {});
     const activityId = String(activity.id);
 
-    const ultra = matchPreset(activity.distance, presets, true);
-    if (ultra && activity.moving_time > 0) {
-      considerBest(ledger, ultra.key, {
+    const activityPreset = matchPreset(activity.distance, presets, "full_activity");
+    if (activityPreset && activity.moving_time > 0) {
+      considerBest(ledger, activityPreset.key, {
         durationSeconds: activity.moving_time,
         achievedAt: activity.start_date,
         stravaActivityId: activityId,
       });
-      stats.ultrasMatched++;
+      stats.fullActivityMatches[activityPreset.key] =
+        (stats.fullActivityMatches[activityPreset.key] ?? 0) + 1;
     }
 
     const efforts =
@@ -132,7 +135,7 @@ export function buildStravaSyncPayloadFromActivities(
       [];
 
     for (const effort of efforts) {
-      const preset = matchPreset(effort.distance, presets, false);
+      const preset = matchPreset(effort.distance, presets, "best_effort");
       if (!preset || effort.elapsed_time <= 0) continue;
 
       considerBest(ledger, preset.key, {
@@ -140,6 +143,7 @@ export function buildStravaSyncPayloadFromActivities(
         achievedAt: effort.start_date ?? activity.start_date,
         stravaActivityId: activityId,
       });
+      stats.bestEffortMatches++;
     }
   }
 
