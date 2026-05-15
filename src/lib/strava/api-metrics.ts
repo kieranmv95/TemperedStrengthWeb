@@ -50,6 +50,10 @@ export function logSyncMetrics(
     durationMs: number;
     rateLimitUsage?: string;
     isFirstSync: boolean;
+    fullHistoryScan?: boolean;
+    ultrasMatched?: number;
+    distanceKeysInResponse?: number;
+    runActivitiesScanned?: number;
   }
 ): void {
   if (process.env.NODE_ENV === "production") return;

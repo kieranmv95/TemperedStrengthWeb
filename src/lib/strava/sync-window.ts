@@ -9,25 +9,29 @@ import type { DeviceSyncState } from "./types";
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 export type SyncWindow = {
-  afterEpoch: number;
+  afterEpoch?: number;
   maxPages: number;
   isFirstSync: boolean;
+  fullHistoryScan: boolean;
   overlapStartMs: number;
+  skipProcessedIds: boolean;
 };
 
 export function computeSyncWindow(
-  state: DeviceSyncState | null
+  state: DeviceSyncState | null,
+  options?: { forceFullHistory?: boolean }
 ): SyncWindow {
   const now = Date.now();
+  const forceFullHistory = options?.forceFullHistory ?? false;
 
-  if (!state?.lastSyncedAt) {
+  if (forceFullHistory || !state?.lastSyncedAt) {
     return {
-      afterEpoch: Math.floor(
-        (now - ACTIVITY_AFTER_DAYS_FIRST * MS_PER_DAY) / 1000
-      ),
+      afterEpoch: undefined,
       maxPages: MAX_LIST_PAGES,
-      isFirstSync: true,
-      overlapStartMs: now - ACTIVITY_OVERLAP_DAYS * MS_PER_DAY,
+      isFirstSync: !state?.lastSyncedAt,
+      fullHistoryScan: true,
+      overlapStartMs: 0,
+      skipProcessedIds: false,
     };
   }
 
@@ -43,6 +47,22 @@ export function computeSyncWindow(
     afterEpoch: Math.floor(afterMs / 1000),
     maxPages: MAX_LIST_PAGES_INCREMENTAL,
     isFirstSync: false,
+    fullHistoryScan: false,
     overlapStartMs: fromLastSync,
+    skipProcessedIds: true,
+  };
+}
+
+export function computeFallbackFullWindow(): SyncWindow {
+  const now = Date.now();
+  return {
+    afterEpoch: Math.floor(
+      (now - ACTIVITY_AFTER_DAYS_FIRST * MS_PER_DAY) / 1000
+    ),
+    maxPages: MAX_LIST_PAGES,
+    isFirstSync: false,
+    fullHistoryScan: true,
+    overlapStartMs: 0,
+    skipProcessedIds: false,
   };
 }

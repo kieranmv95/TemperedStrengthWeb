@@ -48,6 +48,6 @@ export const MAX_LIST_PAGES = 10;
 export const MAX_LIST_PAGES_INCREMENTAL = 3;
 export const ACTIVITY_AFTER_DAYS_FIRST = 730;
 export const ACTIVITY_OVERLAP_DAYS = 7;
-export const MAX_DETAIL_FETCHES = 30;
+export const MAX_DETAIL_FETCHES = 20;
 export const DETAIL_FETCH_CONCURRENCY = 3;
 export const PROCESSED_ACTIVITY_IDS_CAP = 500;

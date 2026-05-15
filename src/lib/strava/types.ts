@@ -38,6 +38,8 @@ export type DeviceSyncState = {
   lastSyncedAt: string;
   lastActivityEpoch: number;
   processedActivityIds?: string[];
+  /** Accumulated global bests returned to the mobile app on prior syncs. */
+  disciplines?: StravaSyncPayload["disciplines"];
 };
 
 export type StravaSyncMetrics = {
@@ -49,6 +51,10 @@ export type StravaSyncMetrics = {
   durationMs: number;
   rateLimitUsage?: string;
   isFirstSync: boolean;
+  fullHistoryScan: boolean;
+  ultrasMatched: number;
+  distanceKeysInResponse: number;
+  runActivitiesScanned: number;
 };
 
 export type PendingOAuthSession = {
