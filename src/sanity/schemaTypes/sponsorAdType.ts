@@ -73,6 +73,13 @@ export const sponsorAdType = defineType({
         Rule.required().max(280).error("Description must be 280 characters or fewer."),
     }),
     defineField({
+      name: "review",
+      title: "Team review",
+      type: "string",
+      description:
+        "Optional brief note from the Tempered Strength team about this product (e.g. for the app or internal reference).",
+    }),
+    defineField({
       name: "affiliateUrl",
       title: "Affiliate URL",
       type: "url",
