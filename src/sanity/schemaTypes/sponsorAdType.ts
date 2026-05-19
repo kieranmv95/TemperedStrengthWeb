@@ -34,6 +34,15 @@ export const sponsorAdType = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+      description:
+        "e.g. Nutrition, Sweets, Apparel. Used for filtering or grouping in the app.",
+    }),
+    defineField({
       name: "layout",
       title: "Layout",
       type: "string",
@@ -100,8 +109,9 @@ export const sponsorAdType = defineType({
       title: "internalName",
       layout: "layout",
       enabled: "enabled",
+      categories: "categories",
     },
-    prepare({ title, layout, enabled }) {
+    prepare({ title, layout, enabled, categories }) {
       const layoutLabel =
         layout === "textHeader"
           ? "Text header"
@@ -110,9 +120,17 @@ export const sponsorAdType = defineType({
             : layout === "productLeft"
               ? "Product left"
               : layout ?? "No layout";
+      const categoryLabel =
+        Array.isArray(categories) && categories.length > 0
+          ? categories.join(", ")
+          : null;
+      const status = enabled === false ? "Disabled" : "Enabled";
+      const subtitle = [layoutLabel, categoryLabel, status]
+        .filter(Boolean)
+        .join(" · ");
       return {
         title: title ?? "Untitled sponsor ad",
-        subtitle: `${layoutLabel} · ${enabled === false ? "Disabled" : "Enabled"}`,
+        subtitle,
       };
     },
   },
