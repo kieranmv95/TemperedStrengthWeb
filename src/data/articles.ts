@@ -905,4 +905,92 @@ export const articles: Article[] = [
     
     If you want to develop explosive power, improve athletic performance across other sports, or simply want a technically challenging and deeply satisfying form of strength training, Olympic lifting is worth pursuing. It rewards patience, consistency, and attention to detail more than raw strength. The lifters who progress fastest are not always the strongest – they are the ones who are most committed to the technique.`,
   },
+  {
+    id: "article_017",
+    slug: "creatine-what-it-does-how-to-use-it-properly",
+    title:
+      "Creatine: What It Actually Does, Why Most People Still Get It Wrong, and How to Use It Properly",
+    subtitle: "By Leon, Co-Founder, Hustle Bar",
+    category: "Nutrition",
+    readTime: 12,
+    image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=800",
+    content: `I've been fascinated by creatine for years. Not because it's trendy (it's been around for decades) but because despite being one of the most studied supplements in existence, most people using it are still doing it wrong. And a surprising number of people in the gym still write it off as something reserved for bodybuilders chasing size.
+    
+    It isn't. And if you care about performance, recovery, or just getting more out of every session, you need to understand what creatine actually does and why the science behind it is more interesting than the fitness industry gives it credit for.
+    
+    ## What Creatine Actually Is
+    
+    Let's start at the foundation. Creatine is a naturally occurring compound synthesised in the body from three amino acids: arginine, glycine, and methionine. Your liver, kidneys, and pancreas produce it, and you absorb more through food, primarily red meat and fish. But here's the problem: you'd need to eat roughly a kilogram of beef daily to hit the amount research suggests is optimal for performance. That's why supplementation exists.
+    
+    About 95% of your body's creatine is stored in skeletal muscle as phosphocreatine. The remaining 5% sits in the brain, heart, and testes. That distribution matters, and I'll come back to the brain part in a moment.
+    
+    ## The Energy System Nobody Explains Properly
+    
+    To understand why creatine works, you need a brief word on energy systems. Your muscles run on ATP (adenosine triphosphate), which is essentially the body's energy currency. The problem is that your muscles only store a tiny amount of ATP at any given time. Enough for roughly one to three seconds of maximal effort.
+    
+    This is where phosphocreatine comes in. When ATP is used and broken down into ADP (adenosine diphosphate), phosphocreatine donates a phosphate group to rapidly regenerate it back into ATP. It is, in simple terms, a rapid recharge system for your muscles.
+    
+    When you supplement creatine and saturate your muscle stores, you increase the capacity of this system. More phosphocreatine available means faster ATP regeneration, which means you can sustain high-intensity effort for longer before fatigue sets in.
+    
+    That's the mechanism. That's why creatine improves performance. Not magic. Biochemistry.
+    
+    ## What the Research Actually Shows
+    
+    Here's where it gets interesting, because the evidence base for creatine is genuinely exceptional. We are not talking about a supplement propped up by industry-funded studies and anecdote. Creatine monohydrate has been researched extensively since the 1990s, with hundreds of peer-reviewed studies consistently showing the same results.
+    
+    Strength and power output. A 2024 meta-analysis published in Nutrients, reviewing 23 randomised controlled trials, found that creatine supplementation combined with resistance training significantly increased both upper and lower body strength compared to placebo. A separate 2025 systematic review covering 69 randomised controlled trials confirmed that creatine consistently improves bench press, leg press, and squat performance across a wide range of populations and training histories. For compound lifts, that's a meaningful and well-evidenced improvement.
+    
+    Repeated sprint performance. If your training involves any kind of repeated high-intensity effort including HIIT, circuit training, or sport-specific conditioning, creatine has a well-documented positive effect on repeated sprint ability and power output across multiple efforts. The recovery between efforts improves. You can go again harder.
+    
+    Muscle hypertrophy. Creatine supplementation consistently increases lean mass, partly through increased water retention in muscle tissue (which is structural, not cosmetic), and partly through the training volume improvements it enables. More reps, heavier loads, better sessions over time. The compound effect on muscle growth is real.
+    
+    Recovery. This is an underappreciated area. A 2022 systematic review and meta-analysis published in Sports Medicine, covering 23 studies and nearly 500 participants, found that creatine monohydrate reduced markers of muscle cell damage and inflammation following intense exercise. A separate meta-analysis pooling data from nine trials showed that creatine significantly reduced creatine kinase levels (a direct marker of muscle breakdown) at 48, 72, and 96 hours post-exercise compared to placebo. If you are training hard multiple times a week, anything that blunts muscle damage and accelerates recovery is directly relevant to your results.
+    
+    ## The Brain. Yes, Really.
+    
+    I mentioned earlier that 5% of your body's creatine is stored in the brain. That is not a coincidence.
+    
+    The brain is one of the most metabolically demanding organs in the body, and it uses the same ATP and phosphocreatine energy system as skeletal muscle. A 2022 systematic review and meta-analysis published in Nutrition Reviews, analysing data from randomised controlled trials, found that creatine supplementation produced measurable improvements in memory performance in healthy adults. A 2024 study published in Scientific Reports found that a single dose of creatine improved cognitive performance and increased cerebral high-energy phosphate levels specifically under conditions of sleep deprivation, suggesting the brain's creatine system becomes especially relevant when you're running on low energy. And a 2025 meta-analysis published in Frontiers in Nutrition confirmed small but statistically significant improvements in short-term memory and speed of cognitive processing across multiple trials.
+    
+    This matters for athletes and gym-goers because training is not just physical. The mental clarity to push through fatigue, maintain technique under load, and make fast decisions under pressure is part of performance. Creatine supports that system too.
+    
+    ## The Dose Question
+    
+    This is where the fitness industry has historically overcomplicated things. The research is pretty clear: 3 to 5g of creatine monohydrate per day is the effective maintenance dose for most people. But, 5 is best! That's it.
+    
+    Loading phases, where you take 20g per day for five to seven days, are sometimes recommended to saturate muscle stores faster. The science supports this working, but it's not necessary. Loading saturates stores in about a week; supplementing at 5g daily achieves the same saturation in approximately three to four weeks. Same destination, different timeline.
+    
+    Form matters too. Creatine monohydrate remains the gold standard. In fact, the 2025 meta-analysis covering 69 trials noted that approximately 95% of all included studies used creatine monohydrate, reflecting just how dominant the research base is for this specific form. Ethyl ester, buffered creatine, creatine HCL: these are largely marketing variations on the same compound.
+    
+    Timing is less critical than the supplement industry would have you believe. Pre-workout, post-workout, with food, without food; studies have not shown a consistent, meaningful advantage to any specific timing. What matters is consistency. Taking it every day, regardless of whether you train, is more important than when you take it.
+    
+    ## Who Should Be Taking It
+    
+    Everyone serious about their training, frankly. The research supports benefits across strength and power athletes, endurance athletes (yes, the ATP system matters in endurance too, particularly in high-intensity efforts within longer sessions), team sport athletes whose performance involves repeated sprints and changes of pace, anyone training multiple sessions per week who cares about recovery, and older adults where creatine has a strong evidence base for preserving muscle mass and function with age, increasingly recognised as one of the most important health interventions available.
+    
+    One group that consistently gets overlooked is women. Creatine research has historically skewed male, but the 2024 Nutrients meta-analysis specifically noted that female-focused studies remain underrepresented despite showing comparable strength benefits. Some evidence suggests women may have proportionally lower baseline creatine stores, making supplementation potentially even more impactful.
+    
+    ## The Bottom Line
+    
+    Creatine monohydrate is the most researched, most consistently effective performance supplement available. It improves strength, power, recovery, and cognitive function. It is safe at recommended doses. It is cheap. The barrier to using it is essentially zero.
+    
+    The only real mistake you can make is not taking enough of it, taking it inconsistently, or paying a premium for a form that offers no meaningful advantage over the original.
+    
+    Five grams. Every day. That's the whole protocol.
+    
+    If you've been sleeping on it or taking it wrong, now is a good time to fix that.
+    
+    Leon is the co-founder of Hustle Bar and has spent the last several years building a nutrition brand at the intersection of performance science and everyday convenience.
+    
+    ## References
+    
+    1. Chilibeck, P. et al. (2024). Effects of Creatine Supplementation and Resistance Training on Muscle Strength Gains in Adults Under 50 Years of Age: A Systematic Review and Meta-Analysis. Nutrients, 16(21), 3665. https://doi.org/10.3390/nu16213665
+    2. Lanhers, C. et al. (2025). The Effects of Creatine Supplementation on Upper- and Lower-Body Strength and Power: A Systematic Review and Meta-Analysis. Nutrients, 17(17), 2748. https://doi.org/10.3390/nu17172748
+    3. Doma, K. et al. (2022). The Paradoxical Effect of Creatine Monohydrate on Muscle Damage Markers: A Systematic Review and Meta-Analysis. Sports Medicine. https://doi.org/10.1007/s40279-022-01640-z
+    4. Ashtary-Larky, D. et al. (2021). Creatine Supplementation Effect on Recovery Following Exercise-Induced Muscle Damage: A Systematic Review and Meta-Analysis of Randomized Controlled Trials. PubMed. PMID: 34472118
+    5. Prokopidis, K. et al. (2023). Effects of Creatine Supplementation on Memory in Healthy Individuals: A Systematic Review and Meta-Analysis of Randomized Controlled Trials. Nutrition Reviews, 81(4), 416–427. https://doi.org/10.1093/nutrit/nuac064
+    6. Sandkühler, J. et al. (2023). The Effects of Creatine Supplementation on Cognitive Performance: A Randomised Controlled Study. BMC Medicine, 21, 440.
+    7. Naber, M. et al. (2024). Single Dose Creatine Improves Cognitive Performance and Induces Changes in Cerebral High Energy Phosphates During Sleep Deprivation. Scientific Reports. https://doi.org/10.1038/s41598-024-54249-9
+    8. Xu, C., Bi, S. & Zhang, W. (2025). The Effects of Creatine Supplementation on Cognitive Function in Adults: A Systematic Review and Meta-Analysis. Frontiers in Nutrition, 11, 1424972.`,
+  },
 ];
