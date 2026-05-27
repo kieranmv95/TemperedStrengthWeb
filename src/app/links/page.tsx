@@ -2,27 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  APP_STORE_URL,
-  INSTAGRAM_URL,
-  OPTIMAL_PLATES_APP_STORE_URL,
-  OPTIMAL_PLATES_INSTAGRAM_URL,
-  OPTIMAL_PLATES_SITE_URL,
-  YOUTUBE_URL,
-} from "@/lib/site";
+  AppStoreBadgeIcon,
+  GooglePlayBadgeIcon,
+} from "@/components/store/StoreBadges";
+import { APP_STORE_URL, INSTAGRAM_URL, YOUTUBE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Links | Tempered Strength",
   description:
-    "Quick links to the Tempered Strength iOS app, Optimal Plates sister app, website pages, social channels, and legal documents.",
+    "Quick links to the Tempered Strength app, social channels, and legal documents.",
 };
-
-function AppleMark({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 384 512" fill="currentColor" aria-hidden>
-      <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-    </svg>
-  );
-}
 
 function InstagramGlyph({ className }: { className?: string }) {
   return (
@@ -94,6 +83,10 @@ function linkRowClassName() {
   return "group flex items-center gap-4 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm px-4 py-3.5 md:px-5 md:py-4 transition-colors hover:border-[#c9b072]/35 hover:bg-[#c9b072]/[0.04]";
 }
 
+function googlePlayLinkRowClassName() {
+  return "flex items-center gap-4 rounded-xl border border-neutral-800/80 bg-neutral-900/30 backdrop-blur-sm px-4 py-3.5 md:px-5 md:py-4 opacity-55 cursor-not-allowed";
+}
+
 export default function LinksPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
@@ -118,7 +111,7 @@ export default function LinksPage() {
           </p>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Links</h1>
           <p className="text-neutral-400 text-sm mt-3 leading-relaxed">
-            Tempered Strength, sister app Optimal Plates, and everywhere we show up online.
+            Download the app and find us online.
           </p>
         </div>
 
@@ -133,7 +126,7 @@ export default function LinksPage() {
                   rel="noopener noreferrer"
                   className={linkRowClassName()}
                 >
-                  <AppleMark className="w-5 h-5 shrink-0 text-neutral-300" />
+                  <AppStoreBadgeIcon />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on the App Store</span>
                     <span className="text-xs text-neutral-500">iOS — strength and Olympic lifting programs with logging, swaps, and timers.</span>
@@ -142,19 +135,20 @@ export default function LinksPage() {
                 </a>
               </li>
               <li>
-                <a
-                  href={OPTIMAL_PLATES_APP_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkRowClassName()}
+                <div
+                  className={googlePlayLinkRowClassName()}
+                  aria-disabled="true"
+                  title="Google Play — coming soon"
                 >
-                  <AppleMark className="w-5 h-5 shrink-0 text-neutral-300" />
+                  <GooglePlayBadgeIcon className="opacity-45 grayscale" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
-                    <span className="font-semibold text-white">Optimal Plates on the App Store</span>
-                    <span className="text-xs text-neutral-500">iOS — plate math &amp; logging</span>
+                    <span className="font-semibold text-white">Tempered Strength on Google Play</span>
+                    <span className="text-xs text-neutral-500">Android — same programs and training tools.</span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
-                </a>
+                  <span className="shrink-0 rounded-full border border-[#c9b072]/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#c9b072]">
+                    Coming soon
+                  </span>
+                </div>
               </li>
             </ul>
           </section>
@@ -177,30 +171,6 @@ export default function LinksPage() {
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on YouTube</span>
                     <span className="text-xs text-neutral-500 truncate">@TemperedStrength</span>
-                  </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
-                </a>
-              </li>
-              <li>
-                <a href={OPTIMAL_PLATES_SITE_URL} className={linkRowClassName()}>
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
-                    <span className="font-semibold text-white">Optimal Plates website</span>
-                    <span className="text-xs text-neutral-500 truncate">optimalplates.com</span>
-                  </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={OPTIMAL_PLATES_INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkRowClassName()}
-                >
-                  <InstagramGlyph className="w-6 h-6 shrink-0 text-white" />
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
-                    <span className="font-semibold text-white">Optimal Plates on Instagram</span>
-                    <span className="text-xs text-neutral-500 truncate">@optimalplates</span>
                   </span>
                   <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
                 </a>

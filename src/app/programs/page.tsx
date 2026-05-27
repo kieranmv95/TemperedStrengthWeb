@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { programs } from "@/data/programs";
 import { SiteHeader } from "../../components/SiteHeader";
-import { APP_STORE_URL, INSTAGRAM_URL } from "@/lib/site";
+import { StoreDownloadRow } from "@/components/store/StoreBadges";
+import { INSTAGRAM_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Programs | Tempered Strength",
@@ -97,15 +98,9 @@ export default function ProgramsPage() {
           <p className="text-neutral-500 text-sm">
             Train in the app with logging, swaps, and timers built in.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center flex-wrap">
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Download on the App Store
-            </a>
+          <div className="flex flex-col gap-6 justify-center items-center">
+            <StoreDownloadRow />
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center flex-wrap w-full">
             <Link
               href="/"
               className="inline-flex items-center justify-center gap-2 border border-neutral-700 hover:border-[#c9b072]/50 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:bg-[#c9b072]/5"
@@ -121,6 +116,7 @@ export default function ProgramsPage() {
               <InstagramGlyph className="w-5 h-5" />
               Instagram
             </a>
+            </div>
           </div>
         </div>
 
