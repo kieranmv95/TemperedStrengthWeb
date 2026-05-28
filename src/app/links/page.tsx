@@ -130,7 +130,7 @@ export default function LinksPage() {
                   <AppStoreBadgeIcon />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on the App Store</span>
-                    <span className="text-xs text-neutral-500">iOS — strength and Olympic lifting programs with logging, swaps, and timers.</span>
+                    <span className="text-xs text-neutral-500">A range of programs and workouts with logging, swaps, timers and more.</span>
                   </span>
                   <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
                 </a>
@@ -145,7 +145,7 @@ export default function LinksPage() {
                   <GooglePlayBadgeIcon />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on Google Play</span>
-                    <span className="text-xs text-neutral-500">Android — same programs and training tools.</span>
+                    <span className="text-xs text-neutral-500">A range of programs and workouts with logging, swaps, timers and more.</span>
                   </span>
                   <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
                 </a>
