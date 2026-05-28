@@ -5,7 +5,12 @@ import {
   AppStoreBadgeIcon,
   GooglePlayBadgeIcon,
 } from "@/components/store/StoreBadges";
-import { APP_STORE_URL, INSTAGRAM_URL, YOUTUBE_URL } from "@/lib/site";
+import {
+  APP_STORE_URL,
+  GOOGLE_PLAY_URL,
+  INSTAGRAM_URL,
+  YOUTUBE_URL,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Links | Tempered Strength",
@@ -83,10 +88,6 @@ function linkRowClassName() {
   return "group flex items-center gap-4 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm px-4 py-3.5 md:px-5 md:py-4 transition-colors hover:border-[#c9b072]/35 hover:bg-[#c9b072]/[0.04]";
 }
 
-function googlePlayLinkRowClassName() {
-  return "flex items-center gap-4 rounded-xl border border-neutral-800/80 bg-neutral-900/30 backdrop-blur-sm px-4 py-3.5 md:px-5 md:py-4 opacity-55 cursor-not-allowed";
-}
-
 export default function LinksPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
@@ -135,20 +136,19 @@ export default function LinksPage() {
                 </a>
               </li>
               <li>
-                <div
-                  className={googlePlayLinkRowClassName()}
-                  aria-disabled="true"
-                  title="Google Play — coming soon"
+                <a
+                  href={GOOGLE_PLAY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkRowClassName()}
                 >
-                  <GooglePlayBadgeIcon className="opacity-45 grayscale" />
+                  <GooglePlayBadgeIcon />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on Google Play</span>
                     <span className="text-xs text-neutral-500">Android — same programs and training tools.</span>
                   </span>
-                  <span className="shrink-0 rounded-full border border-[#c9b072]/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#c9b072]">
-                    Coming soon
-                  </span>
-                </div>
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                </a>
               </li>
             </ul>
           </section>

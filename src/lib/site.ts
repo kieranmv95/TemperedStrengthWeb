@@ -1,10 +1,10 @@
 export const APP_STORE_URL =
   "https://apps.apple.com/gb/app/tempered-strength/id6757619534";
 
-/** Set when the Android app is live on Google Play */
-export const GOOGLE_PLAY_URL = "";
+export const GOOGLE_PLAY_URL =
+  "https://play.google.com/store/apps/details?id=com.kieranvenison.temperedstrengthapp&hl=en_GB";
 
-export const GOOGLE_PLAY_ENABLED = false;
+export const GOOGLE_PLAY_ENABLED = true;
 
 export const INSTAGRAM_URL = "https://www.instagram.com/temperedstrength/";
 
