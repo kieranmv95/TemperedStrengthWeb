@@ -8,7 +8,8 @@ export const GOOGLE_PLAY_ENABLED = true;
 
 export const INSTAGRAM_URL = "https://www.instagram.com/temperedstrength/";
 
-export const YOUTUBE_URL = "https://www.youtube.com/@TemperedStrength";
+export const YOUTUBE_URL =
+  "https://www.youtube.com/channel/UC0wAjKOPO7pmhA3oOnYNG0w";
 
 /** Canonical public website URL */
 export const PUBLIC_SITE_URL = "https://temperedstrength.com";

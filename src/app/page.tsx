@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { SiteHeader } from "../components/SiteHeader";
 import { StoreDownloadRow } from "@/components/store/StoreBadges";
 import { INSTAGRAM_URL } from "@/lib/site";
@@ -164,19 +163,19 @@ export default function Home() {
         {/* Hero Section */}
         <section className="text-center space-y-8 mb-16 animate-fade-in-delay-1">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15] max-w-4xl mx-auto">
-            Gym programs built
+            Train, learn, progress.
             <span className="mt-1 block bg-gradient-to-br from-[#f0e6c8] via-[#c9b072] to-[#8f7645] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(201,176,114,0.25)]">
-              for real life.
+              All in one place.
             </span>
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-loose">
-            Free and Pro strength and conditioning programs designed by experts, from heavy strength work to metcons and athletic prep. Smart features that adapt when life gets in the way.
+            From heavy strength work to metcons and athletic prep, plus learning resources and an exclusive fitness discounts shop. <b>7 programs free, forever.</b>
           </p>
 
-          <div className="flex flex-col items-center gap-4 pt-4">
-            <StoreDownloadRow className="pt-1" />
-            <NewsletterSignup className="mt-6 w-full max-w-2xl mx-auto border-[#c9b072]/35 bg-gradient-to-br from-[#c9b072]/[0.12] via-neutral-900/50 to-neutral-900/30 shadow-[0_0_48px_-20px_rgba(201,176,114,0.35)]" />
+          <div>
+            <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-loose">Free to download. Free to start.</p>
+            <StoreDownloadRow className="pt-4" />
           </div>
         </section>
 
@@ -184,9 +183,9 @@ export default function Home() {
         <AnimatedSection className="mb-32 space-y-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { value: programs.length.toString(), label: "Programs Available" },
+              { value: `${(programs.length - 1).toString()}+`, label: "Programs Available" },
               { value: programs.filter((program) => program.tier === "Free").length.toString(), label: "Free Programs" },
-              { value: "100+", label: "Workouts" },
+              { value: "150+", label: "Workouts" },
             ].map((stat, i) => (
               <AnimatedSection key={i} animation="scale" delay={i * 0.1}>
                 <div className="text-center p-6 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
@@ -231,315 +230,6 @@ export default function Home() {
           </Link>
         </AnimatedSection>
 
-        {/* Programs Section */}
-        <section id="programs" className="mb-32 scroll-mt-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <AnimatedSection
-              animation="slide-left"
-              className="order-2 md:order-1 flex justify-center"
-            >
-              <div className="relative w-64 md:w-72">
-                <Image
-                  src="/program_popup_3d.png"
-                  alt="Program selection screen"
-                  width={320}
-                  height={640}
-                  className="w-full h-auto drop-shadow-2xl"
-                />
-              </div>
-            </AnimatedSection>
-            <AnimatedSection
-              animation="slide-right"
-              className="order-1 md:order-2 text-center md:text-left"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
-                Programs for Every Lifter
-              </h2>
-              <p className="text-neutral-400 leading-relaxed mb-6">
-                {programs.length} structured programs in the app covering hypertrophy, powerbuilding, powerlifting, and
-                more. Pick a program that fits your schedule and goals. Some examples include:
-              </p>
-              <ul className="space-y-3 text-neutral-300">
-                <li className="flex items-center gap-3 justify-center md:justify-start">
-                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
-                  Push/Pull/Legs splits
-                </li>
-                <li className="flex items-center gap-3 justify-center md:justify-start">
-                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
-                  HiiT Shred Programs
-                </li>
-                <li className="flex items-center gap-3 justify-center md:justify-start">
-                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
-                  Olympic lifting progressions
-                </li>
-                <li className="flex items-center gap-3 justify-center md:justify-start">
-                  <span className="w-2 h-2 rounded-full bg-[#c9b072]" />
-                  Pilates intro programs
-                </li>
-              </ul>
-              <Link
-                href="/programs"
-                className="inline-flex items-center gap-2 mt-8 mx-auto md:mx-0 border border-[#c9b072]/50 hover:bg-[#c9b072]/10 text-[#c9b072] font-semibold px-6 py-3 rounded-lg transition-all duration-200"
-              >
-                See every program
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </Link>
-            </AnimatedSection>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="mb-32">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
-              Smart Features
-            </h2>
-            <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
-              Training tools that adapt to real life. Because the perfect
-              workout is the one you can actually do.
-            </p>
-          </AnimatedSection>
-
-          {/* On-Demand Workouts Feature */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-            <AnimatedSection
-              animation="slide-left"
-              className="order-2 md:order-1 flex justify-center"
-            >
-              <div className="relative w-56 md:w-64">
-                <Image
-                  src="/workouts_3d.png"
-                  alt="On-demand workouts screen"
-                  width={280}
-                  height={560}
-                  className="w-full h-auto drop-shadow-2xl"
-                />
-              </div>
-            </AnimatedSection>
-            <AnimatedSection
-              animation="slide-right"
-              className="order-1 md:order-2 text-center md:text-left"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                <svg
-                  className="w-7 h-7 text-[#c9b072]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
-                On-Demand Workouts
-              </h3>
-              <p className="text-neutral-400 leading-loose mb-4">
-                Need to feel the burn but don&apos;t have time for a full
-                program? Pick from our library of 100+ one-off workouts for
-                quick, effective sessions. Filter by type, difficulty, and
-                equipment.
-              </p>
-              <div className="inline-flex items-center text-[#c9b072] text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
-                Full library with Pro
-              </div>
-            </AnimatedSection>
-          </div>
-
-          {/* The Brief Feature */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-            <AnimatedSection
-              animation="slide-left"
-              className="order-1 text-center md:text-left"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                <svg
-                  className="w-7 h-7 text-[#c9b072]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
-                The Brief
-              </h3>
-              <p className="text-neutral-400 leading-loose mb-4">
-                Your daily intel for the iron game. Curated fitness articles on
-                methodology, nutrition, recovery, and mindset.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start items-stretch sm:items-center mb-4">
-                <Link
-                  href="/articles"
-                  className="inline-flex items-center justify-center gap-2 bg-[#c9b072] hover:bg-[#d4c08a] text-black font-semibold px-6 py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  Browse articles
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </Link>
-              </div>
-              <div className="inline-flex items-center text-green-500 text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
-                Free for everyone
-              </div>
-            </AnimatedSection>
-            <AnimatedSection
-              animation="slide-right"
-              className="order-2 flex justify-center"
-            >
-              <div className="relative w-56 md:w-64">
-                <Image
-                  src="/brief_3d.png"
-                  alt="The Brief screen"
-                  width={280}
-                  height={560}
-                  className="w-full h-auto drop-shadow-2xl"
-                />
-              </div>
-            </AnimatedSection>
-          </div>
-
-          {/* Smart Swapping Feature */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-            <AnimatedSection
-              animation="slide-left"
-              className="order-2 md:order-1 flex justify-center"
-            >
-              <div className="relative w-56 md:w-64">
-                <Image
-                  src="/exercise_swap_3d.png"
-                  alt="Exercise swap screen"
-                  width={280}
-                  height={560}
-                  className="w-full h-auto drop-shadow-2xl"
-                />
-              </div>
-            </AnimatedSection>
-            <AnimatedSection
-              animation="slide-right"
-              className="order-1 md:order-2 text-center md:text-left"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                <svg
-                  className="w-7 h-7 text-[#c9b072]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
-                Smart Exercise Swapping
-              </h3>
-              <p className="text-neutral-400 leading-loose mb-4">
-                Equipment unavailable? Tap to swap any exercise for an
-                alternative that targets the same muscle groups. Choose from
-                cable, machine, bodyweight, or dumbbell alternatives.
-              </p>
-              <div className="inline-flex items-center text-[#c9b072] text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#c9b072] mr-2" />
-                Unlimited swaps with Pro
-              </div>
-            </AnimatedSection>
-          </div>
-
-          {/* Glossary Feature */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <AnimatedSection
-              animation="slide-left"
-              className="order-1 text-center md:text-left"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#c9b072]/20 to-[#c9b072]/5 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                <svg
-                  className="w-7 h-7 text-[#c9b072]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
-                Gym Terminology
-              </h3>
-              <p className="text-neutral-400 leading-loose mb-4">
-                New to the gym? Our searchable glossary decodes common lingo
-                like AMRAP, DOMS, concentric, and hypertrophy. Filter by
-                training, movements, or nutrition categories.
-              </p>
-              <div className="inline-flex items-center text-green-500 text-sm font-medium">
-                <span className="w-2 h-2 rounded-full bg-green-500 mr-2" />
-                Free for everyone
-              </div>
-            </AnimatedSection>
-            <AnimatedSection
-              animation="slide-right"
-              className="order-2 flex justify-center"
-            >
-              <div className="relative w-56 md:w-64">
-                <Image
-                  src="/glossary_3d.png"
-                  alt="Terminology glossary screen"
-                  width={280}
-                  height={560}
-                  className="w-full h-auto drop-shadow-2xl"
-                />
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-
         {/* Free vs Pro */}
         <section className="mb-32">
           <AnimatedSection className="text-center mb-16">
@@ -564,7 +254,10 @@ export default function Home() {
                   {[
                     "Multiple complete training programs",
                     "On-demand workouts (limited)",
-                    "The Brief: articles, playlists & glossary",
+                    "The Hub: articles & glossary",
+                    "Discounts & offers shop",
+                    "Tools access",
+                    "All video tutorials",
                     "10 Smart exercise swaps per month",
                   ].map((item, i) => (
                     <li
@@ -613,6 +306,7 @@ export default function Home() {
                     "Full on-demand workouts library",
                     "Unlimited Smart exercise swaps",
                     "Exclusive content & features",
+                    "Early access to new features",
                   ].map((item, i) => (
                     <li
                       key={i}
@@ -702,7 +396,7 @@ export default function Home() {
             </div>
           </div>
         </footer>
-      </div>
-    </main>
+      </div >
+    </main >
   );
 }
