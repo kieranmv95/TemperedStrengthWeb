@@ -16,26 +16,26 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const siteDescription =
+  "Download Tempered Strength: 13 structured gym programmes (7 free), 150+ on-demand workouts, and 20 recovery and mobility flows for iOS and Android. Smart exercise swapping and training that adapts to your equipment.";
+
 export const metadata: Metadata = {
   title: "Tempered Strength | Gym Programs That Actually Work",
-  description:
-    "Download Tempered Strength — nine structured strength & Olympic lifting programs (five free) for iOS. Smart exercise swapping, on-demand workouts, and training that adapts to your equipment.",
+  description: siteDescription,
   metadataBase: new URL(PUBLIC_SITE_URL),
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: PUBLIC_SITE_URL,
     title: "Tempered Strength | Gym Programs That Actually Work",
-    description:
-      "Download Tempered Strength — nine structured strength & Olympic lifting programs (five free) for iOS. Smart exercise swapping, on-demand workouts, and training that adapts to your equipment.",
+    description: siteDescription,
     siteName: "Tempered Strength",
     images: [{ url: "/logo_stacked.svg" }],
   },
   twitter: {
     card: "summary",
     title: "Tempered Strength | Gym Programs That Actually Work",
-    description:
-      "Download Tempered Strength — nine structured strength & Olympic lifting programs (five free) for iOS. Smart exercise swapping, on-demand workouts, and training that adapts to your equipment.",
+    description: siteDescription,
     images: ["/logo_stacked.svg"],
   },
 };
@@ -46,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <body
         className={`${plusJakarta.variable} ${jetbrainsMono.variable} antialiased font-[family-name:var(--font-jakarta)]`}
       >
