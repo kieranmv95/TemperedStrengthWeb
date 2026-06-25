@@ -14,6 +14,7 @@ const navItems = [
   { href: "/programs", label: "Programs" },
   { href: "/articles", label: "Articles" },
   { href: "/patch-notes", label: "Patch notes" },
+  { href: "/portal/login", label: "Partner login" },
 ] as const;
 
 function InstagramGlyph({ className }: { className?: string }) {
