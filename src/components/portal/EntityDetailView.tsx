@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { EntityActions } from "@/components/portal/EntityActions";
 import { EntityForm } from "@/components/portal/EntityForm";
+import { LinksEditor } from "@/components/portal/LinksEditor";
 import { GatedSection } from "@/components/portal/GatedSection";
 import { StatusBadge } from "@/components/portal/StatusBadge";
 import { StatusBanner } from "@/components/portal/StatusBanner";
@@ -86,7 +87,6 @@ export function EntityDetailView({
             entity={{
               name: entity.name,
               description: entity.description ?? "",
-              links: entity.links,
               opening_hours:
                 "opening_hours" in entity ? entity.opening_hours : undefined,
               has_opening_hours:
@@ -107,6 +107,15 @@ export function EntityDetailView({
             error={error}
           />
         </div>
+      </div>
+
+      <div className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6 md:p-8">
+        <LinksEditor
+          mode="edit"
+          kind={config.kind}
+          entityId={entity.id}
+          links={entity.links}
+        />
       </div>
 
       <GatedSection status={entity.status} entityLabel={config.label}>

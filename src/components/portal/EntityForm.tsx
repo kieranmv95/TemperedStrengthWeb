@@ -10,7 +10,7 @@ import type { Coach, Gym, Club, PortalLink, VenueAddress } from "@/lib/portal/ty
 type EntityValues = {
   name: string;
   description: string;
-  links: PortalLink[];
+  links?: PortalLink[];
   opening_hours?: Gym["opening_hours"] | Club["opening_hours"];
   has_opening_hours?: boolean;
   address?: VenueAddress;
@@ -25,6 +25,7 @@ type Props = {
   entity?: EntityValues;
   submitLabel: string;
   error?: string;
+  isCreate?: boolean;
 };
 
 export function EntityForm({
@@ -33,12 +34,12 @@ export function EntityForm({
   entity,
   submitLabel,
   error,
+  isCreate = false,
 }: Props) {
   const openingHours =
     entity?.opening_hours ?? (config.hasOpeningHours ? defaultOpeningHours() : undefined);
   const address =
     entity?.address ?? (config.hasAddress ? defaultVenueAddress() : undefined);
-  const links = entity?.links ?? [];
 
   return (
     <form action={action} className="min-w-0 space-y-6">
@@ -99,7 +100,7 @@ export function EntityForm({
         <OpeningHoursEditor openingHours={openingHours} />
       ) : null}
 
-      <LinksEditor links={links} />
+      {isCreate ? <LinksEditor mode="create" links={entity?.links} /> : null}
 
       <button
         type="submit"

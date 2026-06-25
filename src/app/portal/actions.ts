@@ -20,9 +20,11 @@ import {
   parseHasOpeningHours,
   validateDescription,
   validateEntityName,
+  validateLink,
   isAddressComplete,
+  MAX_ENTITY_LINKS,
 } from "@/lib/portal/validation";
-import type { VenueAddress } from "@/lib/portal/types";
+import type { PortalLink, VenueAddress } from "@/lib/portal/types";
 import { mapEntity } from "@/lib/portal/db";
 import {
   ensurePortalProfile,
@@ -211,12 +213,10 @@ export async function updateEntity(
   try {
     const name = validateEntityName(String(formData.get("name") ?? ""));
     const description = validateDescription(String(formData.get("description") ?? ""));
-    const links = parseLinks(formData);
 
     const payload: Record<string, unknown> = {
       name,
       description,
-      links,
     };
 
     if (config.hasOpeningHours) {
@@ -256,6 +256,124 @@ export async function updateEntity(
   revalidatePath(entityPath(kind));
   revalidatePath(entityPath(kind, id));
   redirect(`${entityPath(kind, id)}?saved=1`);
+}
+
+export type LinkActionResult =
+  | { ok: true; links: PortalLink[] }
+  | { ok: false; error: string };
+
+async function fetchOwnedEntityLinks(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  kind: PortalEntityKind,
+  id: string,
+  ownerId: string
+): Promise<PortalLink[] | null> {
+  const config = ENTITY_CONFIGS[kind];
+  const { data, error } = await supabase
+    .from(config.table)
+    .select("*")
+    .eq("id", id)
+    .eq("owner_id", ownerId)
+    .maybeSingle();
+
+  if (error || !data) return null;
+
+  const entity = mapEntity(kind, data as Record<string, unknown>);
+  return entity.links;
+}
+
+export async function addEntityLink(
+  kind: PortalEntityKind,
+  id: string,
+  label: string,
+  url: string
+): Promise<LinkActionResult> {
+  if (!isPortalEntityKind(kind)) {
+    return { ok: false, error: "Invalid listing type." };
+  }
+
+  const { supabase, user } = await requireUser();
+  const config = ENTITY_CONFIGS[kind];
+
+  let link: PortalLink;
+  try {
+    link = validateLink(label, url);
+  } catch (err) {
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : "Invalid link.",
+    };
+  }
+
+  const currentLinks = await fetchOwnedEntityLinks(supabase, kind, id, user.id);
+  if (!currentLinks) {
+    return { ok: false, error: "Listing not found." };
+  }
+
+  if (currentLinks.length >= MAX_ENTITY_LINKS) {
+    return {
+      ok: false,
+      error: `You can add up to ${MAX_ENTITY_LINKS} links.`,
+    };
+  }
+
+  const links = [...currentLinks, link];
+
+  const { error } = await supabase
+    .from(config.table)
+    .update({ links })
+    .eq("id", id)
+    .eq("owner_id", user.id);
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
+  revalidatePath("/portal");
+  revalidatePath(entityPath(kind));
+  revalidatePath(entityPath(kind, id));
+
+  return { ok: true, links };
+}
+
+export async function removeEntityLink(
+  kind: PortalEntityKind,
+  id: string,
+  index: number
+): Promise<LinkActionResult> {
+  if (!isPortalEntityKind(kind)) {
+    return { ok: false, error: "Invalid listing type." };
+  }
+
+  const { supabase, user } = await requireUser();
+  const config = ENTITY_CONFIGS[kind];
+
+  const currentLinks = await fetchOwnedEntityLinks(supabase, kind, id, user.id);
+  if (!currentLinks) {
+    return { ok: false, error: "Listing not found." };
+  }
+
+  if (index < 0 || index >= currentLinks.length) {
+    return { ok: false, error: "That link no longer exists. Refresh and try again." };
+  }
+
+  const links = currentLinks.filter((_, i) => i !== index);
+
+  const { error } = await supabase
+    .from(config.table)
+    .update({ links })
+    .eq("id", id)
+    .eq("owner_id", user.id);
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+
+  revalidatePath("/portal");
+  revalidatePath(entityPath(kind));
+  revalidatePath(entityPath(kind, id));
+
+  return { ok: true, links };
 }
 
 export async function submitEntityForReview(kind: PortalEntityKind, id: string) {

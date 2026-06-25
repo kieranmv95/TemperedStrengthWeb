@@ -1,6 +1,15 @@
 import { DAYS, OPENING_TIME_SLOTS, TWENTY_FOUR_HOUR_CLOSE, TWENTY_FOUR_HOUR_OPEN } from "./constants";
 import type { DayHours, OpeningHours, PortalLink, VenueAddress } from "./types";
 
+export const MAX_ENTITY_LINKS = 10;
+
+export function normalizeUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+}
+
 export function isValidUrl(value: string): boolean {
   try {
     const url = new URL(value);
@@ -10,22 +19,41 @@ export function isValidUrl(value: string): boolean {
   }
 }
 
+export function validateLink(label: string, url: string): PortalLink {
+  const trimmedLabel = label.trim();
+  const normalizedUrl = normalizeUrl(url);
+
+  if (!trimmedLabel) {
+    throw new Error("Please enter a label for this link (e.g. Website or Instagram).");
+  }
+
+  if (!normalizedUrl) {
+    throw new Error("Please enter a web address.");
+  }
+
+  if (!isValidUrl(normalizedUrl)) {
+    throw new Error(
+      "Please enter a valid web address (e.g. yoursite.com or https://yoursite.com)."
+    );
+  }
+
+  return { label: trimmedLabel, url: normalizedUrl };
+}
+
 export function parseLinks(formData: FormData): PortalLink[] {
   const labels = formData.getAll("link_label");
   const urls = formData.getAll("link_url");
   const links: PortalLink[] = [];
 
   for (let i = 0; i < labels.length; i++) {
-    const label = String(labels[i] ?? "").trim();
-    const url = String(urls[i] ?? "").trim();
-    if (!label && !url) continue;
-    if (!label || !url) {
-      throw new Error("Each link needs both a label and a URL.");
-    }
-    if (!isValidUrl(url)) {
-      throw new Error(`Invalid URL: ${url}`);
-    }
-    links.push({ label, url });
+    const label = String(labels[i] ?? "");
+    const url = String(urls[i] ?? "");
+    if (!label.trim() && !url.trim()) continue;
+    links.push(validateLink(label, url));
+  }
+
+  if (links.length > MAX_ENTITY_LINKS) {
+    throw new Error(`You can add up to ${MAX_ENTITY_LINKS} links.`);
   }
 
   return links;

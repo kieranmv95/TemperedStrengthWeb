@@ -27,6 +27,7 @@ export function EntityNewView({ config, error }: Props) {
         <EntityForm
           config={config}
           action={action}
+          isCreate
           submitLabel={`Create ${config.singular}`}
           error={error}
         />
