@@ -16,7 +16,7 @@ export function parseLinks(value: unknown): PortalLink[] {
       typeof item === "object" &&
       item !== null &&
       typeof (item as PortalLink).label === "string" &&
-      typeof (item as PortalLink).url === "string"
+      typeof (item as PortalLink).url === "string",
   );
 }
 
@@ -35,7 +35,10 @@ export function parseOpeningHours(value: unknown): OpeningHours {
   return value as OpeningHours;
 }
 
-export function parseAddressFromRow(value: unknown, legacyLocation?: unknown): VenueAddress {
+export function parseAddressFromRow(
+  value: unknown,
+  legacyLocation?: unknown,
+): VenueAddress {
   if (!value || typeof value !== "object") {
     if (typeof legacyLocation === "string" && legacyLocation.trim()) {
       return {
@@ -138,7 +141,7 @@ export type EntityRow = Gym | Club | Coach;
 
 export function mapEntity(
   kind: PortalEntityKind,
-  row: Record<string, unknown>
+  row: Record<string, unknown>,
 ): EntityRow {
   if (kind === "gyms") return mapGym(row);
   if (kind === "clubs") return mapClub(row);
