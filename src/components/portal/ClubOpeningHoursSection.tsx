@@ -17,7 +17,7 @@ export function ClubOpeningHoursSection({
 
   return (
     <div className="space-y-3">
-      <label className="flex items-start gap-2 rounded-lg border border-neutral-800/80 bg-neutral-950/40 px-3 py-2.5">
+      <label className="flex min-w-0 items-start gap-2 rounded-lg border border-neutral-800/80 bg-neutral-950/40 px-3 py-2.5">
         <input
           type="checkbox"
           checked={!hasOpeningHours}

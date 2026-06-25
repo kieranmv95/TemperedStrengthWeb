@@ -35,7 +35,7 @@ export function DeleteEntityButton({ kind, id, name, entityLabel }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center rounded-lg border border-red-900/50 px-4 py-2 text-sm font-semibold text-red-300 hover:bg-red-950/40 transition-colors"
+        className="inline-flex w-full items-center justify-center rounded-lg border border-red-900/50 px-4 py-2 text-sm font-semibold text-red-300 hover:bg-red-950/40 transition-colors sm:w-auto"
       >
         Delete
       </button>

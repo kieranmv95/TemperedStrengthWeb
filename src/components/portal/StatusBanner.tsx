@@ -42,7 +42,7 @@ export function StatusBanner({ status, rejectionNote, submittedAt }: Props) {
 
   return (
     <div
-      className={`rounded-xl border px-5 py-4 ${containerStyles[status]}`}
+      className={`min-w-0 rounded-xl border px-4 py-4 sm:px-5 ${containerStyles[status]}`}
       role="status"
       aria-label={`Account status: ${statusLabel(status)}`}
     >
@@ -53,7 +53,7 @@ export function StatusBanner({ status, rejectionNote, submittedAt }: Props) {
         <StatusBadge status={status} />
       </div>
 
-      <h2 className={`mt-3 text-lg font-semibold ${titleStyles[status]}`}>
+      <h2 className={`mt-3 text-base font-semibold break-words sm:text-lg ${titleStyles[status]}`}>
         {copy.title}
       </h2>
 

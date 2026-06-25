@@ -28,17 +28,19 @@ export function EntityDetailView({
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
+      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+        <div className="min-w-0">
           <Link
             href={`/portal/${config.kind}`}
             className="text-sm font-semibold text-neutral-500 hover:text-white transition-colors"
           >
             ← All {config.plural.toLowerCase()}
           </Link>
-          <div className="mt-2 flex flex-wrap items-center gap-3">
-            <h1 className="text-3xl font-bold text-white">{entity.name}</h1>
-            <StatusBadge status={entity.status} />
+          <div className="mt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+            <h1 className="text-2xl font-bold text-white break-words sm:text-3xl">
+              {entity.name}
+            </h1>
+            <StatusBadge status={entity.status} className="shrink-0" />
           </div>
         </div>
         <EntityActions
@@ -69,7 +71,7 @@ export function EntityDetailView({
         submittedAt={entity.submitted_at}
       />
 
-      <div className="rounded-2xl border border-neutral-800 bg-neutral-900/30 p-6 md:p-8">
+      <div className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6 md:p-8">
         <h2 className="text-lg font-semibold text-white">Profile</h2>
         {entity.status === "approved" ? (
           <p className="mt-2 text-sm text-neutral-400">

@@ -41,7 +41,7 @@ export function EntityForm({
   const links = entity?.links ?? [];
 
   return (
-    <form action={action} className="space-y-6">
+    <form action={action} className="min-w-0 space-y-6">
       {error ? (
         <div className="rounded-xl border border-red-800/50 bg-red-950/30 px-4 py-3 text-sm text-red-100">
           {error}

@@ -43,8 +43,8 @@ export default function PortalLoginForm() {
   }
 
   return (
-    <div className="mx-auto max-w-md">
-      <div className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6 md:p-8">
+      <div className="mx-auto w-full min-w-0 max-w-md">
+        <div className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4 sm:p-6 md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
           Partner portal
         </p>

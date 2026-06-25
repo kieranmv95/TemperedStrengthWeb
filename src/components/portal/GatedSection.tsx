@@ -12,7 +12,7 @@ type Props = {
 export function GatedSection({ status, entityLabel, children }: Props) {
   if (!canAccessApprovedDashboard(status)) {
     return (
-      <section className="rounded-2xl border border-dashed border-neutral-800 bg-neutral-900/20 p-6 md:p-8">
+      <section className="rounded-2xl border border-dashed border-neutral-800 bg-neutral-900/20 p-4 sm:p-6 md:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="text-lg font-semibold text-white">Partner dashboard</h2>
           <StatusBadge status={status} />
@@ -30,7 +30,7 @@ export function GatedSection({ status, entityLabel, children }: Props) {
   }
 
   return (
-    <section className="rounded-2xl border border-[#c9b072]/25 bg-[#c9b072]/5 p-6 md:p-8">
+    <section className="rounded-2xl border border-[#c9b072]/25 bg-[#c9b072]/5 p-4 sm:p-6 md:p-8">
       <div className="flex flex-wrap items-center gap-3">
         <h2 className="text-lg font-semibold text-white">{entityLabel} dashboard</h2>
         <StatusBadge status="approved" />

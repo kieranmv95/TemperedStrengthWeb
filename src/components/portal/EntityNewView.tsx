@@ -14,14 +14,16 @@ export function EntityNewView({ config, error }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white">Add {config.singular}</h1>
+        <h1 className="text-2xl font-bold text-white sm:text-3xl">
+          Add {config.singular}
+        </h1>
         <p className="mt-2 text-neutral-400">
           Create a new {config.singular} profile. You can submit it for review
           once you&apos;re ready. {APPROVAL_SLA}
         </p>
       </div>
 
-      <div className="rounded-2xl border border-neutral-800 bg-neutral-900/30 p-6 md:p-8">
+      <div className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6 md:p-8">
         <EntityForm
           config={config}
           action={action}

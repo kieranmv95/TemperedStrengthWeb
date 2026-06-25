@@ -31,20 +31,20 @@ export async function EntityListView({ config }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+        <div className="min-w-0">
           <Link
             href="/portal"
             className="text-sm font-semibold text-neutral-500 hover:text-white transition-colors"
           >
             ← Portal home
           </Link>
-          <h1 className="mt-2 text-3xl font-bold text-white">{config.plural}</h1>
+          <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">{config.plural}</h1>
           <p className="mt-2 text-neutral-400">{config.description}</p>
         </div>
         <Link
           href={`/portal/${config.kind}/new`}
-          className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] transition-colors"
+          className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] transition-colors sm:w-auto"
         >
           Add {config.singular}
         </Link>

@@ -41,6 +41,243 @@ function buildInitialState(openingHours: OpeningHours): Record<DayKey, DayState>
   );
 }
 
+type DayRowProps = {
+  dayKey: DayKey;
+  shortLabel: string;
+  day: DayState;
+  closeOptions: string[];
+  onUpdate: (patch: Partial<DayState>) => void;
+};
+
+function DayHiddenInputs({
+  dayKey,
+  day,
+}: {
+  dayKey: DayKey;
+  day: DayState;
+}) {
+  return (
+    <>
+      {day.closed ? (
+        <input type="hidden" name={`${dayKey}_closed`} value="on" />
+      ) : null}
+      {day.twentyFour ? (
+        <>
+          <input type="hidden" name={`${dayKey}_open`} value={TWENTY_FOUR_HOUR_OPEN} />
+          <input
+            type="hidden"
+            name={`${dayKey}_close`}
+            value={TWENTY_FOUR_HOUR_CLOSE}
+          />
+        </>
+      ) : null}
+    </>
+  );
+}
+
+function OpenSelect({
+  dayKey,
+  day,
+  onUpdate,
+}: {
+  dayKey: DayKey;
+  day: DayState;
+  onUpdate: (patch: Partial<DayState>) => void;
+}) {
+  if (day.closed) {
+    return <span className="text-xs text-neutral-600">—</span>;
+  }
+
+  if (day.twentyFour) {
+    return <span className="text-xs text-neutral-400">00:00</span>;
+  }
+
+  return (
+    <select
+      name={`${dayKey}_open`}
+      value={day.open}
+      onChange={(e) => onUpdate({ open: e.target.value })}
+      className={selectClass}
+    >
+      {OPENING_TIME_SLOTS.map((slot) => (
+        <option key={slot} value={slot}>
+          {slot}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function CloseSelect({
+  dayKey,
+  day,
+  closeOptions,
+  onUpdate,
+}: {
+  dayKey: DayKey;
+  day: DayState;
+  closeOptions: string[];
+  onUpdate: (patch: Partial<DayState>) => void;
+}) {
+  if (day.closed) {
+    return <span className="text-xs text-neutral-600">—</span>;
+  }
+
+  if (day.twentyFour) {
+    return <span className="text-xs text-neutral-400">23:59</span>;
+  }
+
+  return (
+    <select
+      name={`${dayKey}_close`}
+      value={day.close}
+      onChange={(e) => onUpdate({ close: e.target.value })}
+      className={selectClass}
+    >
+      {closeOptions.map((slot) => (
+        <option key={slot} value={slot}>
+          {slot}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function DayToggles({
+  day,
+  onUpdate,
+}: {
+  day: DayState;
+  onUpdate: (patch: Partial<DayState>) => void;
+}) {
+  return (
+    <div className="flex items-center gap-3 text-[10px] text-neutral-500">
+      <label className="flex items-center gap-1">
+        <input
+          type="checkbox"
+          checked={day.closed}
+          onChange={(e) =>
+            onUpdate({
+              closed: e.target.checked,
+              twentyFour: e.target.checked ? false : day.twentyFour,
+            })
+          }
+          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40"
+          title="Closed"
+        />
+        Off
+      </label>
+      <label className="flex items-center gap-1">
+        <input
+          type="checkbox"
+          checked={day.twentyFour}
+          disabled={day.closed}
+          onChange={(e) =>
+            onUpdate({
+              twentyFour: e.target.checked,
+              open: TWENTY_FOUR_HOUR_OPEN,
+              close: TWENTY_FOUR_HOUR_CLOSE,
+            })
+          }
+          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40 disabled:opacity-40"
+          title="Open 24 hours"
+        />
+        24h
+      </label>
+    </div>
+  );
+}
+
+function MobileDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayRowProps) {
+  return (
+    <div className="rounded-md border border-neutral-800/60 p-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="text-xs font-medium text-neutral-300">{shortLabel}</span>
+        <DayToggles day={day} onUpdate={onUpdate} />
+      </div>
+
+      {!day.closed ? (
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <label className="block min-w-0">
+            <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-neutral-500">
+              Open
+            </span>
+            <OpenSelect dayKey={dayKey} day={day} onUpdate={onUpdate} />
+          </label>
+          <label className="block min-w-0">
+            <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-neutral-500">
+              Close
+            </span>
+            <CloseSelect
+              dayKey={dayKey}
+              day={day}
+              closeOptions={closeOptions}
+              onUpdate={onUpdate}
+            />
+          </label>
+        </div>
+      ) : null}
+
+      <DayHiddenInputs dayKey={dayKey} day={day} />
+    </div>
+  );
+}
+
+function DesktopDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayRowProps) {
+  return (
+    <div className="grid grid-cols-[2.5rem_1fr_1fr_2.25rem_2.5rem] items-center gap-x-2 gap-y-1 border-b border-neutral-800/40 py-1 last:border-b-0">
+      <span className="text-xs font-medium text-neutral-300">{shortLabel}</span>
+
+      <div>
+        <OpenSelect dayKey={dayKey} day={day} onUpdate={onUpdate} />
+      </div>
+
+      <div>
+        <CloseSelect
+          dayKey={dayKey}
+          day={day}
+          closeOptions={closeOptions}
+          onUpdate={onUpdate}
+        />
+      </div>
+
+      <label className="flex justify-center">
+        <input
+          type="checkbox"
+          checked={day.closed}
+          onChange={(e) =>
+            onUpdate({
+              closed: e.target.checked,
+              twentyFour: e.target.checked ? false : day.twentyFour,
+            })
+          }
+          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40"
+          title="Closed"
+        />
+      </label>
+
+      <label className="flex justify-center">
+        <input
+          type="checkbox"
+          checked={day.twentyFour}
+          disabled={day.closed}
+          onChange={(e) =>
+            onUpdate({
+              twentyFour: e.target.checked,
+              open: TWENTY_FOUR_HOUR_OPEN,
+              close: TWENTY_FOUR_HOUR_CLOSE,
+            })
+          }
+          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40 disabled:opacity-40"
+          title="Open 24 hours"
+        />
+      </label>
+
+      <DayHiddenInputs dayKey={dayKey} day={day} />
+    </div>
+  );
+}
+
 export function OpeningHoursEditor({ openingHours }: Props) {
   const [days, setDays] = useState(() => buildInitialState(openingHours));
 
@@ -57,119 +294,41 @@ export function OpeningHoursEditor({ openingHours }: Props) {
   };
 
   return (
-    <fieldset className="rounded-lg border border-neutral-800/80 bg-neutral-950/40 p-3">
+    <fieldset className="min-w-0 rounded-lg border border-neutral-800/80 bg-neutral-950/40 p-3">
       <legend className="px-1 text-sm font-semibold text-white">Opening hours</legend>
 
-      <div className="mt-2 overflow-x-auto">
-        <div className="min-w-[26rem]">
-          <div className="grid grid-cols-[2.5rem_1fr_1fr_2.25rem_2.5rem] gap-x-2 gap-y-1 border-b border-neutral-800/80 pb-1 text-[10px] font-medium uppercase tracking-wide text-neutral-500">
-            <span />
-            <span>Open</span>
-            <span>Close</span>
-            <span className="text-center">Off</span>
-            <span className="text-center">24h</span>
-          </div>
+      <div className="mt-2 space-y-2 md:hidden">
+        {DAYS.map(({ key, shortLabel }) => (
+          <MobileDayRow
+            key={key}
+            dayKey={key}
+            shortLabel={shortLabel}
+            day={days[key]}
+            closeOptions={closeOptions}
+            onUpdate={(patch) => updateDay(key, patch)}
+          />
+        ))}
+      </div>
 
-          {DAYS.map(({ key, shortLabel }) => {
-            const day = days[key];
-
-            return (
-              <div
-                key={key}
-                className="grid grid-cols-[2.5rem_1fr_1fr_2.25rem_2.5rem] items-center gap-x-2 gap-y-1 border-b border-neutral-800/40 py-1 last:border-b-0"
-              >
-                <span className="text-xs font-medium text-neutral-300">{shortLabel}</span>
-
-                <div>
-                  {day.closed ? (
-                    <span className="text-xs text-neutral-600">—</span>
-                  ) : day.twentyFour ? (
-                    <span className="text-xs text-neutral-400">00:00</span>
-                  ) : (
-                    <select
-                      name={`${key}_open`}
-                      value={day.open}
-                      onChange={(e) => updateDay(key, { open: e.target.value })}
-                      className={selectClass}
-                    >
-                      {OPENING_TIME_SLOTS.map((slot) => (
-                        <option key={slot} value={slot}>
-                          {slot}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                  {day.closed ? (
-                    <input type="hidden" name={`${key}_closed`} value="on" />
-                  ) : null}
-                  {day.twentyFour ? (
-                    <input type="hidden" name={`${key}_open`} value={TWENTY_FOUR_HOUR_OPEN} />
-                  ) : null}
-                </div>
-
-                <div>
-                  {day.closed ? (
-                    <span className="text-xs text-neutral-600">—</span>
-                  ) : day.twentyFour ? (
-                    <span className="text-xs text-neutral-400">23:59</span>
-                  ) : (
-                    <select
-                      name={`${key}_close`}
-                      value={day.close}
-                      onChange={(e) => updateDay(key, { close: e.target.value })}
-                      className={selectClass}
-                    >
-                      {closeOptions.map((slot) => (
-                        <option key={slot} value={slot}>
-                          {slot}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                  {day.twentyFour ? (
-                    <input
-                      type="hidden"
-                      name={`${key}_close`}
-                      value={TWENTY_FOUR_HOUR_CLOSE}
-                    />
-                  ) : null}
-                </div>
-
-                <label className="flex justify-center">
-                  <input
-                    type="checkbox"
-                    checked={day.closed}
-                    onChange={(e) =>
-                      updateDay(key, {
-                        closed: e.target.checked,
-                        twentyFour: e.target.checked ? false : day.twentyFour,
-                      })
-                    }
-                    className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40"
-                    title="Closed"
-                  />
-                </label>
-
-                <label className="flex justify-center">
-                  <input
-                    type="checkbox"
-                    checked={day.twentyFour}
-                    disabled={day.closed}
-                    onChange={(e) =>
-                      updateDay(key, {
-                        twentyFour: e.target.checked,
-                        open: TWENTY_FOUR_HOUR_OPEN,
-                        close: TWENTY_FOUR_HOUR_CLOSE,
-                      })
-                    }
-                    className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40 disabled:opacity-40"
-                    title="Open 24 hours"
-                  />
-                </label>
-              </div>
-            );
-          })}
+      <div className="mt-2 hidden md:block">
+        <div className="grid grid-cols-[2.5rem_1fr_1fr_2.25rem_2.5rem] gap-x-2 gap-y-1 border-b border-neutral-800/80 pb-1 text-[10px] font-medium uppercase tracking-wide text-neutral-500">
+          <span />
+          <span>Open</span>
+          <span>Close</span>
+          <span className="text-center">Off</span>
+          <span className="text-center">24h</span>
         </div>
+
+        {DAYS.map(({ key, shortLabel }) => (
+          <DesktopDayRow
+            key={key}
+            dayKey={key}
+            shortLabel={shortLabel}
+            day={days[key]}
+            closeOptions={closeOptions}
+            onUpdate={(patch) => updateDay(key, patch)}
+          />
+        ))}
       </div>
 
       <p className="mt-2 text-[10px] text-neutral-500">

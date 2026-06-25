@@ -83,7 +83,7 @@ export default async function PortalSetupPage({ searchParams }: Props) {
           </button>
         </form>
 
-        <p className="mt-4 text-center text-xs text-neutral-600">
+        <p className="mt-4 break-all text-center text-xs text-neutral-600">
           Signed in as {user.email}
         </p>
       </div>

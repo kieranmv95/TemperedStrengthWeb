@@ -125,9 +125,9 @@ export function AddressEditor({
       : null;
 
   return (
-    <fieldset className="rounded-lg border border-neutral-800/80 bg-neutral-950/40 p-3 space-y-3">
-      <div className="flex items-start justify-between gap-2">
-        <div>
+    <fieldset className="min-w-0 rounded-lg border border-neutral-800/80 bg-neutral-950/40 p-3 space-y-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
           <legend className="text-sm font-semibold text-white">Location</legend>
           <p className="mt-0.5 text-xs text-neutral-500">
             {manualMode
@@ -159,7 +159,7 @@ export function AddressEditor({
         </>
       ) : null}
 
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
         <input
           type="text"
           name={manualMode ? undefined : "address_postcode"}
@@ -173,7 +173,7 @@ export function AddressEditor({
             }
           }}
           placeholder="Postcode"
-          className={inputClass}
+          className={`min-w-0 flex-1 ${inputClass}`}
           autoComplete="postal-code"
         />
         {!manualMode ? (
@@ -181,7 +181,7 @@ export function AddressEditor({
             type="button"
             onClick={runPostcodeLookup}
             disabled={isLoading || !postcode.trim()}
-            className="shrink-0 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:border-[#c9b072]/40 disabled:opacity-40"
+            className="shrink-0 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:border-[#c9b072]/40 disabled:opacity-40 sm:self-stretch"
           >
             {isLoading ? "…" : "Look up"}
           </button>
@@ -252,7 +252,7 @@ export function AddressEditor({
             placeholder="Line 2 (optional)"
             className={inputClass}
           />
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <input
               type="text"
               name="address_city"

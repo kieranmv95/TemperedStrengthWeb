@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "@/app/portal/actions";
+import { isPortalAdminEmail } from "@/lib/portal/adminAccess";
 import { ensurePortalProfile } from "@/lib/portal/profile";
 import { createClient } from "@/lib/supabase/server";
 
@@ -12,18 +13,19 @@ export async function PortalHeader() {
 
   const profile = user ? await ensurePortalProfile(user.id) : null;
   const displayName = profile?.display_name?.trim();
+  const isAdmin = isPortalAdminEmail(user?.email);
 
   return (
     <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-        <div className="flex min-w-0 items-center gap-4">
+      <div className="mx-auto flex w-full min-w-0 max-w-5xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
           <Link href="/portal" className="inline-flex shrink-0 items-center">
             <Image
               src="/logo_stacked.svg"
               alt="Tempered Strength"
               width={150}
               height={42}
-              className="h-10 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              className="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity sm:h-10"
             />
           </Link>
           <span className="hidden sm:inline text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
@@ -51,7 +53,15 @@ export async function PortalHeader() {
             </div>
           ) : null}
 
-          <nav className="flex items-center gap-3 text-sm font-semibold">
+          <nav className="flex items-center gap-2 text-sm font-semibold sm:gap-3">
+            {isAdmin ? (
+              <Link
+                href="/portal/admin"
+                className="rounded-lg border border-[#c9b072]/30 bg-[#c9b072]/10 px-2.5 py-2 text-[#d4c08a] hover:bg-[#c9b072]/20 transition-colors sm:px-3"
+              >
+                Admin
+              </Link>
+            ) : null}
             <Link
               href="/"
               className="hidden text-neutral-400 hover:text-white transition-colors sm:inline"
