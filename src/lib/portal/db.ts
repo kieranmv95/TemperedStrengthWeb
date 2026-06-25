@@ -78,6 +78,10 @@ export function mapGym(row: Record<string, unknown>): Gym {
     opening_hours: parseOpeningHours(row.opening_hours),
     address: parseAddressFromRow(row.address),
     focus_areas: parseSpecialties(row.focus_areas),
+    video_id:
+      typeof row.video_id === "string" && row.video_id.trim()
+        ? row.video_id.trim()
+        : null,
     links: parseLinks(row.links),
     status: row.status as Gym["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,

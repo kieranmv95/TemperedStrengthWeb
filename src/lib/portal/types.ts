@@ -47,6 +47,7 @@ export type Gym = PortalEntityBase & {
   opening_hours: OpeningHours;
   address: VenueAddress;
   focus_areas: string[];
+  video_id: string | null;
 };
 
 export type Club = PortalEntityBase & {
