@@ -157,3 +157,54 @@ export function formatAddressForGeocoding(address: VenueAddress): string {
 export function formatAddressDisplay(address: VenueAddress): string {
   return formatAddressForGeocoding(address);
 }
+
+const MAX_SPECIALTIES = 20;
+const MAX_SPECIALTY_LENGTH = 50;
+
+export function parseSpecialtiesFromForm(formData: FormData): string[] {
+  const raw = String(formData.get("specialties") ?? "").trim();
+  if (!raw) return [];
+
+  const specialties = raw
+    .split(/[\n,]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  const unique: string[] = [];
+  for (const specialty of specialties) {
+    if (specialty.length > MAX_SPECIALTY_LENGTH) {
+      throw new Error(
+        `Each specialty must be ${MAX_SPECIALTY_LENGTH} characters or fewer.`
+      );
+    }
+    const key = specialty.toLowerCase();
+    if (!unique.some((existing) => existing.toLowerCase() === key)) {
+      unique.push(specialty);
+    }
+  }
+
+  if (unique.length > MAX_SPECIALTIES) {
+    throw new Error(`You can add up to ${MAX_SPECIALTIES} specialties.`);
+  }
+
+  return unique;
+}
+
+export function parseRadiusServedKm(formData: FormData): number | null {
+  const raw = String(formData.get("radius_served_km") ?? "").trim();
+  if (!raw) return null;
+
+  const value = Number(raw);
+  if (!Number.isFinite(value) || value <= 0) {
+    throw new Error("Service radius must be a positive number.");
+  }
+  if (value > 500) {
+    throw new Error("Service radius must be 500 km or fewer.");
+  }
+
+  return Math.round(value * 10) / 10;
+}
+
+export function formatSpecialtiesForForm(specialties: string[]): string {
+  return specialties.join(", ");
+}

@@ -82,6 +82,12 @@ export function EntityDetailView({
               opening_hours:
                 "opening_hours" in entity ? entity.opening_hours : undefined,
               address: "address" in entity ? entity.address : undefined,
+              specialties:
+                "specialties" in entity ? entity.specialties : undefined,
+              radius_served_km:
+                "radius_served_km" in entity
+                  ? entity.radius_served_km
+                  : undefined,
             }}
             submitLabel="Save changes"
             error={error}

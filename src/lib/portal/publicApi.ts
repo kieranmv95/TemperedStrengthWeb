@@ -41,7 +41,10 @@ export type PublicClubListing = PublicListingBase & {
   openingHours: OpeningHours;
 };
 
-export type PublicCoachListing = PublicListingBase;
+export type PublicCoachListing = PublicListingBase & {
+  specialties: string[];
+  radiusServedKm: number | null;
+};
 
 const TABLE_BY_KIND: Record<PortalEntityKind, PortalEntityKind> = {
   gyms: "gyms",
@@ -91,7 +94,11 @@ export function toPublicClub(club: Club): PublicClubListing {
 }
 
 export function toPublicCoach(coach: Coach): PublicCoachListing {
-  return toPublicListingBase(coach);
+  return {
+    ...toPublicListingBase(coach),
+    specialties: coach.specialties,
+    radiusServedKm: coach.radius_served_km,
+  };
 }
 
 export async function listApprovedGyms(): Promise<PublicGymListing[]> {

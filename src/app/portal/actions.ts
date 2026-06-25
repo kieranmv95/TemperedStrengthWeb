@@ -8,6 +8,8 @@ import {
   parseAddressFromForm,
   parseLinks,
   parseOpeningHours,
+  parseRadiusServedKm,
+  parseSpecialtiesFromForm,
   validateDescription,
   validateEntityName,
   isAddressComplete,
@@ -106,6 +108,11 @@ export async function createEntity(kind: PortalEntityKind, formData: FormData) {
       payload.address = parseAddressFromForm(formData);
     }
 
+    if (kind === "coaches") {
+      payload.specialties = parseSpecialtiesFromForm(formData);
+      payload.radius_served_km = parseRadiusServedKm(formData);
+    }
+
     const { data, error } = await supabase
       .from(config.table)
       .insert(payload)
@@ -159,6 +166,11 @@ export async function updateEntity(
 
     if (config.hasAddress) {
       payload.address = parseAddressFromForm(formData);
+    }
+
+    if (kind === "coaches") {
+      payload.specialties = parseSpecialtiesFromForm(formData);
+      payload.radius_served_km = parseRadiusServedKm(formData);
     }
 
     const { error } = await supabase

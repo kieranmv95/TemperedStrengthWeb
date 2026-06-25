@@ -1,9 +1,10 @@
 import { AddressEditor } from "@/components/portal/AddressEditor";
+import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
 import { LinksEditor } from "@/components/portal/LinksEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
 import type { EntityConfig } from "@/lib/portal/constants";
 import { defaultOpeningHours, defaultVenueAddress } from "@/lib/portal/validation";
-import type { Gym, Club, PortalLink, VenueAddress } from "@/lib/portal/types";
+import type { Coach, Gym, Club, PortalLink, VenueAddress } from "@/lib/portal/types";
 
 type EntityValues = {
   name: string;
@@ -11,6 +12,8 @@ type EntityValues = {
   links: PortalLink[];
   opening_hours?: Gym["opening_hours"] | Club["opening_hours"];
   address?: VenueAddress;
+  specialties?: Coach["specialties"];
+  radius_served_km?: Coach["radius_served_km"];
 };
 
 type Props = {
@@ -69,6 +72,13 @@ export function EntityForm({
 
       {config.hasAddress && address ? (
         <AddressEditor address={address} entityLabel={config.label} />
+      ) : null}
+
+      {config.kind === "coaches" ? (
+        <CoachFieldsEditor
+          specialties={entity?.specialties}
+          radiusServedKm={entity?.radius_served_km}
+        />
       ) : null}
 
       {config.hasOpeningHours && openingHours ? (

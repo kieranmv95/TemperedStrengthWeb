@@ -20,6 +20,14 @@ export function parseLinks(value: unknown): PortalLink[] {
   );
 }
 
+export function parseSpecialties(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is string => typeof item === "string")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 export function parseOpeningHours(value: unknown): OpeningHours {
   if (!value || typeof value !== "object") {
     return {} as OpeningHours;
@@ -98,12 +106,16 @@ export function mapClub(row: Record<string, unknown>): Club {
 }
 
 export function mapCoach(row: Record<string, unknown>): Coach {
+  const radius = row.radius_served_km;
   return {
     id: String(row.id),
     owner_id: String(row.owner_id),
     name: String(row.name),
     description: row.description ? String(row.description) : null,
     address: parseAddressFromRow(row.address, row.location),
+    specialties: parseSpecialties(row.specialties),
+    radius_served_km:
+      typeof radius === "number" && Number.isFinite(radius) ? radius : null,
     links: parseLinks(row.links),
     status: row.status as Coach["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,

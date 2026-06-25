@@ -55,6 +55,8 @@ export type Club = PortalEntityBase & {
 
 export type Coach = PortalEntityBase & {
   address: VenueAddress;
+  specialties: string[];
+  radius_served_km: number | null;
 };
 
 export type PortalEntity = Gym | Club | Coach;
