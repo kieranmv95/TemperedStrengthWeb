@@ -46,6 +46,7 @@ export type PortalEntityBase = {
 export type Gym = PortalEntityBase & {
   opening_hours: OpeningHours;
   address: VenueAddress;
+  focus_areas: string[];
 };
 
 export type Club = PortalEntityBase & {

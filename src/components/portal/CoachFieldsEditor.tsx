@@ -1,4 +1,4 @@
-import { formatSpecialtiesForForm } from "@/lib/portal/validation";
+import { TagListInput } from "@/components/portal/TagListInput";
 
 type Props = {
   specialties?: string[];
@@ -11,21 +11,15 @@ export function CoachFieldsEditor({
 }: Props) {
   return (
     <div className="space-y-6">
-      <label className="block">
-        <span className="mb-1 block text-sm font-semibold text-white">
-          Specialties
-        </span>
-        <textarea
-          name="specialties"
-          rows={3}
-          defaultValue={formatSpecialtiesForForm(specialties)}
-          placeholder="e.g. Powerlifting, Nutrition, Online coaching"
-          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
-        />
-        <p className="mt-1.5 text-xs text-neutral-500">
-          Separate with commas. Up to 20 specialties, 50 characters each.
-        </p>
-      </label>
+      <TagListInput
+        name="specialties"
+        label="Specialties"
+        description="What you coach or specialise in."
+        placeholder="e.g. Powerlifting"
+        initialTags={specialties}
+        itemLabel="specialty"
+        itemLabelPlural="specialties"
+      />
 
       <label className="block">
         <span className="mb-1 block text-sm font-semibold text-white">

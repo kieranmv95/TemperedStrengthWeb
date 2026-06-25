@@ -1,6 +1,7 @@
 import { AddressEditor } from "@/components/portal/AddressEditor";
 import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSection";
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
+import { GymFieldsEditor } from "@/components/portal/GymFieldsEditor";
 import { LinksEditor } from "@/components/portal/LinksEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
 import type { EntityConfig } from "@/lib/portal/constants";
@@ -17,6 +18,7 @@ type EntityValues = {
   hide_location?: boolean;
   specialties?: Coach["specialties"];
   radius_served_km?: Coach["radius_served_km"];
+  focus_areas?: Gym["focus_areas"];
 };
 
 type Props = {
@@ -97,7 +99,10 @@ export function EntityForm({
       ) : null}
 
       {config.kind === "gyms" && openingHours ? (
-        <OpeningHoursEditor openingHours={openingHours} />
+        <>
+          <GymFieldsEditor focusAreas={entity?.focus_areas} />
+          <OpeningHoursEditor openingHours={openingHours} />
+        </>
       ) : null}
 
       {isCreate ? <LinksEditor mode="create" links={entity?.links} /> : null}

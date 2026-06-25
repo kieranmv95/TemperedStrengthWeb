@@ -169,10 +169,21 @@ export function AdminEntityReview({
               <dl className="space-y-2 text-sm">
                 <div>
                   <dt className="text-neutral-500">Specialties</dt>
-                  <dd className="mt-0.5 text-white">
-                    {(entity as Coach).specialties.length > 0
-                      ? (entity as Coach).specialties.join(", ")
-                      : "—"}
+                  <dd className="mt-1.5">
+                    {(entity as Coach).specialties.length > 0 ? (
+                      <ul className="flex flex-wrap gap-2">
+                        {(entity as Coach).specialties.map((item) => (
+                          <li
+                            key={item}
+                            className="rounded-full border border-neutral-700 bg-neutral-900 px-2.5 py-1 text-xs text-white"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span className="text-white">—</span>
+                    )}
                   </dd>
                 </div>
                 <div>
@@ -184,6 +195,25 @@ export function AdminEntityReview({
                   </dd>
                 </div>
               </dl>
+            </DetailSection>
+          ) : null}
+
+          {kind === "gyms" ? (
+            <DetailSection title="Focus areas">
+              {(entity as Gym).focus_areas.length > 0 ? (
+                <ul className="flex flex-wrap gap-2">
+                  {(entity as Gym).focus_areas.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full border border-neutral-700 bg-neutral-900 px-2.5 py-1 text-xs text-white"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-neutral-500">None listed.</p>
+              )}
             </DetailSection>
           ) : null}
 

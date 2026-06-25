@@ -16,6 +16,7 @@ import {
   parseOpeningHours,
   parseRadiusServedKm,
   parseSpecialtiesFromForm,
+  parseFocusAreasFromForm,
   parseHideLocation,
   parseHasOpeningHours,
   validateDescription,
@@ -170,6 +171,10 @@ export async function createEntity(kind: PortalEntityKind, formData: FormData) {
       payload.radius_served_km = parseRadiusServedKm(formData);
     }
 
+    if (kind === "gyms") {
+      payload.focus_areas = parseFocusAreasFromForm(formData);
+    }
+
     if (config.canHideLocation) {
       payload.hide_location = parseHideLocation(formData);
     }
@@ -230,6 +235,10 @@ export async function updateEntity(
     if (kind === "coaches") {
       payload.specialties = parseSpecialtiesFromForm(formData);
       payload.radius_served_km = parseRadiusServedKm(formData);
+    }
+
+    if (kind === "gyms") {
+      payload.focus_areas = parseFocusAreasFromForm(formData);
     }
 
     if (config.canHideLocation) {

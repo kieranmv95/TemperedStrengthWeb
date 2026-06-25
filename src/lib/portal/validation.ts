@@ -267,33 +267,76 @@ export function formatAddressDisplay(address: VenueAddress): string {
 const MAX_SPECIALTIES = 20;
 const MAX_SPECIALTY_LENGTH = 50;
 
-export function parseSpecialtiesFromForm(formData: FormData): string[] {
-  const raw = String(formData.get("specialties") ?? "").trim();
-  if (!raw) return [];
+export const MAX_TAG_LIST_ITEMS = MAX_SPECIALTIES;
+export const MAX_TAG_LENGTH = MAX_SPECIALTY_LENGTH;
 
-  const specialties = raw
-    .split(/[\n,]/)
-    .map((item) => item.trim())
-    .filter(Boolean);
+type TagListOptions = {
+  maxItems: number;
+  maxLength: number;
+  itemLabel: string;
+  itemLabelPlural?: string;
+};
 
+export function normalizeTagList(
+  tags: string[],
+  { maxItems, maxLength, itemLabel, itemLabelPlural }: TagListOptions
+): string[] {
   const unique: string[] = [];
-  for (const specialty of specialties) {
-    if (specialty.length > MAX_SPECIALTY_LENGTH) {
+
+  for (const raw of tags) {
+    const tag = raw.trim();
+    if (!tag) continue;
+
+    if (tag.length > maxLength) {
       throw new Error(
-        `Each specialty must be ${MAX_SPECIALTY_LENGTH} characters or fewer.`
+        `Each ${itemLabel} must be ${maxLength} characters or fewer.`
       );
     }
-    const key = specialty.toLowerCase();
+
+    const key = tag.toLowerCase();
     if (!unique.some((existing) => existing.toLowerCase() === key)) {
-      unique.push(specialty);
+      unique.push(tag);
     }
   }
 
-  if (unique.length > MAX_SPECIALTIES) {
-    throw new Error(`You can add up to ${MAX_SPECIALTIES} specialties.`);
+  if (unique.length > maxItems) {
+    throw new Error(
+      `You can add up to ${maxItems} ${itemLabelPlural ?? `${itemLabel}s`}.`
+    );
   }
 
   return unique;
+}
+
+function parseTagListFromForm(
+  formData: FormData,
+  fieldName: string,
+  options: TagListOptions
+): string[] {
+  const raw = formData
+    .getAll(fieldName)
+    .map((value) => String(value).trim())
+    .filter(Boolean);
+
+  return normalizeTagList(raw, options);
+}
+
+export function parseSpecialtiesFromForm(formData: FormData): string[] {
+  return parseTagListFromForm(formData, "specialties", {
+    maxItems: MAX_SPECIALTIES,
+    maxLength: MAX_SPECIALTY_LENGTH,
+    itemLabel: "specialty",
+    itemLabelPlural: "specialties",
+  });
+}
+
+export function parseFocusAreasFromForm(formData: FormData): string[] {
+  return parseTagListFromForm(formData, "focus_areas", {
+    maxItems: MAX_SPECIALTIES,
+    maxLength: MAX_SPECIALTY_LENGTH,
+    itemLabel: "focus area",
+    itemLabelPlural: "focus areas",
+  });
 }
 
 export function parseRadiusServedKm(formData: FormData): number | null {
@@ -309,8 +352,4 @@ export function parseRadiusServedKm(formData: FormData): number | null {
   }
 
   return Math.round(value * 10) / 10;
-}
-
-export function formatSpecialtiesForForm(specialties: string[]): string {
-  return specialties.join(", ");
 }

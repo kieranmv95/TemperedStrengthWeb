@@ -102,6 +102,8 @@ export function EntityDetailView({
                 "radius_served_km" in entity
                   ? entity.radius_served_km
                   : undefined,
+              focus_areas:
+                "focus_areas" in entity ? entity.focus_areas : undefined,
             }}
             submitLabel="Save changes"
             error={error}

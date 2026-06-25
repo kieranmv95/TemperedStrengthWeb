@@ -77,6 +77,7 @@ export function mapGym(row: Record<string, unknown>): Gym {
     description: row.description ? String(row.description) : null,
     opening_hours: parseOpeningHours(row.opening_hours),
     address: parseAddressFromRow(row.address),
+    focus_areas: parseSpecialties(row.focus_areas),
     links: parseLinks(row.links),
     status: row.status as Gym["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,
