@@ -41,7 +41,13 @@ export function EntityDetailView({
             <StatusBadge status={entity.status} />
           </div>
         </div>
-        <EntityActions kind={config.kind} id={entity.id} status={entity.status} />
+        <EntityActions
+          kind={config.kind}
+          id={entity.id}
+          name={entity.name}
+          entityLabel={config.label}
+          status={entity.status}
+        />
       </div>
 
       {saved ? (
@@ -81,7 +87,13 @@ export function EntityDetailView({
               links: entity.links,
               opening_hours:
                 "opening_hours" in entity ? entity.opening_hours : undefined,
+              has_opening_hours:
+                "has_opening_hours" in entity
+                  ? entity.has_opening_hours
+                  : undefined,
               address: "address" in entity ? entity.address : undefined,
+              hide_location:
+                "hide_location" in entity ? entity.hide_location : undefined,
               specialties:
                 "specialties" in entity ? entity.specialties : undefined,
               radius_served_km:

@@ -1,4 +1,5 @@
 import { AddressEditor } from "@/components/portal/AddressEditor";
+import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSection";
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
 import { LinksEditor } from "@/components/portal/LinksEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
@@ -11,7 +12,9 @@ type EntityValues = {
   description: string;
   links: PortalLink[];
   opening_hours?: Gym["opening_hours"] | Club["opening_hours"];
+  has_opening_hours?: boolean;
   address?: VenueAddress;
+  hide_location?: boolean;
   specialties?: Coach["specialties"];
   radius_served_km?: Coach["radius_served_km"];
 };
@@ -71,7 +74,11 @@ export function EntityForm({
       </label>
 
       {config.hasAddress && address ? (
-        <AddressEditor address={address} entityLabel={config.label} />
+        <AddressEditor
+          address={address}
+          canHideLocation={config.canHideLocation}
+          hideLocation={entity?.hide_location}
+        />
       ) : null}
 
       {config.kind === "coaches" ? (
@@ -81,7 +88,14 @@ export function EntityForm({
         />
       ) : null}
 
-      {config.hasOpeningHours && openingHours ? (
+      {config.kind === "clubs" && openingHours ? (
+        <ClubOpeningHoursSection
+          openingHours={openingHours}
+          hasOpeningHours={entity?.has_opening_hours ?? true}
+        />
+      ) : null}
+
+      {config.kind === "gyms" && openingHours ? (
         <OpeningHoursEditor openingHours={openingHours} />
       ) : null}
 

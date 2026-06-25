@@ -1,4 +1,4 @@
-import { DAYS } from "./constants";
+import { DAYS, OPENING_TIME_SLOTS, TWENTY_FOUR_HOUR_CLOSE, TWENTY_FOUR_HOUR_OPEN } from "./constants";
 import type { DayHours, OpeningHours, PortalLink, VenueAddress } from "./types";
 
 export function isValidUrl(value: string): boolean {
@@ -67,6 +67,41 @@ export function defaultDayHours(day: DayHours): { closed: boolean; open: string;
   return { closed: false, open: day.open, close: day.close };
 }
 
+export function is24HourDay(day: DayHours): boolean {
+  if ("closed" in day) return false;
+  return (
+    day.open === TWENTY_FOUR_HOUR_OPEN &&
+    (day.close === TWENTY_FOUR_HOUR_CLOSE || day.close === "24:00")
+  );
+}
+
+export function dayHoursToEditorState(day: DayHours | undefined): {
+  closed: boolean;
+  twentyFour: boolean;
+  open: string;
+  close: string;
+} {
+  const fallback = day ?? { open: "06:00", close: "22:00" };
+  const parsed = defaultDayHours(fallback);
+
+  if (parsed.closed) {
+    return { closed: true, twentyFour: false, open: "06:00", close: "22:00" };
+  }
+
+  const twentyFour = is24HourDay(fallback);
+  return {
+    closed: false,
+    twentyFour,
+    open: parsed.open,
+    close: twentyFour ? TWENTY_FOUR_HOUR_CLOSE : parsed.close,
+  };
+}
+
+export function snapTimeToSlot(value: string, fallback: string): string {
+  if (OPENING_TIME_SLOTS.includes(value)) return value;
+  return OPENING_TIME_SLOTS.includes(fallback) ? fallback : OPENING_TIME_SLOTS[0];
+}
+
 export function validateEntityName(name: string): string {
   const trimmed = name.trim();
   if (!trimmed) {
@@ -101,6 +136,7 @@ export function defaultVenueAddress(): VenueAddress {
 }
 
 export function parseAddressFromForm(formData: FormData): VenueAddress {
+  const manual = formData.get("address_manual") === "on";
   const line1 = String(formData.get("address_line1") ?? "").trim();
   const line2 = String(formData.get("address_line2") ?? "").trim();
   const city = String(formData.get("address_city") ?? "").trim();
@@ -108,20 +144,35 @@ export function parseAddressFromForm(formData: FormData): VenueAddress {
   const postcode = String(formData.get("address_postcode") ?? "").trim();
   const country = String(formData.get("address_country") ?? "GB").trim() || "GB";
 
-  if (!line1) {
-    throw new Error("Address line 1 is required.");
-  }
-  if (!city) {
-    throw new Error("City is required.");
-  }
   if (!postcode) {
     throw new Error("Postcode is required.");
+  }
+  if (!city) {
+    throw new Error(
+      manual
+        ? "City is required."
+        : "Look up your postcode or enter your address manually."
+    );
+  }
+  if (!line1) {
+    throw new Error(
+      manual
+        ? "Street address is required."
+        : "Enter your building number and street after looking up your postcode."
+    );
   }
   if (line1.length > 200) {
     throw new Error("Address line 1 must be 200 characters or fewer.");
   }
   if (postcode.length > 20) {
     throw new Error("Postcode must be 20 characters or fewer.");
+  }
+
+  const latitude = parseOptionalCoordinate(formData.get("address_latitude"));
+  const longitude = parseOptionalCoordinate(formData.get("address_longitude"));
+
+  if (!manual && latitude == null && longitude == null) {
+    throw new Error("Look up your postcode before saving, or use manual entry.");
   }
 
   return {
@@ -131,16 +182,43 @@ export function parseAddressFromForm(formData: FormData): VenueAddress {
     county: county || null,
     postcode: postcode.toUpperCase(),
     country,
-    latitude: null,
-    longitude: null,
+    latitude,
+    longitude,
   };
 }
 
-export function isAddressComplete(address: VenueAddress): boolean {
-  return Boolean(address.line1?.trim() && address.city?.trim() && address.postcode?.trim());
+function parseOptionalCoordinate(value: FormDataEntryValue | null): number | null {
+  if (value == null || value === "") return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
 }
 
-/** Single-line address for geocoding APIs (e.g. Nominatim) later. */
+export function isAddressComplete(address: VenueAddress): boolean {
+  return Boolean(
+    address.postcode?.trim() && address.city?.trim() && address.line1?.trim()
+  );
+}
+
+export function parseHideLocation(formData: FormData): boolean {
+  return formData.get("hide_location") === "on";
+}
+
+export function parseHasOpeningHours(formData: FormData): boolean {
+  return formData.get("has_opening_hours") === "on";
+}
+
+export function addressUsesManualEntry(address: VenueAddress): boolean {
+  const hasStreet =
+    Boolean(address.line1?.trim()) && address.line1.trim() !== address.city.trim();
+  return Boolean(address.line2?.trim()) || hasStreet;
+}
+
+export function formatPostcodeSummary(address: VenueAddress): string {
+  const parts = [address.city, address.county, address.postcode].filter(Boolean);
+  return parts.join(" · ");
+}
+
+/** Single-line address for display or fallback geocoding. */
 export function formatAddressForGeocoding(address: VenueAddress): string {
   return [
     address.line1,

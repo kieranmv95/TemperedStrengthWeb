@@ -1,18 +1,24 @@
 import Link from "next/link";
-import {
-  canDeleteEntity,
-  canSubmitForReview,
-} from "@/lib/portal/access";
+import { DeleteEntityButton } from "@/components/portal/DeleteEntityButton";
+import { canSubmitForReview } from "@/lib/portal/access";
 import type { PortalEntityKind, PortalEntityStatus } from "@/lib/portal/types";
-import { deleteEntity, submitEntityForReview } from "@/app/portal/actions";
+import { submitEntityForReview } from "@/app/portal/actions";
 
 type Props = {
   kind: PortalEntityKind;
   id: string;
+  name: string;
+  entityLabel: string;
   status: PortalEntityStatus;
 };
 
-export function EntityActions({ kind, id, status }: Props) {
+export function EntityActions({
+  kind,
+  id,
+  name,
+  entityLabel,
+  status,
+}: Props) {
   return (
     <div className="flex flex-wrap items-center gap-3">
       {canSubmitForReview(status) ? (
@@ -26,16 +32,12 @@ export function EntityActions({ kind, id, status }: Props) {
         </form>
       ) : null}
 
-      {canDeleteEntity(status) ? (
-        <form action={deleteEntity.bind(null, kind, id)}>
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center rounded-lg border border-red-900/50 px-4 py-2 text-sm font-semibold text-red-300 hover:bg-red-950/40 transition-colors"
-          >
-            Delete draft
-          </button>
-        </form>
-      ) : null}
+      <DeleteEntityButton
+        kind={kind}
+        id={id}
+        name={name}
+        entityLabel={entityLabel}
+      />
 
       <Link
         href={`/portal/${kind}`}

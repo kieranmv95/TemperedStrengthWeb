@@ -8,10 +8,6 @@ export function canSubmitForReview(status: PortalEntityStatus) {
   return status === "draft" || status === "rejected";
 }
 
-export function canDeleteEntity(status: PortalEntityStatus) {
-  return status === "draft";
-}
-
 export function statusLabel(status: PortalEntityStatus): string {
   switch (status) {
     case "draft":

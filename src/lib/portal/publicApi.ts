@@ -38,12 +38,15 @@ export type PublicGymListing = PublicListingBase & {
 };
 
 export type PublicClubListing = PublicListingBase & {
-  openingHours: OpeningHours;
+  hasOpeningHours: boolean;
+  openingHours?: OpeningHours;
+  hideLocation: boolean;
 };
 
 export type PublicCoachListing = PublicListingBase & {
   specialties: string[];
   radiusServedKm: number | null;
+  hideLocation: boolean;
 };
 
 const TABLE_BY_KIND: Record<PortalEntityKind, PortalEntityKind> = {
@@ -65,14 +68,31 @@ function toPublicAddress(address: VenueAddress): PublicVenueAddress {
   };
 }
 
+function redactedPublicAddress(country: string): PublicVenueAddress {
+  return {
+    line1: "",
+    line2: null,
+    city: "",
+    county: null,
+    postcode: "",
+    country,
+    latitude: null,
+    longitude: null,
+  };
+}
+
 function toPublicListingBase(
-  entity: Gym | Club | Coach
+  entity: Gym | Club | Coach,
+  options?: { hideLocation?: boolean }
 ): PublicListingBase {
+  const hideLocation = options?.hideLocation ?? false;
   return {
     id: entity.id,
     name: entity.name,
     description: entity.description,
-    address: toPublicAddress(entity.address),
+    address: hideLocation
+      ? redactedPublicAddress(entity.address.country)
+      : toPublicAddress(entity.address),
     links: entity.links,
     approvedAt: entity.approved_at,
     updatedAt: entity.updated_at,
@@ -87,17 +107,28 @@ export function toPublicGym(gym: Gym): PublicGymListing {
 }
 
 export function toPublicClub(club: Club): PublicClubListing {
+  const base = {
+    ...toPublicListingBase(club, { hideLocation: club.hide_location }),
+    hasOpeningHours: club.has_opening_hours,
+    hideLocation: club.hide_location,
+  };
+
+  if (!club.has_opening_hours) {
+    return base;
+  }
+
   return {
-    ...toPublicListingBase(club),
+    ...base,
     openingHours: club.opening_hours,
   };
 }
 
 export function toPublicCoach(coach: Coach): PublicCoachListing {
   return {
-    ...toPublicListingBase(coach),
+    ...toPublicListingBase(coach, { hideLocation: coach.hide_location }),
     specialties: coach.specialties,
     radiusServedKm: coach.radius_served_km,
+    hideLocation: coach.hide_location,
   };
 }
 

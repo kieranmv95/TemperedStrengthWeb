@@ -50,13 +50,16 @@ export type Gym = PortalEntityBase & {
 
 export type Club = PortalEntityBase & {
   opening_hours: OpeningHours;
+  has_opening_hours: boolean;
   address: VenueAddress;
+  hide_location: boolean;
 };
 
 export type Coach = PortalEntityBase & {
   address: VenueAddress;
   specialties: string[];
   radius_served_km: number | null;
+  hide_location: boolean;
 };
 
 export type PortalEntity = Gym | Club | Coach;

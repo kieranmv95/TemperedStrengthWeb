@@ -94,7 +94,9 @@ export function mapClub(row: Record<string, unknown>): Club {
     name: String(row.name),
     description: row.description ? String(row.description) : null,
     opening_hours: parseOpeningHours(row.opening_hours),
+    has_opening_hours: row.has_opening_hours !== false,
     address: parseAddressFromRow(row.address),
+    hide_location: row.hide_location === true,
     links: parseLinks(row.links),
     status: row.status as Club["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,
@@ -116,6 +118,7 @@ export function mapCoach(row: Record<string, unknown>): Coach {
     specialties: parseSpecialties(row.specialties),
     radius_served_km:
       typeof radius === "number" && Number.isFinite(radius) ? radius : null,
+    hide_location: row.hide_location === true,
     links: parseLinks(row.links),
     status: row.status as Coach["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,

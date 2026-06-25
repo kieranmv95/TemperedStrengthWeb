@@ -5,15 +5,24 @@ import { redirect } from "next/navigation";
 import { ENTITY_CONFIGS, isPortalEntityKind } from "@/lib/portal/constants";
 import type { PortalEntityKind } from "@/lib/portal/types";
 import {
+  enrichVenueAddress,
+  lookupPostcodeDetails,
+  PostcodeNotFoundError,
+  type PostcodeLookupDetails,
+} from "@/lib/portal/geocode";
+import {
   parseAddressFromForm,
   parseLinks,
   parseOpeningHours,
   parseRadiusServedKm,
   parseSpecialtiesFromForm,
+  parseHideLocation,
+  parseHasOpeningHours,
   validateDescription,
   validateEntityName,
   isAddressComplete,
 } from "@/lib/portal/validation";
+import type { VenueAddress } from "@/lib/portal/types";
 import { mapEntity } from "@/lib/portal/db";
 import {
   ensurePortalProfile,
@@ -37,6 +46,52 @@ async function requireUser() {
 
 function entityPath(kind: PortalEntityKind, id?: string) {
   return id ? `/portal/${kind}/${id}` : `/portal/${kind}`;
+}
+
+async function parseAndEnrichAddress(formData: FormData): Promise<VenueAddress> {
+  const address = parseAddressFromForm(formData);
+  return enrichVenueAddress(address);
+}
+
+function applyOpeningHoursToPayload(
+  kind: PortalEntityKind,
+  formData: FormData,
+  payload: Record<string, unknown>
+) {
+  if (kind === "clubs") {
+    const hasOpeningHours = parseHasOpeningHours(formData);
+    payload.has_opening_hours = hasOpeningHours;
+    payload.opening_hours = hasOpeningHours ? parseOpeningHours(formData) : {};
+    return;
+  }
+
+  if (kind === "gyms") {
+    payload.opening_hours = parseOpeningHours(formData);
+  }
+}
+
+export type PostcodeLookupResponse =
+  | { ok: true; details: PostcodeLookupDetails }
+  | { ok: false; error: string };
+
+export async function lookupPostcode(
+  postcode: string,
+  country: string
+): Promise<PostcodeLookupResponse> {
+  try {
+    const details = await lookupPostcodeDetails(postcode, country);
+    return { ok: true, details };
+  } catch (err) {
+    if (err instanceof PostcodeNotFoundError) {
+      return {
+        ok: false,
+        error: "We couldn't find that postcode. Please check it and try again.",
+      };
+    }
+    const message =
+      err instanceof Error ? err.message : "Postcode lookup failed.";
+    return { ok: false, error: message };
+  }
 }
 
 export async function signOut() {
@@ -101,16 +156,20 @@ export async function createEntity(kind: PortalEntityKind, formData: FormData) {
     };
 
     if (config.hasOpeningHours) {
-      payload.opening_hours = parseOpeningHours(formData);
+      applyOpeningHoursToPayload(kind, formData, payload);
     }
 
     if (config.hasAddress) {
-      payload.address = parseAddressFromForm(formData);
+      payload.address = await parseAndEnrichAddress(formData);
     }
 
     if (kind === "coaches") {
       payload.specialties = parseSpecialtiesFromForm(formData);
       payload.radius_served_km = parseRadiusServedKm(formData);
+    }
+
+    if (config.canHideLocation) {
+      payload.hide_location = parseHideLocation(formData);
     }
 
     const { data, error } = await supabase
@@ -161,16 +220,20 @@ export async function updateEntity(
     };
 
     if (config.hasOpeningHours) {
-      payload.opening_hours = parseOpeningHours(formData);
+      applyOpeningHoursToPayload(kind, formData, payload);
     }
 
     if (config.hasAddress) {
-      payload.address = parseAddressFromForm(formData);
+      payload.address = await parseAndEnrichAddress(formData);
     }
 
     if (kind === "coaches") {
       payload.specialties = parseSpecialtiesFromForm(formData);
       payload.radius_served_km = parseRadiusServedKm(formData);
+    }
+
+    if (config.canHideLocation) {
+      payload.hide_location = parseHideLocation(formData);
     }
 
     const { error } = await supabase
@@ -251,15 +314,21 @@ export async function deleteEntity(kind: PortalEntityKind, id: string) {
   const { supabase, user } = await requireUser();
   const config = ENTITY_CONFIGS[kind];
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from(config.table)
     .delete()
     .eq("id", id)
     .eq("owner_id", user.id)
-    .eq("status", "draft");
+    .select("id");
 
   if (error) {
     redirect(`${entityPath(kind, id)}?error=${encodeURIComponent(error.message)}`);
+  }
+
+  if (!data?.length) {
+    redirect(
+      `${entityPath(kind, id)}?error=${encodeURIComponent("Could not delete this listing. Please try again.")}`
+    );
   }
 
   revalidatePath("/portal");

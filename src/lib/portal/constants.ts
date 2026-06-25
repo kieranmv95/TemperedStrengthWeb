@@ -1,14 +1,23 @@
 import type { DayKey, PortalEntityKind } from "./types";
 
-export const DAYS: { key: DayKey; label: string }[] = [
-  { key: "monday", label: "Monday" },
-  { key: "tuesday", label: "Tuesday" },
-  { key: "wednesday", label: "Wednesday" },
-  { key: "thursday", label: "Thursday" },
-  { key: "friday", label: "Friday" },
-  { key: "saturday", label: "Saturday" },
-  { key: "sunday", label: "Sunday" },
+export const DAYS: { key: DayKey; label: string; shortLabel: string }[] = [
+  { key: "monday", label: "Monday", shortLabel: "Mon" },
+  { key: "tuesday", label: "Tuesday", shortLabel: "Tue" },
+  { key: "wednesday", label: "Wednesday", shortLabel: "Wed" },
+  { key: "thursday", label: "Thursday", shortLabel: "Thu" },
+  { key: "friday", label: "Friday", shortLabel: "Fri" },
+  { key: "saturday", label: "Saturday", shortLabel: "Sat" },
+  { key: "sunday", label: "Sunday", shortLabel: "Sun" },
 ];
+
+export const OPENING_TIME_SLOTS = Array.from({ length: 48 }, (_, index) => {
+  const hours = Math.floor(index / 2);
+  const minutes = index % 2 === 0 ? "00" : "30";
+  return `${String(hours).padStart(2, "0")}:${minutes}`;
+});
+
+export const TWENTY_FOUR_HOUR_OPEN = "00:00";
+export const TWENTY_FOUR_HOUR_CLOSE = "23:59";
 
 export type EntityConfig = {
   kind: PortalEntityKind;
@@ -19,6 +28,7 @@ export type EntityConfig = {
   description: string;
   hasOpeningHours: boolean;
   hasAddress: boolean;
+  canHideLocation: boolean;
 };
 
 export const ENTITY_CONFIGS: Record<PortalEntityKind, EntityConfig> = {
@@ -31,6 +41,7 @@ export const ENTITY_CONFIGS: Record<PortalEntityKind, EntityConfig> = {
     description: "Manage your gym profile and partner dashboard.",
     hasOpeningHours: true,
     hasAddress: true,
+    canHideLocation: false,
   },
   clubs: {
     kind: "clubs",
@@ -41,6 +52,7 @@ export const ENTITY_CONFIGS: Record<PortalEntityKind, EntityConfig> = {
     description: "Manage your club profile and partner dashboard.",
     hasOpeningHours: true,
     hasAddress: true,
+    canHideLocation: true,
   },
   coaches: {
     kind: "coaches",
@@ -51,6 +63,7 @@ export const ENTITY_CONFIGS: Record<PortalEntityKind, EntityConfig> = {
     description: "Manage your coaching profile and partner dashboard.",
     hasOpeningHours: false,
     hasAddress: true,
+    canHideLocation: true,
   },
 };
 
