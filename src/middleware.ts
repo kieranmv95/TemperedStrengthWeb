@@ -6,5 +6,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/portal/:path*"],
+  matcher: [
+    "/portal/:path*",
+    {
+      source: "/",
+      has: [{ type: "query", key: "code" }],
+    },
+  ],
 };
