@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { approveEntity, rejectEntity } from "@/app/portal/(authenticated)/admin/actions";
+import { AdminApproveButton } from "@/components/portal/admin/AdminApproveButton";
+import { AdminRejectForm } from "@/components/portal/admin/AdminRejectForm";
 import { OpeningHoursReadOnly } from "@/components/portal/admin/OpeningHoursReadOnly";
 import { StatusBadge } from "@/components/portal/StatusBadge";
 import { ENTITY_CONFIGS } from "@/lib/portal/constants";
@@ -51,7 +52,6 @@ export function AdminEntityReview({
   error,
 }: Props) {
   const config = ENTITY_CONFIGS[kind];
-  const rejectAction = rejectEntity.bind(null, kind, entity.id);
   const isPending = entity.status === "pending";
 
   return (
@@ -76,14 +76,7 @@ export function AdminEntityReview({
         </div>
 
         {isPending ? (
-          <form action={approveEntity.bind(null, kind, entity.id)} className="w-full sm:w-auto">
-            <button
-              type="submit"
-              className="inline-flex w-full items-center justify-center rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors sm:w-auto"
-            >
-              Approve listing
-            </button>
-          </form>
+          <AdminApproveButton kind={kind} id={entity.id} />
         ) : null}
       </div>
 
@@ -99,7 +92,7 @@ export function AdminEntityReview({
         </div>
       ) : null}
 
-      {error ? (
+      {error && !isPending ? (
         <div className="rounded-xl border border-red-800/50 bg-red-950/30 px-4 py-3 text-sm text-red-100">
           {error}
         </div>
@@ -259,25 +252,7 @@ export function AdminEntityReview({
             Optional note for the owner — they&apos;ll see this in their portal so
             they know what to fix before resubmitting.
           </p>
-          <form action={rejectAction} className="mt-4 space-y-4">
-            <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-white">
-                Rejection note
-              </span>
-              <textarea
-                name="rejection_note"
-                rows={4}
-                placeholder="e.g. Please add a complete street address and opening hours."
-                className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
-              />
-            </label>
-            <button
-              type="submit"
-              className="inline-flex w-full items-center justify-center rounded-lg border border-red-800/60 bg-red-950/50 px-5 py-2.5 text-sm font-semibold text-red-200 hover:bg-red-900/50 transition-colors sm:w-auto"
-            >
-              Reject listing
-            </button>
-          </form>
+          <AdminRejectForm kind={kind} id={entity.id} initialError={error} />
         </div>
       ) : null}
     </div>

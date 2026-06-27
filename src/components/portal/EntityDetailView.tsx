@@ -107,7 +107,7 @@ export function EntityDetailView({
                 "focus_areas" in entity ? entity.focus_areas : undefined,
             }}
             submitLabel="Save changes"
-            error={error}
+            initialError={error}
           />
         </div>
       </div>

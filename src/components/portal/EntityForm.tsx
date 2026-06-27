@@ -1,3 +1,8 @@
+"use client";
+
+import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import type { EntitySaveResult } from "@/app/portal/actions";
 import { AddressEditor } from "@/components/portal/AddressEditor";
 import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSection";
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
@@ -20,12 +25,16 @@ type EntityValues = {
   focus_areas?: Gym["focus_areas"];
 };
 
+type FormState = {
+  error: string | null;
+};
+
 type Props = {
   config: EntityConfig;
-  action: (formData: FormData) => Promise<void>;
+  action: (formData: FormData) => Promise<EntitySaveResult>;
   entity?: EntityValues;
   submitLabel: string;
-  error?: string;
+  initialError?: string;
   formId: string;
 };
 
@@ -34,19 +43,38 @@ export function EntityForm({
   action,
   entity,
   submitLabel,
-  error,
+  initialError,
   formId,
 }: Props) {
+  const router = useRouter();
   const openingHours =
     entity?.opening_hours ?? (config.hasOpeningHours ? defaultOpeningHours() : undefined);
   const address =
     entity?.address ?? (config.hasAddress ? defaultVenueAddress() : undefined);
 
+  const [state, formAction, isPending] = useActionState(
+    async (_prev: FormState, formData: FormData): Promise<FormState> => {
+      const result = await action(formData);
+
+      if (result.ok) {
+        router.push(result.redirectTo);
+        router.refresh();
+        return { error: null };
+      }
+
+      return { error: result.error };
+    },
+    { error: initialError ?? null }
+  );
+
   return (
-    <form id={formId} action={action} className="min-w-0 space-y-6">
-      {error ? (
-        <div className="rounded-xl border border-red-800/50 bg-red-950/30 px-4 py-3 text-sm text-red-100">
-          {error}
+    <form id={formId} action={formAction} className="min-w-0 space-y-6">
+      {state.error ? (
+        <div
+          className="rounded-xl border border-red-800/50 bg-red-950/30 px-4 py-3 text-sm text-red-100"
+          role="alert"
+        >
+          {state.error}
         </div>
       ) : null}
 
@@ -106,9 +134,10 @@ export function EntityForm({
 
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] transition-colors"
+        disabled={isPending}
+        className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
       >
-        {submitLabel}
+        {isPending ? "Saving…" : submitLabel}
       </button>
     </form>
   );

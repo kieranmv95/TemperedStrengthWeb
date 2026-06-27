@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ENTITY_CONFIGS, isPortalEntityKind } from "@/lib/portal/constants";
 import { requirePortalAdmin } from "@/lib/portal/adminAccess";
+import type { PortalFormResult } from "@/app/portal/actions";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { PortalEntityKind } from "@/lib/portal/types";
 
@@ -17,16 +18,19 @@ function revalidateAdminPaths(kind: PortalEntityKind, id: string) {
   revalidatePath(adminEntityPath(kind, id));
 }
 
-export async function approveEntity(kind: PortalEntityKind, id: string) {
+export async function approveEntity(
+  kind: PortalEntityKind,
+  id: string
+): Promise<PortalFormResult> {
   await requirePortalAdmin();
 
   if (!isPortalEntityKind(kind)) {
-    redirect("/portal/admin");
+    return { ok: false, error: "Invalid listing type." };
   }
 
   const admin = createAdminClient();
   if (!admin) {
-    redirect(`${adminEntityPath(kind, id)}?error=admin_not_configured`);
+    return { ok: false, error: "Admin access is not configured." };
   }
 
   const config = ENTITY_CONFIGS[kind];
@@ -43,27 +47,27 @@ export async function approveEntity(kind: PortalEntityKind, id: string) {
     .eq("status", "pending");
 
   if (error) {
-    redirect(`${adminEntityPath(kind, id)}?error=${encodeURIComponent(error.message)}`);
+    return { ok: false, error: error.message };
   }
 
   revalidateAdminPaths(kind, id);
-  redirect(`/portal/admin/${kind}/${id}?approved=1`);
+  return { ok: true, redirectTo: `/portal/admin/${kind}/${id}?approved=1` };
 }
 
 export async function rejectEntity(
   kind: PortalEntityKind,
   id: string,
   formData: FormData
-) {
+): Promise<PortalFormResult> {
   await requirePortalAdmin();
 
   if (!isPortalEntityKind(kind)) {
-    redirect("/portal/admin");
+    return { ok: false, error: "Invalid listing type." };
   }
 
   const admin = createAdminClient();
   if (!admin) {
-    redirect(`${adminEntityPath(kind, id)}?error=admin_not_configured`);
+    return { ok: false, error: "Admin access is not configured." };
   }
 
   const note = String(formData.get("rejection_note") ?? "").trim();
@@ -79,9 +83,9 @@ export async function rejectEntity(
     .eq("status", "pending");
 
   if (error) {
-    redirect(`${adminEntityPath(kind, id)}?error=${encodeURIComponent(error.message)}`);
+    return { ok: false, error: error.message };
   }
 
   revalidateAdminPaths(kind, id);
-  redirect(`/portal/admin/${kind}/${id}?rejected=1`);
+  return { ok: true, redirectTo: `/portal/admin/${kind}/${id}?rejected=1` };
 }

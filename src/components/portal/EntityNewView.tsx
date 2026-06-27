@@ -31,7 +31,7 @@ export function EntityNewView({ config, error }: Props) {
           action={action}
           formId={formId}
           submitLabel={`Create ${config.singular}`}
-          error={error}
+          initialError={error}
         />
       </div>
 

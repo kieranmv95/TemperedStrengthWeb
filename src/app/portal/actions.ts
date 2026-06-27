@@ -51,6 +51,13 @@ function entityPath(kind: PortalEntityKind, id?: string) {
   return id ? `/portal/${kind}/${id}` : `/portal/${kind}`;
 }
 
+export type EntitySaveResult =
+  | { ok: true; redirectTo: string }
+  | { ok: false; error: string };
+
+/** Result shape for portal forms — errors stay on the page, no redirect. */
+export type PortalFormResult = EntitySaveResult;
+
 async function parseAndEnrichAddress(formData: FormData): Promise<VenueAddress> {
   const address = parseAddressFromForm(formData);
   return enrichVenueAddress(address);
@@ -103,10 +110,10 @@ export async function signOut() {
   redirect("/portal/login");
 }
 
-export async function savePortalDisplayName(formData: FormData) {
+export async function savePortalDisplayName(
+  formData: FormData
+): Promise<PortalFormResult> {
   const { supabase, user } = await requireUser();
-
-  let errorMessage: string | undefined;
 
   try {
     const display_name = validateDisplayName(
@@ -122,21 +129,22 @@ export async function savePortalDisplayName(formData: FormData) {
 
     if (error) throw new Error(error.message);
   } catch (err) {
-    errorMessage =
-      err instanceof Error ? err.message : "Could not save your name.";
-  }
-
-  if (errorMessage) {
-    redirect(`/portal/setup?error=${encodeURIComponent(errorMessage)}`);
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : "Could not save your name.",
+    };
   }
 
   revalidatePath("/portal");
-  redirect("/portal");
+  return { ok: true, redirectTo: "/portal" };
 }
 
-export async function createEntity(kind: PortalEntityKind, formData: FormData) {
+export async function createEntity(
+  kind: PortalEntityKind,
+  formData: FormData
+): Promise<EntitySaveResult> {
   if (!isPortalEntityKind(kind)) {
-    throw new Error("Invalid entity type.");
+    return { ok: false, error: "Invalid entity type." };
   }
 
   const { supabase, user } = await requireUser();
@@ -193,21 +201,21 @@ export async function createEntity(kind: PortalEntityKind, formData: FormData) {
   }
 
   if (errorMessage) {
-    redirect(`${entityPath(kind)}/new?error=${encodeURIComponent(errorMessage)}`);
+    return { ok: false, error: errorMessage };
   }
 
   revalidatePath("/portal");
   revalidatePath(entityPath(kind));
-  redirect(entityPath(kind, newId));
+  return { ok: true, redirectTo: entityPath(kind, newId) };
 }
 
 export async function updateEntity(
   kind: PortalEntityKind,
   id: string,
   formData: FormData
-) {
+): Promise<EntitySaveResult> {
   if (!isPortalEntityKind(kind)) {
-    throw new Error("Invalid entity type.");
+    return { ok: false, error: "Invalid entity type." };
   }
 
   const { supabase, user } = await requireUser();
@@ -258,13 +266,13 @@ export async function updateEntity(
   }
 
   if (errorMessage) {
-    redirect(`${entityPath(kind, id)}?error=${encodeURIComponent(errorMessage)}`);
+    return { ok: false, error: errorMessage };
   }
 
   revalidatePath("/portal");
   revalidatePath(entityPath(kind));
   revalidatePath(entityPath(kind, id));
-  redirect(`${entityPath(kind, id)}?saved=1`);
+  return { ok: true, redirectTo: `${entityPath(kind, id)}?saved=1` };
 }
 
 export type LinkActionResult =
@@ -383,9 +391,12 @@ export async function removeEntityLink(
   return { ok: true, links };
 }
 
-export async function submitEntityForReview(kind: PortalEntityKind, id: string) {
+export async function submitEntityForReview(
+  kind: PortalEntityKind,
+  id: string
+): Promise<PortalFormResult> {
   if (!isPortalEntityKind(kind)) {
-    throw new Error("Invalid entity type.");
+    return { ok: false, error: "Invalid entity type." };
   }
 
   const { supabase, user } = await requireUser();
@@ -399,15 +410,16 @@ export async function submitEntityForReview(kind: PortalEntityKind, id: string) 
     .maybeSingle();
 
   if (fetchError || !existing) {
-    redirect(`${entityPath(kind, id)}?error=${encodeURIComponent("Entity not found.")}`);
+    return { ok: false, error: "Entity not found." };
   }
 
   const entity = mapEntity(kind, existing);
 
   if (config.hasAddress && "address" in entity && !isAddressComplete(entity.address)) {
-    redirect(
-      `${entityPath(kind, id)}?error=${encodeURIComponent("Please complete the venue address before submitting for review.")}`
-    );
+    return {
+      ok: false,
+      error: "Please complete the venue address before submitting for review.",
+    };
   }
 
   const { error } = await supabase
@@ -422,13 +434,13 @@ export async function submitEntityForReview(kind: PortalEntityKind, id: string) 
     .in("status", ["draft", "rejected"]);
 
   if (error) {
-    redirect(`${entityPath(kind, id)}?error=${encodeURIComponent(error.message)}`);
+    return { ok: false, error: error.message };
   }
 
   revalidatePath("/portal");
   revalidatePath(entityPath(kind));
   revalidatePath(entityPath(kind, id));
-  redirect(`${entityPath(kind, id)}?submitted=1`);
+  return { ok: true, redirectTo: `${entityPath(kind, id)}?submitted=1` };
 }
 
 export async function deleteEntity(kind: PortalEntityKind, id: string) {
