@@ -1,4 +1,5 @@
 import { EntityForm } from "@/components/portal/EntityForm";
+import { LinksEditor } from "@/components/portal/LinksEditor";
 import { createEntity } from "@/app/portal/actions";
 import type { EntityConfig } from "@/lib/portal/constants";
 import { APPROVAL_SLA } from "@/lib/portal/statusCopy";
@@ -10,6 +11,7 @@ type Props = {
 
 export function EntityNewView({ config, error }: Props) {
   const action = createEntity.bind(null, config.kind);
+  const formId = `portal-create-${config.kind}`;
 
   return (
     <div className="space-y-6">
@@ -27,10 +29,14 @@ export function EntityNewView({ config, error }: Props) {
         <EntityForm
           config={config}
           action={action}
-          isCreate
+          formId={formId}
           submitLabel={`Create ${config.singular}`}
           error={error}
         />
+      </div>
+
+      <div className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6 md:p-8">
+        <LinksEditor mode="create" formId={formId} />
       </div>
     </div>
   );

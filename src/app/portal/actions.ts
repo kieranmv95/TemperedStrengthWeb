@@ -340,7 +340,6 @@ export async function addEntityLink(
 
   revalidatePath("/portal");
   revalidatePath(entityPath(kind));
-  revalidatePath(entityPath(kind, id));
 
   return { ok: true, links };
 }
@@ -380,7 +379,6 @@ export async function removeEntityLink(
 
   revalidatePath("/portal");
   revalidatePath(entityPath(kind));
-  revalidatePath(entityPath(kind, id));
 
   return { ok: true, links };
 }

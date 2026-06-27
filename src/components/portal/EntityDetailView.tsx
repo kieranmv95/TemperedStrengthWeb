@@ -84,6 +84,7 @@ export function EntityDetailView({
           <EntityForm
             config={config}
             action={action}
+            formId={`portal-edit-${config.kind}-${entity.id}`}
             entity={{
               name: entity.name,
               description: entity.description ?? "",

@@ -24,6 +24,7 @@ type EditProps = {
 type CreateProps = {
   mode: "create";
   links?: PortalLink[];
+  formId: string;
 };
 
 type Props = EditProps | CreateProps;
@@ -80,15 +81,26 @@ function AddLinkForm({
   const [label, setLabel] = useState("");
   const [url, setUrl] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     onAdd(label, url);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      handleSubmit();
+    }
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
+    <div
       className="space-y-3 rounded-lg border border-[#c9b072]/25 bg-[#c9b072]/5 p-3"
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.stopPropagation();
+        }
+      }}
     >
       {error ? (
         <div className="rounded-lg border border-red-800/50 bg-red-950/30 px-3 py-2 text-sm text-red-100">
@@ -104,6 +116,7 @@ function AddLinkForm({
           type="text"
           value={label}
           onChange={(e) => setLabel(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="e.g. Website, Instagram, Booking"
           className={inputClass}
           autoFocus
@@ -119,6 +132,7 @@ function AddLinkForm({
           inputMode="url"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="yoursite.com or https://…"
           className={inputClass}
         />
@@ -130,7 +144,8 @@ function AddLinkForm({
 
       <div className="flex flex-wrap gap-2">
         <button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           disabled={pending}
           className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
         >
@@ -145,7 +160,7 @@ function AddLinkForm({
           Cancel
         </button>
       </div>
-    </form>
+    </div>
   );
 }
 
@@ -261,7 +276,7 @@ function LinksEditorEdit({ kind, entityId, links: initialLinks }: EditProps) {
   );
 }
 
-function LinksEditorCreate({ links: initialLinks = [] }: CreateProps) {
+function LinksEditorCreate({ links: initialLinks = [], formId }: CreateProps) {
   const [links, setLinks] = useState<PortalLink[]>(initialLinks);
   const [showForm, setShowForm] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -293,8 +308,8 @@ function LinksEditorCreate({ links: initialLinks = [] }: CreateProps) {
     <div className="space-y-3">
       {links.map((link, index) => (
         <div key={`${link.url}-${index}`}>
-          <input type="hidden" name="link_label" value={link.label} />
-          <input type="hidden" name="link_url" value={link.url} />
+          <input type="hidden" name="link_label" value={link.label} form={formId} />
+          <input type="hidden" name="link_url" value={link.url} form={formId} />
           <LinkListItem link={link} onRemove={() => handleRemove(index)} />
         </div>
       ))}

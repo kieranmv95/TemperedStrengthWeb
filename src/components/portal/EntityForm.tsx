@@ -2,7 +2,6 @@ import { AddressEditor } from "@/components/portal/AddressEditor";
 import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSection";
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
 import { GymFieldsEditor } from "@/components/portal/GymFieldsEditor";
-import { LinksEditor } from "@/components/portal/LinksEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
 import type { EntityConfig } from "@/lib/portal/constants";
 import { defaultOpeningHours, defaultVenueAddress } from "@/lib/portal/validation";
@@ -27,7 +26,7 @@ type Props = {
   entity?: EntityValues;
   submitLabel: string;
   error?: string;
-  isCreate?: boolean;
+  formId: string;
 };
 
 export function EntityForm({
@@ -36,7 +35,7 @@ export function EntityForm({
   entity,
   submitLabel,
   error,
-  isCreate = false,
+  formId,
 }: Props) {
   const openingHours =
     entity?.opening_hours ?? (config.hasOpeningHours ? defaultOpeningHours() : undefined);
@@ -44,7 +43,7 @@ export function EntityForm({
     entity?.address ?? (config.hasAddress ? defaultVenueAddress() : undefined);
 
   return (
-    <form action={action} className="min-w-0 space-y-6">
+    <form id={formId} action={action} className="min-w-0 space-y-6">
       {error ? (
         <div className="rounded-xl border border-red-800/50 bg-red-950/30 px-4 py-3 text-sm text-red-100">
           {error}
@@ -104,8 +103,6 @@ export function EntityForm({
           <OpeningHoursEditor openingHours={openingHours} />
         </>
       ) : null}
-
-      {isCreate ? <LinksEditor mode="create" links={entity?.links} /> : null}
 
       <button
         type="submit"
