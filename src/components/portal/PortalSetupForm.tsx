@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { savePortalDisplayName } from "@/app/portal/actions";
+import { useScrollOnError } from "@/components/portal/useScrollOnError";
 
 type FormState = {
   error: string | null;
@@ -29,6 +30,8 @@ export function PortalSetupForm({ initialError }: Props) {
     },
     { error: initialError ?? null }
   );
+
+  useScrollOnError(state.error);
 
   return (
     <form action={formAction} className="mt-6 space-y-4">

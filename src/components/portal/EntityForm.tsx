@@ -7,10 +7,12 @@ import { AddressEditor } from "@/components/portal/AddressEditor";
 import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSection";
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
 import { GymFieldsEditor } from "@/components/portal/GymFieldsEditor";
+import { LinksEditor } from "@/components/portal/LinksEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
+import { useScrollOnError } from "@/components/portal/useScrollOnError";
 import type { EntityConfig } from "@/lib/portal/constants";
 import { defaultOpeningHours, defaultVenueAddress } from "@/lib/portal/validation";
-import type { Coach, Gym, Club, PortalLink, VenueAddress } from "@/lib/portal/types";
+import type { Coach, Gym, Club, PortalLink, PortalEntityKind, VenueAddress } from "@/lib/portal/types";
 
 type EntityValues = {
   name: string;
@@ -36,6 +38,12 @@ type Props = {
   submitLabel: string;
   initialError?: string;
   formId: string;
+  isCreate?: boolean;
+  editLinks?: {
+    kind: PortalEntityKind;
+    entityId: string;
+    links: PortalLink[];
+  };
 };
 
 export function EntityForm({
@@ -45,6 +53,8 @@ export function EntityForm({
   submitLabel,
   initialError,
   formId,
+  isCreate = false,
+  editLinks,
 }: Props) {
   const router = useRouter();
   const openingHours =
@@ -66,6 +76,8 @@ export function EntityForm({
     },
     { error: initialError ?? null }
   );
+
+  useScrollOnError(state.error);
 
   return (
     <form id={formId} action={formAction} className="min-w-0 space-y-6">
@@ -130,6 +142,19 @@ export function EntityForm({
           <GymFieldsEditor focusAreas={entity?.focus_areas} />
           <OpeningHoursEditor openingHours={openingHours} />
         </>
+      ) : null}
+
+      {isCreate ? (
+        <LinksEditor mode="create" formId={formId} links={entity?.links} />
+      ) : null}
+
+      {editLinks ? (
+        <LinksEditor
+          mode="edit"
+          kind={editLinks.kind}
+          entityId={editLinks.entityId}
+          links={editLinks.links}
+        />
       ) : null}
 
       <button

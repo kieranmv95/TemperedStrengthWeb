@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { rejectEntity } from "@/app/portal/(authenticated)/admin/actions";
+import { useScrollOnError } from "@/components/portal/useScrollOnError";
 import type { PortalEntityKind } from "@/lib/portal/types";
 
 type FormState = {
@@ -33,6 +34,8 @@ export function AdminRejectForm({ kind, id, initialError }: Props) {
     },
     { error: initialError ?? null }
   );
+
+  useScrollOnError(state.error);
 
   return (
     <form action={formAction} className="mt-4 space-y-4">

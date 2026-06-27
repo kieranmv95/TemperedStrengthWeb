@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { submitEntityForReview } from "@/app/portal/actions";
+import { useScrollOnError } from "@/components/portal/useScrollOnError";
 import type { PortalEntityKind } from "@/lib/portal/types";
 
 type FormState = {
@@ -32,6 +33,8 @@ export function SubmitForReviewButton({ kind, id }: Props) {
     },
     { error: null }
   );
+
+  useScrollOnError(state.error);
 
   return (
     <div className="w-full sm:w-auto">

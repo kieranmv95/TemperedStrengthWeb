@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { EntityActions } from "@/components/portal/EntityActions";
 import { EntityForm } from "@/components/portal/EntityForm";
-import { LinksEditor } from "@/components/portal/LinksEditor";
 import { GatedSection } from "@/components/portal/GatedSection";
 import { StatusBadge } from "@/components/portal/StatusBadge";
 import { StatusBanner } from "@/components/portal/StatusBanner";
@@ -108,17 +107,13 @@ export function EntityDetailView({
             }}
             submitLabel="Save changes"
             initialError={error}
+            editLinks={{
+              kind: config.kind,
+              entityId: entity.id,
+              links: entity.links,
+            }}
           />
         </div>
-      </div>
-
-      <div className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6 md:p-8">
-        <LinksEditor
-          mode="edit"
-          kind={config.kind}
-          entityId={entity.id}
-          links={entity.links}
-        />
       </div>
 
       <GatedSection status={entity.status} entityLabel={config.label}>

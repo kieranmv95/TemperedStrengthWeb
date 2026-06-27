@@ -1,5 +1,4 @@
 import { EntityForm } from "@/components/portal/EntityForm";
-import { LinksEditor } from "@/components/portal/LinksEditor";
 import { createEntity } from "@/app/portal/actions";
 import type { EntityConfig } from "@/lib/portal/constants";
 import { APPROVAL_SLA } from "@/lib/portal/statusCopy";
@@ -30,13 +29,10 @@ export function EntityNewView({ config, error }: Props) {
           config={config}
           action={action}
           formId={formId}
+          isCreate
           submitLabel={`Create ${config.singular}`}
           initialError={error}
         />
-      </div>
-
-      <div className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6 md:p-8">
-        <LinksEditor mode="create" formId={formId} />
       </div>
     </div>
   );
