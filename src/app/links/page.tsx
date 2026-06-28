@@ -34,6 +34,25 @@ function YouTubeGlyph({ className }: { className?: string }) {
   );
 }
 
+function PartnerGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      aria-hidden
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"
+      />
+    </svg>
+  );
+}
+
 function ChevronRight({ className }: { className?: string }) {
   return (
     <svg
@@ -152,8 +171,27 @@ export default function LinksPage() {
               </li>
             </ul>
           </section>
-          <section aria-labelledby="social-heading">
-            <SectionTitle id="social-heading">The rest</SectionTitle>
+
+          <section aria-labelledby="partner-heading">
+            <SectionTitle id="partner-heading">Partners</SectionTitle>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/portal/login" className={linkRowClassName()}>
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
+                    <span className="font-semibold text-white">Partner portal</span>
+                    <span className="text-xs text-neutral-500">
+                      Sign in or set up your gym, club, or coaching profile.
+                    </span>
+                  </span>
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                </Link>
+              </li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="rest-heading">
+            <SectionTitle id="rest-heading">Socials</SectionTitle>
             <ul className="space-y-2">
               <li>
                 <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={linkRowClassName()}>
@@ -224,6 +262,9 @@ export default function LinksPage() {
               >
                 YouTube
               </a>
+              <Link href="/portal/login" className="hover:text-[#c9b072] transition-colors">
+                Partners
+              </Link>
               <Link href="/terms" className="hover:text-[#c9b072] transition-colors">
                 Terms
               </Link>
