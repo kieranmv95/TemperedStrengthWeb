@@ -1,4 +1,4 @@
-import { DAYS, OPENING_TIME_SLOTS, TWENTY_FOUR_HOUR_CLOSE, TWENTY_FOUR_HOUR_OPEN } from "./constants";
+import { DAYS, TWENTY_FOUR_HOUR_CLOSE, TWENTY_FOUR_HOUR_OPEN } from "./constants";
 import type { DayHours, OpeningHours, PortalLink, VenueAddress } from "./types";
 
 export const MAX_ENTITY_LINKS = 10;
@@ -69,11 +69,22 @@ export function parseOpeningHours(formData: FormData): OpeningHours {
       continue;
     }
 
-    const open = String(formData.get(`${key}_open`) ?? "").trim();
-    const close = String(formData.get(`${key}_close`) ?? "").trim();
-    if (!open || !close) {
+    const openRaw = String(formData.get(`${key}_open`) ?? "").trim();
+    const closeRaw = String(formData.get(`${key}_close`) ?? "").trim();
+    if (!openRaw || !closeRaw) {
       throw new Error(`Please set opening and closing times for ${key}, or mark it closed.`);
     }
+
+    let open: string;
+    let close: string;
+    try {
+      open = normalizeOpeningTime(openRaw);
+      close = normalizeOpeningTime(closeRaw);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Invalid time.";
+      throw new Error(`${key}: ${message}`);
+    }
+
     hours[key] = { open, close };
   }
 
@@ -125,11 +136,21 @@ export function dayHoursToEditorState(day: DayHours | undefined): {
   };
 }
 
-export function snapTimeToSlot(value: string, fallback: string): string {
-  if (OPENING_TIME_SLOTS.includes(value)) return value;
-  return OPENING_TIME_SLOTS.includes(fallback) ? fallback : OPENING_TIME_SLOTS[0];
-}
+export function normalizeOpeningTime(value: string): string {
+  const trimmed = value.trim();
+  const match = trimmed.match(/^(\d{1,2}):(\d{2})$/);
+  if (!match) {
+    throw new Error(`"${value}" is not a valid time. Use HH:MM, e.g. 15:45.`);
+  }
 
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  if (hours > 23 || minutes > 59) {
+    throw new Error(`"${value}" is not a valid time. Hours must be 00–23 and minutes 00–59.`);
+  }
+
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+}
 export function validateEntityName(name: string): string {
   const trimmed = name.trim();
   if (!trimmed) {

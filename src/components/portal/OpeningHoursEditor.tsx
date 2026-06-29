@@ -1,17 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   DAYS,
-  OPENING_TIME_SLOTS,
   TWENTY_FOUR_HOUR_CLOSE,
   TWENTY_FOUR_HOUR_OPEN,
 } from "@/lib/portal/constants";
-import { dayHoursToEditorState, snapTimeToSlot } from "@/lib/portal/validation";
+import { dayHoursToEditorState } from "@/lib/portal/validation";
 import type { DayKey, OpeningHours } from "@/lib/portal/types";
 
-const selectClass =
-  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-1.5 py-1 text-xs text-white focus:border-[#c9b072]/50 focus:outline-none";
+const inputClass =
+  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2 py-1 text-xs text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none tabular-nums";
 
 type DayState = {
   closed: boolean;
@@ -27,14 +26,7 @@ type Props = {
 function buildInitialState(openingHours: OpeningHours): Record<DayKey, DayState> {
   return DAYS.reduce(
     (acc, { key }) => {
-      const state = dayHoursToEditorState(openingHours[key]);
-      acc[key] = state.twentyFour
-        ? state
-        : {
-            ...state,
-            open: snapTimeToSlot(state.open, "06:00"),
-            close: snapTimeToSlot(state.close, "22:00"),
-          };
+      acc[key] = dayHoursToEditorState(openingHours[key]);
       return acc;
     },
     {} as Record<DayKey, DayState>
@@ -45,7 +37,6 @@ type DayRowProps = {
   dayKey: DayKey;
   shortLabel: string;
   day: DayState;
-  closeOptions: string[];
   onUpdate: (patch: Partial<DayState>) => void;
 };
 
@@ -75,7 +66,35 @@ function DayHiddenInputs({
   );
 }
 
-function OpenSelect({
+function TimeInput({
+  dayKey,
+  field,
+  value,
+  placeholder,
+  onChange,
+}: {
+  dayKey: DayKey;
+  field: "open" | "close";
+  value: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      name={`${dayKey}_${field}`}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      className={inputClass}
+      autoComplete="off"
+      spellCheck={false}
+    />
+  );
+}
+
+function OpenTimeInput({
   dayKey,
   day,
   onUpdate,
@@ -93,30 +112,23 @@ function OpenSelect({
   }
 
   return (
-    <select
-      name={`${dayKey}_open`}
+    <TimeInput
+      dayKey={dayKey}
+      field="open"
       value={day.open}
-      onChange={(e) => onUpdate({ open: e.target.value })}
-      className={selectClass}
-    >
-      {OPENING_TIME_SLOTS.map((slot) => (
-        <option key={slot} value={slot}>
-          {slot}
-        </option>
-      ))}
-    </select>
+      placeholder="06:00"
+      onChange={(open) => onUpdate({ open })}
+    />
   );
 }
 
-function CloseSelect({
+function CloseTimeInput({
   dayKey,
   day,
-  closeOptions,
   onUpdate,
 }: {
   dayKey: DayKey;
   day: DayState;
-  closeOptions: string[];
   onUpdate: (patch: Partial<DayState>) => void;
 }) {
   if (day.closed) {
@@ -128,18 +140,13 @@ function CloseSelect({
   }
 
   return (
-    <select
-      name={`${dayKey}_close`}
+    <TimeInput
+      dayKey={dayKey}
+      field="close"
       value={day.close}
-      onChange={(e) => onUpdate({ close: e.target.value })}
-      className={selectClass}
-    >
-      {closeOptions.map((slot) => (
-        <option key={slot} value={slot}>
-          {slot}
-        </option>
-      ))}
-    </select>
+      placeholder="22:00"
+      onChange={(close) => onUpdate({ close })}
+    />
   );
 }
 
@@ -188,7 +195,7 @@ function DayToggles({
   );
 }
 
-function MobileDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayRowProps) {
+function MobileDayRow({ dayKey, shortLabel, day, onUpdate }: DayRowProps) {
   return (
     <div className="rounded-md border border-neutral-800/60 p-2.5">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -202,18 +209,13 @@ function MobileDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayRo
             <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-neutral-500">
               Open
             </span>
-            <OpenSelect dayKey={dayKey} day={day} onUpdate={onUpdate} />
+            <OpenTimeInput dayKey={dayKey} day={day} onUpdate={onUpdate} />
           </label>
           <label className="block min-w-0">
             <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-neutral-500">
               Close
             </span>
-            <CloseSelect
-              dayKey={dayKey}
-              day={day}
-              closeOptions={closeOptions}
-              onUpdate={onUpdate}
-            />
+            <CloseTimeInput dayKey={dayKey} day={day} onUpdate={onUpdate} />
           </label>
         </div>
       ) : null}
@@ -223,22 +225,17 @@ function MobileDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayRo
   );
 }
 
-function DesktopDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayRowProps) {
+function DesktopDayRow({ dayKey, shortLabel, day, onUpdate }: DayRowProps) {
   return (
     <div className="grid grid-cols-[2.5rem_1fr_1fr_2.25rem_2.5rem] items-center gap-x-2 gap-y-1 border-b border-neutral-800/40 py-1 last:border-b-0">
       <span className="text-xs font-medium text-neutral-300">{shortLabel}</span>
 
       <div>
-        <OpenSelect dayKey={dayKey} day={day} onUpdate={onUpdate} />
+        <OpenTimeInput dayKey={dayKey} day={day} onUpdate={onUpdate} />
       </div>
 
       <div>
-        <CloseSelect
-          dayKey={dayKey}
-          day={day}
-          closeOptions={closeOptions}
-          onUpdate={onUpdate}
-        />
+        <CloseTimeInput dayKey={dayKey} day={day} onUpdate={onUpdate} />
       </div>
 
       <label className="flex justify-center">
@@ -281,11 +278,6 @@ function DesktopDayRow({ dayKey, shortLabel, day, closeOptions, onUpdate }: DayR
 export function OpeningHoursEditor({ openingHours }: Props) {
   const [days, setDays] = useState(() => buildInitialState(openingHours));
 
-  const closeOptions = useMemo(
-    () => [...OPENING_TIME_SLOTS.slice(1), TWENTY_FOUR_HOUR_CLOSE],
-    []
-  );
-
   const updateDay = (key: DayKey, patch: Partial<DayState>) => {
     setDays((current) => ({
       ...current,
@@ -304,7 +296,6 @@ export function OpeningHoursEditor({ openingHours }: Props) {
             dayKey={key}
             shortLabel={shortLabel}
             day={days[key]}
-            closeOptions={closeOptions}
             onUpdate={(patch) => updateDay(key, patch)}
           />
         ))}
@@ -325,14 +316,14 @@ export function OpeningHoursEditor({ openingHours }: Props) {
             dayKey={key}
             shortLabel={shortLabel}
             day={days[key]}
-            closeOptions={closeOptions}
             onUpdate={(patch) => updateDay(key, patch)}
           />
         ))}
       </div>
 
       <p className="mt-2 text-[10px] text-neutral-500">
-        Off = closed. 24h is stored as 00:00–23:59 in your existing schedule.
+        Type times in 24-hour format (e.g. 06:00, 15:45). Off = closed. 24h is
+        stored as 00:00–23:59.
       </p>
     </fieldset>
   );

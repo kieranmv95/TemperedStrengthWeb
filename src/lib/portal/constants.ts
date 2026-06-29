@@ -10,12 +10,6 @@ export const DAYS: { key: DayKey; label: string; shortLabel: string }[] = [
   { key: "sunday", label: "Sunday", shortLabel: "Sun" },
 ];
 
-export const OPENING_TIME_SLOTS = Array.from({ length: 48 }, (_, index) => {
-  const hours = Math.floor(index / 2);
-  const minutes = index % 2 === 0 ? "00" : "30";
-  return `${String(hours).padStart(2, "0")}:${minutes}`;
-});
-
 export const TWENTY_FOUR_HOUR_OPEN = "00:00";
 export const TWENTY_FOUR_HOUR_CLOSE = "23:59";
 
