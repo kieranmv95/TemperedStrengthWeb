@@ -29,6 +29,8 @@ type PublicListingBase = {
   description: string | null;
   address: PublicVenueAddress;
   links: PublicLink[];
+  email: string | null;
+  phone: string | null;
   approvedAt: string | null;
   updatedAt: string;
 };
@@ -96,6 +98,8 @@ function toPublicListingBase(
       ? redactedPublicAddress(entity.address.country)
       : toPublicAddress(entity.address),
     links: entity.links,
+    email: entity.email,
+    phone: entity.phone,
     approvedAt: entity.approved_at,
     updatedAt: entity.updated_at,
   };

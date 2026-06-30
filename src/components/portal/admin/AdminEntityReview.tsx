@@ -141,6 +141,41 @@ export function AdminEntityReview({
               <p className="text-sm text-neutral-500">No description provided.</p>
             )}
           </DetailSection>
+
+          <DetailSection title="Public contact">
+            <dl className="space-y-2 text-sm">
+              <div>
+                <dt className="text-neutral-500">Email</dt>
+                <dd className="mt-0.5 break-all text-white">
+                  {entity.email ? (
+                    <a
+                      href={`mailto:${entity.email}`}
+                      className="text-[#c9b072] hover:underline"
+                    >
+                      {entity.email}
+                    </a>
+                  ) : (
+                    "—"
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-neutral-500">Phone</dt>
+                <dd className="mt-0.5 text-white">
+                  {entity.phone ? (
+                    <a
+                      href={`tel:${entity.phone.replace(/\s/g, "")}`}
+                      className="text-[#c9b072] hover:underline"
+                    >
+                      {entity.phone}
+                    </a>
+                  ) : (
+                    "—"
+                  )}
+                </dd>
+              </div>
+            </dl>
+          </DetailSection>
         </div>
 
         <div className="min-w-0 space-y-6 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6">

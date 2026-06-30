@@ -34,6 +34,8 @@ export type PortalEntityBase = {
   owner_id: string;
   name: string;
   description: string | null;
+  email: string | null;
+  phone: string | null;
   links: PortalLink[];
   status: PortalEntityStatus;
   rejection_note: string | null;

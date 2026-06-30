@@ -87,6 +87,8 @@ export function EntityDetailView({
             entity={{
               name: entity.name,
               description: entity.description ?? "",
+              email: entity.email,
+              phone: entity.phone,
               opening_hours:
                 "opening_hours" in entity ? entity.opening_hours : undefined,
               has_opening_hours:

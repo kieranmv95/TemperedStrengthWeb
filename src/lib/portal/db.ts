@@ -72,12 +72,20 @@ export function parseAddressFromRow(
   return address;
 }
 
+function parseOptionalContact(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
 export function mapGym(row: Record<string, unknown>): Gym {
   return {
     id: String(row.id),
     owner_id: String(row.owner_id),
     name: String(row.name),
     description: row.description ? String(row.description) : null,
+    email: parseOptionalContact(row.email),
+    phone: parseOptionalContact(row.phone),
     opening_hours: parseOpeningHours(row.opening_hours),
     address: parseAddressFromRow(row.address),
     focus_areas: parseSpecialties(row.focus_areas),
@@ -101,6 +109,8 @@ export function mapClub(row: Record<string, unknown>): Club {
     owner_id: String(row.owner_id),
     name: String(row.name),
     description: row.description ? String(row.description) : null,
+    email: parseOptionalContact(row.email),
+    phone: parseOptionalContact(row.phone),
     opening_hours: parseOpeningHours(row.opening_hours),
     has_opening_hours: row.has_opening_hours !== false,
     address: parseAddressFromRow(row.address),
@@ -122,6 +132,8 @@ export function mapCoach(row: Record<string, unknown>): Coach {
     owner_id: String(row.owner_id),
     name: String(row.name),
     description: row.description ? String(row.description) : null,
+    email: parseOptionalContact(row.email),
+    phone: parseOptionalContact(row.phone),
     address: parseAddressFromRow(row.address, row.location),
     specialties: parseSpecialties(row.specialties),
     radius_served_km:

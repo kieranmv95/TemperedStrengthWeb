@@ -17,6 +17,8 @@ import type { Coach, Gym, Club, PortalLink, PortalEntityKind, VenueAddress } fro
 type EntityValues = {
   name: string;
   description: string;
+  email?: string | null;
+  phone?: string | null;
   links?: PortalLink[];
   opening_hours?: Gym["opening_hours"] | Club["opening_hours"];
   has_opening_hours?: boolean;
@@ -114,6 +116,43 @@ export function EntityForm({
           className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
         />
       </label>
+
+      <fieldset className="min-w-0 space-y-4 rounded-lg border border-neutral-800/80 bg-neutral-950/40 p-3">
+        <legend className="px-1 text-sm font-semibold text-white">
+          Public contact
+        </legend>
+        <p className="text-xs text-neutral-500">
+          Optional. Shown on your listing in the app so members can reach you.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block min-w-0">
+            <span className="mb-1 block text-sm font-semibold text-white">
+              Email
+            </span>
+            <input
+              type="email"
+              name="email"
+              defaultValue={entity?.email ?? ""}
+              placeholder="contact@example.com"
+              autoComplete="email"
+              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+            />
+          </label>
+          <label className="block min-w-0">
+            <span className="mb-1 block text-sm font-semibold text-white">
+              Phone
+            </span>
+            <input
+              type="tel"
+              name="phone"
+              defaultValue={entity?.phone ?? ""}
+              placeholder="07xxx xxxxxx"
+              autoComplete="tel"
+              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+            />
+          </label>
+        </div>
+      </fieldset>
 
       {config.hasAddress && address ? (
         <AddressEditor

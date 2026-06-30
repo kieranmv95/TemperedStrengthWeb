@@ -16,6 +16,7 @@ import {
   parseOpeningHours,
   parseRadiusServedKm,
   parseSpecialtiesFromForm,
+  parseContactFromForm,
   parseFocusAreasFromForm,
   parseHideLocation,
   parseHasOpeningHours,
@@ -157,11 +158,14 @@ export async function createEntity(
     const name = validateEntityName(String(formData.get("name") ?? ""));
     const description = validateDescription(String(formData.get("description") ?? ""));
     const links = parseLinks(formData);
+    const contact = parseContactFromForm(formData);
 
     const payload: Record<string, unknown> = {
       owner_id: user.id,
       name,
       description,
+      email: contact.email,
+      phone: contact.phone,
       links,
       status: "draft",
     };
@@ -226,10 +230,13 @@ export async function updateEntity(
   try {
     const name = validateEntityName(String(formData.get("name") ?? ""));
     const description = validateDescription(String(formData.get("description") ?? ""));
+    const contact = parseContactFromForm(formData);
 
     const payload: Record<string, unknown> = {
       name,
       description,
+      email: contact.email,
+      phone: contact.phone,
     };
 
     if (config.hasOpeningHours) {

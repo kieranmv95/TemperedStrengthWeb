@@ -171,6 +171,45 @@ export function validateDescription(description: string): string | null {
   return trimmed;
 }
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^[\d\s()+-]+$/;
+
+export function validateOptionalEmail(email: string): string | null {
+  const trimmed = email.trim();
+  if (!trimmed) return null;
+  if (trimmed.length > 254) {
+    throw new Error("Email must be 254 characters or fewer.");
+  }
+  if (!EMAIL_PATTERN.test(trimmed)) {
+    throw new Error("Please enter a valid email address.");
+  }
+  return trimmed;
+}
+
+export function validateOptionalPhone(phone: string): string | null {
+  const trimmed = phone.trim();
+  if (!trimmed) return null;
+  if (trimmed.length > 30) {
+    throw new Error("Phone number must be 30 characters or fewer.");
+  }
+  if (!PHONE_PATTERN.test(trimmed)) {
+    throw new Error(
+      "Phone number can only include digits, spaces, +, (), and -."
+    );
+  }
+  return trimmed;
+}
+
+export function parseContactFromForm(formData: FormData): {
+  email: string | null;
+  phone: string | null;
+} {
+  return {
+    email: validateOptionalEmail(String(formData.get("email") ?? "")),
+    phone: validateOptionalPhone(String(formData.get("phone") ?? "")),
+  };
+}
+
 export function defaultVenueAddress(): VenueAddress {
   return {
     line1: "",
