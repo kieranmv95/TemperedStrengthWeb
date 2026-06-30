@@ -2,6 +2,7 @@ import type {
   Club,
   Coach,
   Gym,
+  MapMarker,
   OpeningHours,
   PortalEntityKind,
   PortalLink,
@@ -78,6 +79,21 @@ function parseOptionalContact(value: unknown): string | null {
   return trimmed.length > 0 ? trimmed : null;
 }
 
+export function parseMapMarker(value: unknown): MapMarker | null {
+  if (!value || typeof value !== "object") return null;
+
+  const raw = value as Record<string, unknown>;
+  const latitude = typeof raw.latitude === "number" ? raw.latitude : null;
+  const longitude = typeof raw.longitude === "number" ? raw.longitude : null;
+
+  if (latitude == null || longitude == null) return null;
+  if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+    return null;
+  }
+
+  return { latitude, longitude };
+}
+
 export function mapGym(row: Record<string, unknown>): Gym {
   return {
     id: String(row.id),
@@ -88,6 +104,7 @@ export function mapGym(row: Record<string, unknown>): Gym {
     phone: parseOptionalContact(row.phone),
     opening_hours: parseOpeningHours(row.opening_hours),
     address: parseAddressFromRow(row.address),
+    map_marker: parseMapMarker(row.map_marker),
     focus_areas: parseSpecialties(row.focus_areas),
     video_id:
       typeof row.video_id === "string" && row.video_id.trim()
@@ -114,6 +131,7 @@ export function mapClub(row: Record<string, unknown>): Club {
     opening_hours: parseOpeningHours(row.opening_hours),
     has_opening_hours: row.has_opening_hours !== false,
     address: parseAddressFromRow(row.address),
+    map_marker: parseMapMarker(row.map_marker),
     hide_location: row.hide_location === true,
     links: parseLinks(row.links),
     status: row.status as Club["status"],
@@ -135,6 +153,7 @@ export function mapCoach(row: Record<string, unknown>): Coach {
     email: parseOptionalContact(row.email),
     phone: parseOptionalContact(row.phone),
     address: parseAddressFromRow(row.address, row.location),
+    map_marker: parseMapMarker(row.map_marker),
     specialties: parseSpecialties(row.specialties),
     radius_served_km:
       typeof radius === "number" && Number.isFinite(radius) ? radius : null,

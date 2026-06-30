@@ -184,6 +184,18 @@ export function AdminEntityReview({
               <p className="text-sm text-neutral-300">
                 {formatAddressDisplay(entity.address)}
               </p>
+              {entity.map_marker ? (
+                <p className="mt-2 text-xs text-emerald-300/90">
+                  Exact map marker:{" "}
+                  <span className="tabular-nums text-white">
+                    {entity.map_marker.latitude}, {entity.map_marker.longitude}
+                  </span>
+                </p>
+              ) : (
+                <p className="mt-2 text-xs text-neutral-500">
+                  No map marker — app will fall back to address postcode.
+                </p>
+              )}
               {"hide_location" in entity && entity.hide_location ? (
                 <p className="text-xs text-amber-300/90">
                   Hidden from the app (address for records only).

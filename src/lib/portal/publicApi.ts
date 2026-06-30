@@ -2,6 +2,7 @@ import type {
   Club,
   Coach,
   Gym,
+  MapMarker,
   OpeningHours,
   PortalEntityKind,
   PortalLink,
@@ -17,9 +18,12 @@ export type PublicVenueAddress = {
   county: string | null;
   postcode: string;
   country: string;
+  /** Postcode centre — fallback when mapMarker is omitted. */
   latitude: number | null;
   longitude: number | null;
 };
+
+export type PublicMapMarker = MapMarker;
 
 export type PublicLink = PortalLink;
 
@@ -28,6 +32,7 @@ type PublicListingBase = {
   name: string;
   description: string | null;
   address: PublicVenueAddress;
+  mapMarker: PublicMapMarker | null;
   links: PublicLink[];
   email: string | null;
   phone: string | null;
@@ -97,6 +102,7 @@ function toPublicListingBase(
     address: hideLocation
       ? redactedPublicAddress(entity.address.country)
       : toPublicAddress(entity.address),
+    mapMarker: hideLocation ? null : entity.map_marker,
     links: entity.links,
     email: entity.email,
     phone: entity.phone,

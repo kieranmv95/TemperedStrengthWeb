@@ -8,11 +8,12 @@ import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSec
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
 import { GymFieldsEditor } from "@/components/portal/GymFieldsEditor";
 import { LinksEditor } from "@/components/portal/LinksEditor";
+import { MapMarkerEditor } from "@/components/portal/MapMarkerEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
 import type { EntityConfig } from "@/lib/portal/constants";
 import { defaultOpeningHours, defaultVenueAddress } from "@/lib/portal/validation";
-import type { Coach, Gym, Club, PortalLink, PortalEntityKind, VenueAddress } from "@/lib/portal/types";
+import type { Coach, Gym, Club, MapMarker, PortalLink, PortalEntityKind, VenueAddress } from "@/lib/portal/types";
 
 type EntityValues = {
   name: string;
@@ -23,6 +24,7 @@ type EntityValues = {
   opening_hours?: Gym["opening_hours"] | Club["opening_hours"];
   has_opening_hours?: boolean;
   address?: VenueAddress;
+  map_marker?: MapMarker | null;
   hide_location?: boolean;
   specialties?: Coach["specialties"];
   radius_served_km?: Coach["radius_served_km"];
@@ -155,11 +157,14 @@ export function EntityForm({
       </fieldset>
 
       {config.hasAddress && address ? (
-        <AddressEditor
-          address={address}
-          canHideLocation={config.canHideLocation}
-          hideLocation={entity?.hide_location}
-        />
+        <>
+          <AddressEditor
+            address={address}
+            canHideLocation={config.canHideLocation}
+            hideLocation={entity?.hide_location}
+          />
+          <MapMarkerEditor mapMarker={entity?.map_marker} />
+        </>
       ) : null}
 
       {config.kind === "coaches" ? (

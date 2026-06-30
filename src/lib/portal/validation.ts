@@ -1,5 +1,5 @@
 import { DAYS, TWENTY_FOUR_HOUR_CLOSE, TWENTY_FOUR_HOUR_OPEN } from "./constants";
-import type { DayHours, OpeningHours, PortalLink, VenueAddress } from "./types";
+import type { DayHours, MapMarker, OpeningHours, PortalLink, VenueAddress } from "./types";
 
 export const MAX_ENTITY_LINKS = 10;
 
@@ -279,6 +279,45 @@ function parseOptionalCoordinate(value: FormDataEntryValue | null): number | nul
   if (value == null || value === "") return null;
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+export function parseMapMarkerFromForm(formData: FormData): MapMarker | null {
+  const latRaw = String(formData.get("map_latitude") ?? "").trim();
+  const lngRaw = String(formData.get("map_longitude") ?? "").trim();
+
+  if (!latRaw && !lngRaw) {
+    return null;
+  }
+
+  if (!latRaw || !lngRaw) {
+    throw new Error(
+      "Please enter both latitude and longitude for the map marker, or leave both empty."
+    );
+  }
+
+  return {
+    latitude: parseMapCoordinate(latRaw, "latitude"),
+    longitude: parseMapCoordinate(lngRaw, "longitude"),
+  };
+}
+
+function parseMapCoordinate(value: string, kind: "latitude" | "longitude"): number {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(
+      `${kind === "latitude" ? "Latitude" : "Longitude"} must be a number.`
+    );
+  }
+
+  if (kind === "latitude" && (parsed < -90 || parsed > 90)) {
+    throw new Error("Latitude must be between -90 and 90.");
+  }
+
+  if (kind === "longitude" && (parsed < -180 || parsed > 180)) {
+    throw new Error("Longitude must be between -180 and 180.");
+  }
+
+  return parsed;
 }
 
 export function isAddressComplete(address: VenueAddress): boolean {

@@ -32,8 +32,10 @@ export function AddressEditor({
   const [county, setCounty] = useState(address.county ?? "");
   const [line1, setLine1] = useState(streetFromAddress);
   const [line2, setLine2] = useState(address.line2 ?? "");
-  const [latitude, setLatitude] = useState<number | null>(address.latitude ?? null);
-  const [longitude, setLongitude] = useState<number | null>(
+  const [postcodeLatitude, setPostcodeLatitude] = useState<number | null>(
+    address.latitude ?? null
+  );
+  const [postcodeLongitude, setPostcodeLongitude] = useState<number | null>(
     address.longitude ?? null
   );
   const [lookupStatus, setLookupStatus] = useState<LookupStatus>(
@@ -42,9 +44,9 @@ export function AddressEditor({
   const [lookupMessage, setLookupMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const clearCoordinates = useCallback(() => {
-    setLatitude(null);
-    setLongitude(null);
+  const clearPostcodeCoordinates = useCallback(() => {
+    setPostcodeLatitude(null);
+    setPostcodeLongitude(null);
     setLookupStatus("idle");
     setLookupMessage(null);
   }, []);
@@ -62,8 +64,8 @@ export function AddressEditor({
       if (details.county) {
         setCounty(details.county);
       }
-      setLatitude(details.latitude);
-      setLongitude(details.longitude);
+      setPostcodeLatitude(details.latitude);
+      setPostcodeLongitude(details.longitude);
       setLookupStatus("verified");
       setLookupMessage(null);
     },
@@ -73,7 +75,7 @@ export function AddressEditor({
   const runPostcodeLookup = useCallback(() => {
     const trimmed = postcode.trim();
     if (!trimmed) {
-      clearCoordinates();
+      clearPostcodeCoordinates();
       return;
     }
 
@@ -84,7 +86,7 @@ export function AddressEditor({
       const result = await lookupPostcode(trimmed, "GB");
 
       if (!result.ok) {
-        clearCoordinates();
+        clearPostcodeCoordinates();
         setLookupStatus("error");
         setLookupMessage(result.error);
         return;
@@ -92,12 +94,12 @@ export function AddressEditor({
 
       applyLookupResult(result.details);
     });
-  }, [applyLookupResult, clearCoordinates, postcode]);
+  }, [applyLookupResult, clearPostcodeCoordinates, postcode]);
 
   const handlePostcodeChange = (value: string) => {
     setPostcode(value);
     if (lookupStatus === "verified") {
-      clearCoordinates();
+      clearPostcodeCoordinates();
       setCity("");
       setCounty("");
       setLine1("");
@@ -150,8 +152,8 @@ export function AddressEditor({
         name="address_manual"
         value={manualMode ? "on" : "off"}
       />
-      <input type="hidden" name="address_latitude" value={latitude ?? ""} />
-      <input type="hidden" name="address_longitude" value={longitude ?? ""} />
+      <input type="hidden" name="address_latitude" value={postcodeLatitude ?? ""} />
+      <input type="hidden" name="address_longitude" value={postcodeLongitude ?? ""} />
       {!manualMode ? (
         <>
           <input type="hidden" name="address_city" value={city} />

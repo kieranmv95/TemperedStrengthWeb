@@ -96,6 +96,7 @@ export function EntityDetailView({
                   ? entity.has_opening_hours
                   : undefined,
               address: "address" in entity ? entity.address : undefined,
+              map_marker: "map_marker" in entity ? entity.map_marker : undefined,
               hide_location:
                 "hide_location" in entity ? entity.hide_location : undefined,
               specialties:

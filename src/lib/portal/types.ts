@@ -17,7 +17,13 @@ export type OpeningHours = Record<DayKey, DayHours>;
 
 export type PortalLink = { label: string; url: string };
 
-/** Structured venue address — stored as jsonb on gyms/clubs. */
+/** Exact map pin — stored in map_marker jsonb on gyms/clubs/coaches. */
+export type MapMarker = {
+  latitude: number;
+  longitude: number;
+};
+
+/** Structured venue address — stored as jsonb on gyms/clubs/coaches. */
 export type VenueAddress = {
   line1: string;
   line2?: string | null;
@@ -48,6 +54,7 @@ export type PortalEntityBase = {
 export type Gym = PortalEntityBase & {
   opening_hours: OpeningHours;
   address: VenueAddress;
+  map_marker: MapMarker | null;
   focus_areas: string[];
   video_id: string | null;
 };
@@ -56,11 +63,13 @@ export type Club = PortalEntityBase & {
   opening_hours: OpeningHours;
   has_opening_hours: boolean;
   address: VenueAddress;
+  map_marker: MapMarker | null;
   hide_location: boolean;
 };
 
 export type Coach = PortalEntityBase & {
   address: VenueAddress;
+  map_marker: MapMarker | null;
   specialties: string[];
   radius_served_km: number | null;
   hide_location: boolean;

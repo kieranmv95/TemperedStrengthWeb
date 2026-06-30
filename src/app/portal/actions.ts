@@ -18,6 +18,7 @@ import {
   parseSpecialtiesFromForm,
   parseContactFromForm,
   parseFocusAreasFromForm,
+  parseMapMarkerFromForm,
   parseHideLocation,
   parseHasOpeningHours,
   validateDescription,
@@ -176,6 +177,7 @@ export async function createEntity(
 
     if (config.hasAddress) {
       payload.address = await parseAndEnrichAddress(formData);
+      payload.map_marker = parseMapMarkerFromForm(formData);
     }
 
     if (kind === "coaches") {
@@ -245,6 +247,7 @@ export async function updateEntity(
 
     if (config.hasAddress) {
       payload.address = await parseAndEnrichAddress(formData);
+      payload.map_marker = parseMapMarkerFromForm(formData);
     }
 
     if (kind === "coaches") {
