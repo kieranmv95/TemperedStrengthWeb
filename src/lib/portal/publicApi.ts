@@ -9,6 +9,7 @@ import type {
   VenueAddress,
 } from "./types";
 import { mapClub, mapCoach, mapGym } from "./db";
+import { getPartnerImagePublicUrl } from "./partnerImages";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export type PublicVenueAddress = {
@@ -36,6 +37,7 @@ type PublicListingBase = {
   links: PublicLink[];
   email: string | null;
   phone: string | null;
+  imageUrl: string | null;
   approvedAt: string | null;
   updatedAt: string;
 };
@@ -106,6 +108,7 @@ function toPublicListingBase(
     links: entity.links,
     email: entity.email,
     phone: entity.phone,
+    imageUrl: hideLocation ? null : getPartnerImagePublicUrl(entity.image_path),
     approvedAt: entity.approved_at,
     updatedAt: entity.updated_at,
   };

@@ -43,6 +43,7 @@ export type PortalEntityBase = {
   email: string | null;
   phone: string | null;
   links: PortalLink[];
+  image_path: string | null;
   status: PortalEntityStatus;
   rejection_note: string | null;
   submitted_at: string | null;

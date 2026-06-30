@@ -94,6 +94,12 @@ export function parseMapMarker(value: unknown): MapMarker | null {
   return { latitude, longitude };
 }
 
+function parseImagePath(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
 export function mapGym(row: Record<string, unknown>): Gym {
   return {
     id: String(row.id),
@@ -111,6 +117,7 @@ export function mapGym(row: Record<string, unknown>): Gym {
         ? row.video_id.trim()
         : null,
     links: parseLinks(row.links),
+    image_path: parseImagePath(row.image_path),
     status: row.status as Gym["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,
     submitted_at: row.submitted_at ? String(row.submitted_at) : null,
@@ -134,6 +141,7 @@ export function mapClub(row: Record<string, unknown>): Club {
     map_marker: parseMapMarker(row.map_marker),
     hide_location: row.hide_location === true,
     links: parseLinks(row.links),
+    image_path: parseImagePath(row.image_path),
     status: row.status as Club["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,
     submitted_at: row.submitted_at ? String(row.submitted_at) : null,
@@ -159,6 +167,7 @@ export function mapCoach(row: Record<string, unknown>): Coach {
       typeof radius === "number" && Number.isFinite(radius) ? radius : null,
     hide_location: row.hide_location === true,
     links: parseLinks(row.links),
+    image_path: parseImagePath(row.image_path),
     status: row.status as Coach["status"],
     rejection_note: row.rejection_note ? String(row.rejection_note) : null,
     submitted_at: row.submitted_at ? String(row.submitted_at) : null,

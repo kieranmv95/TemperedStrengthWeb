@@ -30,6 +30,10 @@ import {
 import type { PortalLink, VenueAddress } from "@/lib/portal/types";
 import { mapEntity } from "@/lib/portal/db";
 import {
+  applyPartnerImageFromForm,
+  deletePartnerImage,
+} from "@/lib/portal/partnerImages";
+import {
   ensurePortalProfile,
   validateDisplayName,
 } from "@/lib/portal/profile";
@@ -201,6 +205,22 @@ export async function createEntity(
 
     if (error) throw new Error(error.message);
     newId = data.id;
+
+    const image_path = await applyPartnerImageFromForm(
+      supabase,
+      kind,
+      data.id,
+      formData,
+      null
+    );
+    if (image_path !== null) {
+      const { error: imageError } = await supabase
+        .from(config.table)
+        .update({ image_path })
+        .eq("id", data.id)
+        .eq("owner_id", user.id);
+      if (imageError) throw new Error(imageError.message);
+    }
   } catch (err) {
     errorMessage =
       err instanceof Error ? err.message : "Could not create entity.";
@@ -230,6 +250,17 @@ export async function updateEntity(
   let errorMessage: string | undefined;
 
   try {
+    const { data: existing, error: fetchError } = await supabase
+      .from(config.table)
+      .select("image_path")
+      .eq("id", id)
+      .eq("owner_id", user.id)
+      .maybeSingle();
+
+    if (fetchError || !existing) {
+      throw new Error("Entity not found.");
+    }
+
     const name = validateEntityName(String(formData.get("name") ?? ""));
     const description = validateDescription(String(formData.get("description") ?? ""));
     const contact = parseContactFromForm(formData);
@@ -239,6 +270,13 @@ export async function updateEntity(
       description,
       email: contact.email,
       phone: contact.phone,
+      image_path: await applyPartnerImageFromForm(
+        supabase,
+        kind,
+        id,
+        formData,
+        existing.image_path ? String(existing.image_path) : null
+      ),
     };
 
     if (config.hasOpeningHours) {
@@ -466,7 +504,7 @@ export async function deleteEntity(kind: PortalEntityKind, id: string) {
     .delete()
     .eq("id", id)
     .eq("owner_id", user.id)
-    .select("id");
+    .select("id, image_path");
 
   if (error) {
     redirect(`${entityPath(kind, id)}?error=${encodeURIComponent(error.message)}`);
@@ -476,6 +514,16 @@ export async function deleteEntity(kind: PortalEntityKind, id: string) {
     redirect(
       `${entityPath(kind, id)}?error=${encodeURIComponent("Could not delete this listing. Please try again.")}`
     );
+  }
+
+  const imagePath =
+    typeof data[0].image_path === "string" ? data[0].image_path : null;
+  if (imagePath) {
+    try {
+      await deletePartnerImage(supabase, imagePath);
+    } catch {
+      // Listing is deleted; orphaned storage objects can be cleaned up later.
+    }
   }
 
   revalidatePath("/portal");

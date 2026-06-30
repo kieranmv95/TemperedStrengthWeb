@@ -7,6 +7,7 @@ import { ENTITY_CONFIGS } from "@/lib/portal/constants";
 import type { AdminOwnerInfo } from "@/lib/portal/adminData";
 import type { EntityRow } from "@/lib/portal/db";
 import { formatAddressDisplay } from "@/lib/portal/validation";
+import { getPartnerImagePublicUrl } from "@/lib/portal/partnerImages";
 import type { Club, Coach, Gym, PortalEntityKind } from "@/lib/portal/types";
 
 type Props = {
@@ -53,6 +54,7 @@ export function AdminEntityReview({
 }: Props) {
   const config = ENTITY_CONFIGS[kind];
   const isPending = entity.status === "pending";
+  const imageUrl = getPartnerImagePublicUrl(entity.image_path);
 
   return (
     <div className="space-y-8">
@@ -139,6 +141,21 @@ export function AdminEntityReview({
               </p>
             ) : (
               <p className="text-sm text-neutral-500">No description provided.</p>
+            )}
+          </DetailSection>
+
+          <DetailSection title="Cover image">
+            {imageUrl ? (
+              <div className="aspect-square w-full max-w-[12rem] overflow-hidden rounded-lg border border-neutral-800">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imageUrl}
+                  alt={`${entity.name} cover`}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-neutral-500">No cover image provided.</p>
             )}
           </DetailSection>
 

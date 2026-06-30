@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { EntitySaveResult } from "@/app/portal/actions";
 import { AddressEditor } from "@/components/portal/AddressEditor";
@@ -8,6 +8,7 @@ import { ClubOpeningHoursSection } from "@/components/portal/ClubOpeningHoursSec
 import { CoachFieldsEditor } from "@/components/portal/CoachFieldsEditor";
 import { GymFieldsEditor } from "@/components/portal/GymFieldsEditor";
 import { LinksEditor } from "@/components/portal/LinksEditor";
+import { ListingImageEditor } from "@/components/portal/ListingImageEditor";
 import { MapMarkerEditor } from "@/components/portal/MapMarkerEditor";
 import { OpeningHoursEditor } from "@/components/portal/OpeningHoursEditor";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
@@ -29,6 +30,7 @@ type EntityValues = {
   specialties?: Coach["specialties"];
   radius_served_km?: Coach["radius_served_km"];
   focus_areas?: Gym["focus_areas"];
+  image_path?: string | null;
 };
 
 type FormState = {
@@ -65,9 +67,18 @@ export function EntityForm({
     entity?.opening_hours ?? (config.hasOpeningHours ? defaultOpeningHours() : undefined);
   const address =
     entity?.address ?? (config.hasAddress ? defaultVenueAddress() : undefined);
+  const [pendingImage, setPendingImage] = useState<File | null>(null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   const [state, formAction, isPending] = useActionState(
     async (_prev: FormState, formData: FormData): Promise<FormState> => {
+      if (pendingImage) {
+        formData.set("image", pendingImage);
+      }
+      if (removeImage) {
+        formData.set("remove_image", "on");
+      }
+
       const result = await action(formData);
 
       if (result.ok) {
@@ -84,7 +95,12 @@ export function EntityForm({
   useScrollOnError(state.error);
 
   return (
-    <form id={formId} action={formAction} className="min-w-0 space-y-6">
+    <form
+      id={formId}
+      action={formAction}
+      encType="multipart/form-data"
+      className="min-w-0 space-y-6"
+    >
       {state.error ? (
         <div
           className="rounded-xl border border-red-800/50 bg-red-950/30 px-4 py-3 text-sm text-red-100"
@@ -118,6 +134,12 @@ export function EntityForm({
           className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
         />
       </label>
+
+      <ListingImageEditor
+        imagePath={entity?.image_path}
+        onImageChange={setPendingImage}
+        onRemoveChange={setRemoveImage}
+      />
 
       <fieldset className="min-w-0 space-y-4 rounded-lg border border-neutral-800/80 bg-neutral-950/40 p-3">
         <legend className="px-1 text-sm font-semibold text-white">
