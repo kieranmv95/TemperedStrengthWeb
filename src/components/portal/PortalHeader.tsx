@@ -55,12 +55,20 @@ export async function PortalHeader() {
 
           <nav className="flex items-center gap-2 text-sm font-semibold sm:gap-3">
             {isAdmin ? (
-              <Link
-                href="/portal/admin"
-                className="rounded-lg border border-[#c9b072]/30 bg-[#c9b072]/10 px-2.5 py-2 text-[#d4c08a] hover:bg-[#c9b072]/20 transition-colors sm:px-3"
-              >
-                Admin
-              </Link>
+              <>
+                <Link
+                  href="/portal/admin/competition"
+                  className="rounded-lg border border-neutral-800 bg-neutral-900/50 px-2.5 py-2 text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors sm:px-3"
+                >
+                  Competition
+                </Link>
+                <Link
+                  href="/portal/admin"
+                  className="rounded-lg border border-[#c9b072]/30 bg-[#c9b072]/10 px-2.5 py-2 text-[#d4c08a] hover:bg-[#c9b072]/20 transition-colors sm:px-3"
+                >
+                  Admin
+                </Link>
+              </>
             ) : null}
             <Link
               href="/"
