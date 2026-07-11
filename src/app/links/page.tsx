@@ -176,6 +176,18 @@ export default function LinksPage() {
             <SectionTitle id="partner-heading">Partners</SectionTitle>
             <ul className="space-y-2">
               <li>
+                <Link href="/partners" className={linkRowClassName()}>
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
+                    <span className="font-semibold text-white">Brand assets</span>
+                    <span className="text-xs text-neutral-500">
+                      Download logos for designs, mockups, and marketing.
+                    </span>
+                  </span>
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                </Link>
+              </li>
+              <li>
                 <Link href="/portal/login" className={linkRowClassName()}>
                   <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
