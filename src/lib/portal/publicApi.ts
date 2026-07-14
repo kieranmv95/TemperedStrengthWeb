@@ -46,6 +46,7 @@ export type PublicGymListing = PublicListingBase & {
   openingHours: OpeningHours;
   focusAreas: string[];
   videoId: string | null;
+  gymImageUrl: string | null;
 };
 
 export type PublicClubListing = PublicListingBase & {
@@ -120,6 +121,7 @@ export function toPublicGym(gym: Gym): PublicGymListing {
     openingHours: gym.opening_hours,
     focusAreas: gym.focus_areas,
     videoId: gym.video_id,
+    gymImageUrl: gym.gym_image_url,
   };
 }
 

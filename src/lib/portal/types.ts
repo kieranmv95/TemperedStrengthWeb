@@ -58,6 +58,8 @@ export type Gym = PortalEntityBase & {
   map_marker: MapMarker | null;
   focus_areas: string[];
   video_id: string | null;
+  /** Admin-managed image URL for the app (set in Supabase). */
+  gym_image_url: string | null;
 };
 
 export type Club = PortalEntityBase & {

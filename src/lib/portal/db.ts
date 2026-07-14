@@ -116,6 +116,7 @@ export function mapGym(row: Record<string, unknown>): Gym {
       typeof row.video_id === "string" && row.video_id.trim()
         ? row.video_id.trim()
         : null,
+    gym_image_url: parseImagePath(row.gym_image_url),
     links: parseLinks(row.links),
     image_path: parseImagePath(row.image_path),
     status: row.status as Gym["status"],
