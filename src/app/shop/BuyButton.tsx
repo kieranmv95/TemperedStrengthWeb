@@ -4,13 +4,16 @@ import { useState } from "react";
 
 type BuyButtonProps = {
   variantId: string;
+  disabled?: boolean;
 };
 
-export default function BuyButton({ variantId }: BuyButtonProps) {
+export default function BuyButton({ variantId, disabled = false }: BuyButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleBuy() {
+    if (!variantId || disabled) return;
+
     setLoading(true);
     setError(null);
 
@@ -42,10 +45,10 @@ export default function BuyButton({ variantId }: BuyButtonProps) {
       <button
         type="button"
         onClick={handleBuy}
-        disabled={loading}
+        disabled={loading || disabled || !variantId}
         className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#d8c28b] disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {loading ? "Loading..." : "Buy Now"}
+        {loading ? "Loading..." : disabled || !variantId ? "Select options" : "Buy Now"}
       </button>
       {error ? <p className="mt-2 text-sm text-red-400">{error}</p> : null}
     </div>

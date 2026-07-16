@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { SiteHeader } from "@/components/SiteHeader";
-import BuyButton from "./BuyButton";
+import ProductCard from "./ProductCard";
 import { getProducts } from "@/lib/shopify";
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export default async function ShopPage() {
             Shop
           </h1>
           <p className="mx-auto max-w-2xl text-neutral-400 leading-relaxed">
-            Browse available products and head straight to Shopify checkout.
+            Browse available products and head straight to checkout.
           </p>
         </section>
 
@@ -36,39 +35,10 @@ export default async function ShopPage() {
             No products found. Check back soon!
           </div>
         ) : (
-          <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {products.map((product) => {
-              const variantId = product.variants.edges[0]?.node.id;
-              if (!variantId) return null;
-
-              return (
-                <article
-                  key={product.id}
-                  className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5 text-center backdrop-blur-sm"
-                >
-                  {product.featuredImage ? (
-                    <Image
-                      src={product.featuredImage.url}
-                      alt={product.featuredImage.altText ?? product.title}
-                      width={600}
-                      height={600}
-                      className="aspect-square w-full rounded-xl object-cover"
-                    />
-                  ) : (
-                    <div className="flex aspect-square w-full items-center justify-center rounded-xl border border-neutral-800 bg-neutral-950/60 text-sm text-neutral-500">
-                      Image coming soon
-                    </div>
-                  )}
-
-                  <h2 className="mt-4 text-xl font-bold">{product.title}</h2>
-                  <p className="mt-2 text-neutral-300">
-                    {product.priceRange.minVariantPrice.amount}{" "}
-                    {product.priceRange.minVariantPrice.currencyCode}
-                  </p>
-                  <BuyButton variantId={variantId} />
-                </article>
-              );
-            })}
+          <section className="space-y-8">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </section>
         )}
       </div>
