@@ -5,9 +5,16 @@ import { useState } from "react";
 type BuyButtonProps = {
   variantId: string;
   disabled?: boolean;
+  className?: string;
+  fullWidth?: boolean;
 };
 
-export default function BuyButton({ variantId, disabled = false }: BuyButtonProps) {
+export default function BuyButton({
+  variantId,
+  disabled = false,
+  className = "",
+  fullWidth = false,
+}: BuyButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,12 +48,14 @@ export default function BuyButton({ variantId, disabled = false }: BuyButtonProp
   }
 
   return (
-    <div className="mt-4">
+    <div className={className}>
       <button
         type="button"
         onClick={handleBuy}
         disabled={loading || disabled || !variantId}
-        className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#d8c28b] disabled:cursor-not-allowed disabled:opacity-70"
+        className={`inline-flex min-h-11 items-center justify-center rounded-lg bg-[#c9b072] px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-[#d8c28b] disabled:cursor-not-allowed disabled:opacity-70 ${
+          fullWidth ? "w-full" : ""
+        }`}
       >
         {loading ? "Loading..." : disabled || !variantId ? "Select options" : "Buy Now"}
       </button>
