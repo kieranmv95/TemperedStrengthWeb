@@ -39,6 +39,17 @@ export default async function AdminDashboardPage() {
         </p>
       </Link>
 
+      <Link
+        href="/portal/admin/promo-codes"
+        className="block rounded-xl border border-[#c9b072]/30 bg-[#c9b072]/10 p-4 transition-colors hover:border-[#c9b072]/50"
+      >
+        <p className="text-sm font-semibold text-[#d4c08a]">Promo codes</p>
+        <p className="mt-2 text-sm text-neutral-300">
+          Create and manage Pro redemption codes for the app, with email audit
+          logging.
+        </p>
+      </Link>
+
       <div className="grid gap-3 sm:grid-cols-3">
         {(["gyms", "clubs", "coaches"] as const).map((kind) => {
           const config = ENTITY_CONFIGS[kind];
