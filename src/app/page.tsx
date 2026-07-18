@@ -521,7 +521,7 @@ export default function Home() {
         </AnimatedSection>
 
         {/* Programs CTA */}
-        <AnimatedSection className="mb-20 md:mb-28">
+        <AnimatedSection className="mb-8 md:mb-10">
           <Link
             href="/programs"
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-5 md:p-6 rounded-xl border border-[#c9b072]/25 bg-[#c9b072]/5 hover:border-[#c9b072]/45 hover:bg-[#c9b072]/10 transition-colors text-left"
@@ -553,6 +553,101 @@ export default function Home() {
               </svg>
             </span>
           </Link>
+        </AnimatedSection>
+
+        {/* Shop & Events CTAs */}
+        <AnimatedSection className="mb-20 md:mb-28">
+          <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+            <Link
+              href="/shop"
+              className="group flex flex-col gap-3 p-5 md:p-6 rounded-xl border border-neutral-800 bg-neutral-900/40 hover:border-[#c9b072]/35 hover:bg-neutral-900/60 transition-colors text-left"
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-4 h-4 text-[#c9b072]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.75}
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                  />
+                </svg>
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#c9b072]">
+                  Shop
+                </p>
+              </div>
+              <p className="text-neutral-300 text-sm md:text-base leading-relaxed flex-1">
+                Grab Tempered Strength kit and head straight to checkout.
+              </p>
+              <span className="inline-flex items-center gap-2 text-white font-semibold text-sm">
+                Visit the shop
+                <svg
+                  className="w-4 h-4 text-[#c9b072] transition-transform group-hover:translate-x-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
+            </Link>
+
+            <Link
+              href="/events"
+              className="group flex flex-col gap-3 p-5 md:p-6 rounded-xl border border-neutral-800 bg-neutral-900/40 hover:border-[#c9b072]/35 hover:bg-neutral-900/60 transition-colors text-left"
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-4 h-4 text-[#c9b072]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.75}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#c9b072]">
+                  Event calendar
+                </p>
+              </div>
+              <p className="text-neutral-300 text-sm md:text-base leading-relaxed flex-1">
+                See upcoming meets, sessions, and community events.
+              </p>
+              <span className="inline-flex items-center gap-2 text-white font-semibold text-sm">
+                View events
+                <svg
+                  className="w-4 h-4 text-[#c9b072] transition-transform group-hover:translate-x-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
+            </Link>
+          </div>
         </AnimatedSection>
 
         {/* Testimonials */}
@@ -678,6 +773,18 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
             <div className="flex flex-wrap justify-center gap-6">
+              <Link
+                href="/shop"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Shop
+              </Link>
+              <Link
+                href="/events"
+                className="hover:text-[#c9b072] transition-colors"
+              >
+                Events
+              </Link>
               <Link
                 href="/programs"
                 className="hover:text-[#c9b072] transition-colors"
