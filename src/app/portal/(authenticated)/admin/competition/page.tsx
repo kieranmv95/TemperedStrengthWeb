@@ -39,7 +39,7 @@ export default async function AdminCompetitionPage() {
 
   const entries = sortEntriesForAdmin(
     await fetchAdminCompetitionEntries(),
-    competition.orderBy
+    competition.metricType
   );
 
   return (
@@ -97,7 +97,7 @@ export default async function AdminCompetitionPage() {
       </section>
 
       <section className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6">
-        <CompetitionEntriesSection entries={entries} orderBy={competition.orderBy} />
+        <CompetitionEntriesSection entries={entries} metricType={competition.metricType} />
       </section>
 
       <section className="rounded-xl border border-neutral-800 bg-neutral-950/50 p-4 text-xs text-neutral-500">

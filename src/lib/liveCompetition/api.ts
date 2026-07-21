@@ -32,7 +32,7 @@ export async function getLiveCompetition(
   const { data: competition, error: competitionError } = await supabase
     .from("active_competition")
     .select(
-      "title, description, additional_info, link_text, order_by, theme_border_color, theme_bg_color, theme_copy_color, theme_link_color, theme_link_text_color"
+      "title, description, additional_info, link_text, metric_type, theme_border_color, theme_bg_color, theme_copy_color, theme_link_color, theme_link_text_color"
     )
     .eq("id", 1)
     .eq(activeFlag, true)

@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { updateCompetitionDetails } from "@/app/portal/(authenticated)/admin/competition/actions";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
+import { METRIC_TYPE_OPTIONS } from "@/lib/liveCompetition/metrics";
 import type { AdminCompetition } from "@/lib/liveCompetition/adminTypes";
 
 const inputClass =
@@ -137,16 +138,26 @@ export function CompetitionDetailsForm({ competition }: Props) {
           />
         </label>
 
-        <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-white">Order by</span>
+        <label className="block sm:col-span-2">
+          <span className="mb-1 block text-sm font-semibold text-white">
+            Competition metric
+          </span>
           <select
-            name="order_by"
-            defaultValue={competition.orderBy}
+            name="metric_type"
+            required
+            defaultValue={competition.metricType}
             className={inputClass}
           >
-            <option value="weight">Weight (highest first)</option>
-            <option value="time">Time (lowest first)</option>
+            {METRIC_TYPE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label} — {option.description}
+              </option>
+            ))}
           </select>
+          <span className="mt-1 block text-xs text-neutral-500">
+            Required when spinning up a competition. Scores are always stored as a
+            number; time is entered in seconds.
+          </span>
         </label>
       </div>
 

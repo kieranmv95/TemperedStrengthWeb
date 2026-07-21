@@ -1,4 +1,8 @@
-import type { LiveCompetitionOrderBy } from "./types";
+import type { LiveCompetitionMetricType } from "./metrics";
+import {
+  COMPETITION_METRIC_TYPES,
+  isLiveCompetitionMetricType,
+} from "./metrics";
 
 const HEX_COLOR = /^#[0-9A-Fa-f]{6}$/;
 
@@ -29,12 +33,14 @@ function requireHexColor(value: FormDataEntryValue | null, label: string): strin
   return trimmed.toUpperCase();
 }
 
-function parseOrderBy(value: FormDataEntryValue | null): LiveCompetitionOrderBy {
-  const orderBy = String(value ?? "").trim();
-  if (orderBy !== "weight" && orderBy !== "time") {
-    throw new Error('Order by must be "weight" or "time".');
+function parseMetricType(value: FormDataEntryValue | null): LiveCompetitionMetricType {
+  const metricType = String(value ?? "").trim();
+  if (!isLiveCompetitionMetricType(metricType)) {
+    throw new Error(
+      `Metric type must be one of: ${COMPETITION_METRIC_TYPES.join(", ")}.`
+    );
   }
-  return orderBy;
+  return metricType;
 }
 
 function parseScore(value: FormDataEntryValue | null): number {
@@ -55,7 +61,7 @@ export function parseCompetitionDetailsFromForm(formData: FormData) {
     description: optionalText(formData.get("description"), 5000),
     additional_info: optionalText(formData.get("additional_info"), 5000),
     link_text: requireText(formData.get("link_text"), "Link text", 100),
-    order_by: parseOrderBy(formData.get("order_by")),
+    metric_type: parseMetricType(formData.get("metric_type")),
     theme_border_color: requireHexColor(
       formData.get("theme_border_color"),
       "Border colour"

@@ -1,6 +1,9 @@
-export type CompetitionEnvironment = "test" | "production";
+import { isLiveCompetitionMetricType } from "./metrics";
+import type { LiveCompetitionMetricType } from "./metrics";
 
-export type LiveCompetitionOrderBy = "weight" | "time";
+export type { LiveCompetitionMetricType } from "./metrics";
+
+export type CompetitionEnvironment = "test" | "production";
 
 export type LiveCompetitionTheme = {
   borderColor: string;
@@ -21,7 +24,7 @@ export type LiveCompetition = {
   description: string;
   additionalInfo: string;
   linkText: string;
-  orderBy: LiveCompetitionOrderBy;
+  metricType: LiveCompetitionMetricType;
   theme: LiveCompetitionTheme;
   entries: LiveCompetitionEntry[];
 };
@@ -31,7 +34,7 @@ type ActiveCompetitionRow = {
   description: string;
   additional_info: string;
   link_text: string;
-  order_by: string;
+  metric_type: string;
   theme_border_color: string;
   theme_bg_color: string;
   theme_copy_color: string;
@@ -49,9 +52,9 @@ export function mapActiveCompetitionRow(
   row: ActiveCompetitionRow,
   entries: CompetitionEntryRow[]
 ): LiveCompetition {
-  const orderBy = row.order_by;
-  if (orderBy !== "weight" && orderBy !== "time") {
-    throw new Error(`Invalid order_by value: ${orderBy}`);
+  const metricType = row.metric_type;
+  if (!isLiveCompetitionMetricType(metricType)) {
+    throw new Error(`Invalid metric_type value: ${metricType}`);
   }
 
   return {
@@ -59,7 +62,7 @@ export function mapActiveCompetitionRow(
     description: row.description,
     additionalInfo: row.additional_info,
     linkText: row.link_text,
-    orderBy,
+    metricType,
     theme: {
       borderColor: row.theme_border_color,
       bgColor: row.theme_bg_color,

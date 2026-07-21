@@ -4,7 +4,8 @@ import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { createCompetitionEntry } from "@/app/portal/(authenticated)/admin/competition/actions";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
-import type { LiveCompetitionOrderBy } from "@/lib/liveCompetition/types";
+import { getMetricConfig } from "@/lib/liveCompetition/metrics";
+import type { LiveCompetitionMetricType } from "@/lib/liveCompetition/metrics";
 
 const inputClass =
   "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none";
@@ -16,12 +17,13 @@ type FormState = {
 };
 
 type Props = {
-  orderBy: LiveCompetitionOrderBy;
+  metricType: LiveCompetitionMetricType;
   categories: string[];
 };
 
-export function CompetitionAddEntryForm({ orderBy, categories }: Props) {
+export function CompetitionAddEntryForm({ metricType, categories }: Props) {
   const router = useRouter();
+  const metric = getMetricConfig(metricType);
 
   const [state, formAction, isPending] = useActionState(
     async (prev: FormState, formData: FormData): Promise<FormState> => {
@@ -38,11 +40,6 @@ export function CompetitionAddEntryForm({ orderBy, categories }: Props) {
   );
 
   useScrollOnError(state.error);
-
-  const scoreHint =
-    orderBy === "weight"
-      ? "Weight in kg (e.g. 142)"
-      : "Time in seconds (e.g. 95 for 1:35)";
 
   return (
     <form
@@ -94,10 +91,10 @@ export function CompetitionAddEntryForm({ orderBy, categories }: Props) {
             min={0}
             step="any"
             inputMode="decimal"
-            placeholder={orderBy === "weight" ? "142" : "95"}
+            placeholder={metric.scorePlaceholder}
             className={inputClass}
           />
-          <span className="mt-1 block text-[10px] text-neutral-500">{scoreHint}</span>
+          <span className="mt-1 block text-[10px] text-neutral-500">{metric.scoreHint}</span>
         </label>
 
         <label className="block sm:col-span-3">

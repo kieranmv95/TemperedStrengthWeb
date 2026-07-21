@@ -1,7 +1,8 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ACTIVE_COMPETITION_ID } from "./constants";
 import type { AdminCompetition, AdminCompetitionEntry } from "./adminTypes";
-import type { LiveCompetitionOrderBy } from "./types";
+import { compareScores, isLiveCompetitionMetricType } from "./metrics";
+import type { LiveCompetitionMetricType } from "./metrics";
 
 function getAdminClient() {
   const admin = createAdminClient();
@@ -12,9 +13,9 @@ function getAdminClient() {
 }
 
 function mapAdminCompetition(row: Record<string, unknown>): AdminCompetition {
-  const orderBy = row.order_by;
-  if (orderBy !== "weight" && orderBy !== "time") {
-    throw new Error(`Invalid order_by value: ${orderBy}`);
+  const metricType = String(row.metric_type ?? "");
+  if (!isLiveCompetitionMetricType(metricType)) {
+    throw new Error(`Invalid metric_type value: ${metricType}`);
   }
 
   return {
@@ -23,7 +24,7 @@ function mapAdminCompetition(row: Record<string, unknown>): AdminCompetition {
     description: String(row.description ?? ""),
     additionalInfo: String(row.additional_info ?? ""),
     linkText: String(row.link_text ?? ""),
-    orderBy: orderBy as LiveCompetitionOrderBy,
+    metricType,
     theme: {
       borderColor: String(row.theme_border_color ?? "#FF3801"),
       bgColor: String(row.theme_bg_color ?? "#FF3801"),
@@ -91,7 +92,7 @@ export async function fetchAdminCompetitionEntries(): Promise<AdminCompetitionEn
 
 export function sortEntriesForAdmin(
   entries: AdminCompetitionEntry[],
-  orderBy: LiveCompetitionOrderBy
+  metricType: LiveCompetitionMetricType
 ): AdminCompetitionEntry[] {
   return [...entries].sort((a, b) => {
     const categoryCompare = a.category.localeCompare(b.category, undefined, {
@@ -99,10 +100,6 @@ export function sortEntriesForAdmin(
     });
     if (categoryCompare !== 0) return categoryCompare;
 
-    if (orderBy === "weight") {
-      return b.score - a.score;
-    }
-
-    return a.score - b.score;
+    return compareScores(a.score, b.score, metricType);
   });
 }

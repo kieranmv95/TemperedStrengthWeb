@@ -1,14 +1,15 @@
 import { CompetitionAddEntryForm } from "@/components/portal/admin/competition/CompetitionAddEntryForm";
 import { CompetitionEntryRow } from "@/components/portal/admin/competition/CompetitionEntryRow";
 import type { AdminCompetitionEntry } from "@/lib/liveCompetition/adminTypes";
-import type { LiveCompetitionOrderBy } from "@/lib/liveCompetition/types";
+import { getSortDescription } from "@/lib/liveCompetition/metrics";
+import type { LiveCompetitionMetricType } from "@/lib/liveCompetition/metrics";
 
 type Props = {
   entries: AdminCompetitionEntry[];
-  orderBy: LiveCompetitionOrderBy;
+  metricType: LiveCompetitionMetricType;
 };
 
-export function CompetitionEntriesSection({ entries, orderBy }: Props) {
+export function CompetitionEntriesSection({ entries, metricType }: Props) {
   const categories = [...new Set(entries.map((entry) => entry.category))].sort(
     (a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })
   );
@@ -29,14 +30,11 @@ export function CompetitionEntriesSection({ entries, orderBy }: Props) {
         <p className="mt-1 text-sm text-neutral-500">
           {entries.length} {entries.length === 1 ? "entry" : "entries"}.
           Sorted for admin preview — the app sorts per category using{" "}
-          <span className="text-neutral-400">
-            {orderBy === "weight" ? "highest score first" : "lowest time first"}
-          </span>
-          .
+          <span className="text-neutral-400">{getSortDescription(metricType)}</span>.
         </p>
       </div>
 
-      <CompetitionAddEntryForm orderBy={orderBy} categories={categories} />
+      <CompetitionAddEntryForm metricType={metricType} categories={categories} />
 
       {entries.length === 0 ? (
         <div className="rounded-xl border border-dashed border-neutral-800 bg-neutral-900/20 px-4 py-8 text-center text-sm text-neutral-500">
@@ -55,7 +53,7 @@ export function CompetitionEntriesSection({ entries, orderBy }: Props) {
                   <CompetitionEntryRow
                     key={entry.id}
                     entry={entry}
-                    orderBy={orderBy}
+                    metricType={metricType}
                     categories={categories}
                   />
                 ))}
@@ -73,7 +71,7 @@ export function CompetitionEntriesSection({ entries, orderBy }: Props) {
                   <CompetitionEntryRow
                     key={entry.id}
                     entry={entry}
-                    orderBy={orderBy}
+                    metricType={metricType}
                     categories={categories}
                   />
                 ))}

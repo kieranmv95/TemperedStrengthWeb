@@ -1,4 +1,4 @@
-import type { LiveCompetitionOrderBy, LiveCompetitionTheme } from "./types";
+import type { LiveCompetitionMetricType, LiveCompetitionTheme } from "./types";
 
 export type AdminCompetition = {
   id: number;
@@ -6,7 +6,7 @@ export type AdminCompetition = {
   description: string;
   additionalInfo: string;
   linkText: string;
-  orderBy: LiveCompetitionOrderBy;
+  metricType: LiveCompetitionMetricType;
   theme: LiveCompetitionTheme;
   activeInTest: boolean;
   activeInProduction: boolean;

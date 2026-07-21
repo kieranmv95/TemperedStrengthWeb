@@ -7,7 +7,10 @@ import {
   updateCompetitionEntry,
 } from "@/app/portal/(authenticated)/admin/competition/actions";
 import type { AdminCompetitionEntry } from "@/lib/liveCompetition/adminTypes";
-import type { LiveCompetitionOrderBy } from "@/lib/liveCompetition/types";
+import {
+  formatScoreForDisplay,
+  type LiveCompetitionMetricType,
+} from "@/lib/liveCompetition/metrics";
 
 const inputClass =
   "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-sm text-white focus:border-[#c9b072]/50 focus:outline-none";
@@ -19,21 +22,11 @@ type RowState = {
 
 type Props = {
   entry: AdminCompetitionEntry;
-  orderBy: LiveCompetitionOrderBy;
+  metricType: LiveCompetitionMetricType;
   categories: string[];
 };
 
-function formatScore(score: number, orderBy: LiveCompetitionOrderBy): string {
-  if (orderBy === "weight") {
-    return `${score} kg`;
-  }
-
-  const minutes = Math.floor(score / 60);
-  const seconds = Math.round(score % 60);
-  return `${minutes}:${String(seconds).padStart(2, "0")}`;
-}
-
-export function CompetitionEntryRow({ entry, orderBy, categories }: Props) {
+export function CompetitionEntryRow({ entry, metricType, categories }: Props) {
   const router = useRouter();
   const updateAction = updateCompetitionEntry.bind(null, entry.id);
   const deleteAction = deleteCompetitionEntry.bind(null, entry.id);
@@ -135,7 +128,7 @@ export function CompetitionEntryRow({ entry, orderBy, categories }: Props) {
 
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs text-neutral-500 tabular-nums">
-            App display: {formatScore(entry.score, orderBy)}
+            App display: {formatScoreForDisplay(entry.score, metricType)}
           </p>
           <div className="flex flex-wrap gap-2">
             <button
