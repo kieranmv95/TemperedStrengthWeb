@@ -19,9 +19,6 @@ export default async function ShopPage() {
         <SiteHeader className="mb-6 sm:mb-10 md:mb-12" />
 
         <section className="mb-6 text-center sm:mb-10 md:mb-14">
-          <p className="mb-2 text-xs font-medium uppercase tracking-[0.25em] text-[#c9b072] sm:mb-4 md:text-sm">
-            Shopify store
-          </p>
           <h1 className="mb-2 text-3xl font-bold tracking-tight sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl">
             Shop
           </h1>
