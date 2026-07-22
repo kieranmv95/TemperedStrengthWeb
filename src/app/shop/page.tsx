@@ -15,12 +15,13 @@ export default async function ShopPage() {
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 py-5 pb-24 sm:py-8 sm:pb-28 md:py-12 lg:pb-12">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-5 sm:py-8 md:py-12">
         <SiteHeader className="mb-6 sm:mb-10 md:mb-12" />
 
         <section className="mb-6 text-center sm:mb-10 md:mb-14">
           <h1 className="mb-2 text-3xl font-bold tracking-tight sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl">
-            Shop
+            Shop - {products.length}{" "}
+            {products.length === 1 ? "product" : "products"}
           </h1>
           <p className="mx-auto max-w-2xl px-1 text-sm leading-relaxed text-neutral-400 text-balance sm:text-base">
             Browse available products and head straight to checkout.
