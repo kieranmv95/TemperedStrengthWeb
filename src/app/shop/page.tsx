@@ -23,9 +23,10 @@ export default async function ShopPage() {
             Shop - {products.length}{" "}
             {products.length === 1 ? "product" : "products"}
           </h1>
-          <p className="mx-auto max-w-2xl px-1 text-sm leading-relaxed text-neutral-400 text-balance sm:text-base">
-            Browse available products and head straight to checkout.
-          </p>
+          <h2 className="text-lg font-medium text-neutral-400">Next shipping run is August 2nd</h2>
+          <p className="text-sm text-neutral-400">All order placed before August 2nd will be shipped on August 2nd, the printing process through to fulfillment will take 2-3 weeks.</p>
+          <p className="text-sm text-neutral-400">All orders are made to order so currently we are unable to accept returns or exchanges.</p>
+          <p className="mt-4 text-sm text-neutral-400">Want <span className="text-emerald-500">15%</span> off? Come find us at any of our events or DM us on instagram.</p>
         </section>
 
         {products.length === 0 ? (
