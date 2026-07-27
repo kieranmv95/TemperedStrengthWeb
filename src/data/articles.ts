@@ -993,4 +993,103 @@ export const articles: Article[] = [
     7. Naber, M. et al. (2024). Single Dose Creatine Improves Cognitive Performance and Induces Changes in Cerebral High Energy Phosphates During Sleep Deprivation. Scientific Reports. https://doi.org/10.1038/s41598-024-54249-9
     8. Xu, C., Bi, S. & Zhang, W. (2025). The Effects of Creatine Supplementation on Cognitive Function in Adults: A Systematic Review and Meta-Analysis. Frontiers in Nutrition, 11, 1424972.`,
   },
+  {
+    id: "article_018",
+    slug: "arena-games-multi-wod-competition-day",
+    title: "Arena Games: How to Survive a Multi-WOD Competition Day",
+    subtitle:
+      "Fatigue, fuel, nerves, and mobility: the Tempered Strength playbook for teams of four under the lights",
+    category: "Methodology",
+    readTime: 7,
+    image:
+      "https://images.unsplash.com/photo-1741478551868-a17b1644228d?q=80&w=2248&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    content: `A single hard session in the gym is one thing. Four or five WODs in one day, under arena lights, with a crowd, live scoring, and your three teammates depending on you: that is a different sport entirely. Slightly less forgiving than your usual Tuesday evening class, and with a much larger audience for any creative interpretations of the standards.
+
+    The Arena Games (Event 002 at AO Arena Manchester) is built exactly for that: mixed teams of four (MMFF), divisions from scaled through Rx, and a full production experience with walk-ons, commentary, big screens, and an atmosphere most athletes only ever watch on TV. The workouts will ask for barbells, dumbbells, gymnastics, and engines. Your job is not to redline every heat. Your job is to still be useful in the last one.
+
+    That is the Tempered Strength way: train with intent, compete with a system, and leave ego at the warm-up area.
+
+    ## What You Are Actually Preparing For
+
+    Multi-WOD days punish people who treat every workout like a personal PR attempt. Glycogen drops. Grip goes. Hips stiffen. Decision-making gets noisy. The athletes who look "fresh" in heat four usually did three things well earlier: they paced with the whole day in mind, they refuelled on purpose, and they stayed mobile between efforts instead of collapsing into a chair for an hour and emerging resembling a garden gnome.
+
+    Expect long gaps between your team's heats as well as short ones. Plan for both. Boredom and cold muscles sabotage as many scores as fatigue does.
+
+    ## The Days Before The Event: Protect the Engine
+
+    Taper, do not vanish. Keep movement quality high and volume down. Two to three lighter sessions with familiar movements beat a last-minute hero workout that leaves you sore on Friday.
+
+    - Sleep like it is part of the programme: seven to nine hours, same wake time if you can
+    - Practise the skills that show up in comps (transitions, synchro habits, unbroken sets you can actually hold when tired)
+    - Confirm division, team roles, and who leads calls under fatigue
+    - Pack the night before: shoes, grips, tape, spare kit, snacks you have used in training, electrolytes, water bottle, soft roller or lacrosse ball
+
+    Do not introduce a new supplement, shoe, grip, or "race day" gel you have never tested. Competition is for executing what already works, not for discovering that your experimental breakfast has opinions of its own.
+
+    ## Game Day Morning
+
+    Eat a familiar carb-focused meal two to three hours before your first meaningful effort. Think porridge, toast with honey, rice and eggs: food that sits well and tops up glycogen. Sip fluids; do not flood yourself. Arrive early enough that logistics (parking, kit check, finding your bay) are not the first stressor of the day.
+
+    Walk the floor if you can. Know where you warm up, where you sit between heats, and where your team meets after each WOD. Reduce unknowns. Nerves hate uncertainty.
+
+    ## Managing Nerves Under the Lights
+
+    Arena nerves are normal. Smoke, music, giant screens, and hearing your name announced will spike heart rate before you touch a barbell. That is not weakness; it is arousal. Channel it. Preferably into the workout, not into forgetting which heat you are in.
+
+    - Name it: "I am switched on, not broken"
+    - Breathe on purpose: slow nasal in, longer exhale out, for 60-90 seconds before you step out
+    - Narrow the focus: one cue per movement, one job per station, one teammate call at a time
+    - Use your team: eye contact, a shared phrase, a hand on a shoulder. Co-regulation beats solo pep talks
+
+    If you feel shaky in the walk-on, that energy often settles once the clock starts. Trust your warm-up. Do not try to "out-hype" the arena. Stay quiet inside the noise.
+
+    ## Between WODs: Recover Like It Matters
+
+    The day is won in the gaps.
+
+    ### Cool down, then stay loose
+    After each heat, walk until breathing settles. Then easy mobility for hips, thoracic spine, ankles, wrists, and whatever the last WOD taxed. Soft tissue work beats sitting frozen in a hoodie for forty minutes. Re-warm before the next heat: raise pulse, hit a few reps of the upcoming pattern at light load, then rest.
+
+    ### Fuel the next effort, not yesterday's Instagram
+    In the first 20-40 minutes post-WOD, get easy carbs in: banana, jam sandwich, rice cakes, a carb drink you tolerate. Add a little protein if the gap is long. Keep fats and fibre low during the day; they slow gastric emptying when you need blood flow in the muscles, not the gut.
+
+    Sip electrolytes across the day, especially if you are a heavy sweater under arena lights. Thirst and headache are late signals.
+
+    ### Protect the nervous system
+    Headphones between heats are fine. Doom-scrolling heat times and leaderboards is not. Rest your eyes, lie with legs up for a few minutes, or chat lightly with your team. Save emotional spikes for the floor.
+
+    ## Pacing Across Four to Five Workouts
+
+    Go hard where the workout rewards it. Go smart where the day rewards it.
+
+    - Early heats: clean technique, sustainable sets, leave one gear in reserve unless it is a pure sprint piece
+    - Mid-day: watch transitions and unnecessary standing around. Dead time bleeds capacity
+    - Late heats: accept that everything feels heavier; shorten sets early rather than blow up and rest on the floor
+    - Team pieces: clear roles, clear swap rules, and one voice calling. Chaos costs more seconds than fatigue
+
+    Redlining WOD one to "set a tone" is how teams write off WOD five. Intent beats theatrics.
+
+    ## Stay Mobile Without Burning Matches
+
+    Mobility on competition day is maintenance, not a yoga class.
+
+    - Hips and posterior chain after squatting or pulling pieces
+    - Shoulders and thoracic after pressing, HSPU, or kipping volume
+    - Forearms and hands if grip is taxed: open the hands, shake out, light flexor stretch
+    - Ankles and calves before running, box work, or Olympic lifts
+
+    Two to five minutes of targeted work between heats is enough. If you are sweating from your "recovery" routine, you overdid it.
+
+    ## Team Craft (MMFF)
+
+    You are four athletes, one score. Talk through strengths before the first heat: who opens, who closes, who handles technical stations when tired, who keeps the clock honest. Agree how you reset after a bad heat: short debrief, then forward. Dwelling on a miss poisons the next warm-up.
+
+    Support looks like practical help: water, tape, a reminder to eat, a calm voice when someone is spinning. That is the standard. Motivational speeches can wait until you are not mid-set.
+
+    ## The Bottom Line
+
+    The Arena Games is designed to make everyday athletes feel like professionals for a day. Honour that by competing like professionals: prepare simply, fuel deliberately, manage arousal, stay mobile, and spend intensity where it counts across the whole card, not just the opening whistle.
+
+    Systems over chaos. Intent over ego. Trust the work you already put in, then go and enjoy the lights.`,
+  },
 ];
