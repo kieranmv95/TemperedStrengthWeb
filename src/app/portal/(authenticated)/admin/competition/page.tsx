@@ -87,13 +87,37 @@ export default async function AdminCompetitionPage() {
       </div>
 
       <section className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6">
-        <h2 className="text-lg font-semibold text-white">Competition details</h2>
-        <p className="mt-1 text-sm text-neutral-500">
-          Copy, theme, and which app environments show the banner.
-        </p>
-        <div className="mt-6">
-          <CompetitionDetailsForm competition={competition} />
-        </div>
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-start justify-between gap-3 [&::-webkit-details-marker]:hidden">
+            <div className="min-w-0">
+              <h2 className="text-lg font-semibold text-white">
+                Competition details
+              </h2>
+              <p className="mt-1 text-sm text-neutral-500">
+                Copy, theme, and which app environments show the banner.
+              </p>
+            </div>
+            <span
+              className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-950 text-neutral-400 transition-transform group-open:rotate-180"
+              aria-hidden
+            >
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+          </summary>
+          <div className="mt-6 border-t border-neutral-800/80 pt-6">
+            <CompetitionDetailsForm competition={competition} />
+          </div>
+        </details>
       </section>
 
       <section className="min-w-0 rounded-2xl border border-neutral-800 bg-neutral-900/30 p-4 sm:p-6">
