@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "@/app/portal/actions";
-import { isPortalAdminEmail } from "@/lib/portal/adminAccess";
+import { isPortalAdmin } from "@/lib/portal/adminAccess";
 import { ensurePortalProfile } from "@/lib/portal/profile";
 import { createClient } from "@/lib/supabase/server";
 
@@ -13,7 +13,7 @@ export async function PortalHeader() {
 
   const profile = user ? await ensurePortalProfile(user.id) : null;
   const displayName = profile?.display_name?.trim();
-  const isAdmin = isPortalAdminEmail(user?.email);
+  const isAdmin = isPortalAdmin(profile);
 
   return (
     <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">

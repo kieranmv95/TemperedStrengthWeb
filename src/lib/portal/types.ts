@@ -80,8 +80,11 @@ export type Coach = PortalEntityBase & {
 
 export type PortalEntity = Gym | Club | Coach;
 
+export type PortalUserType = "ADMIN";
+
 export type PortalProfile = {
   id: string;
   display_name: string | null;
+  user_type: PortalUserType | null;
   created_at: string;
 };

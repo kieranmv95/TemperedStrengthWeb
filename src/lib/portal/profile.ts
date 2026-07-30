@@ -8,7 +8,7 @@ export async function getPortalProfile(
 
   const { data, error } = await supabase
     .from("portal_profiles")
-    .select("id, display_name, created_at")
+    .select("id, display_name, user_type, created_at")
     .eq("id", userId)
     .maybeSingle();
 
@@ -28,7 +28,7 @@ export async function ensurePortalProfile(userId: string): Promise<PortalProfile
   const { data, error } = await supabase
     .from("portal_profiles")
     .insert({ id: userId })
-    .select("id, display_name, created_at")
+    .select("id, display_name, user_type, created_at")
     .single();
 
   if (error) {

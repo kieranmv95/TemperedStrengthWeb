@@ -1,24 +1,17 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getPortalProfile } from "@/lib/portal/profile";
 import { isSupabaseAdminConfigured } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
+import type { PortalProfile } from "@/lib/portal/types";
 
-function getPortalAdminEmails(): string[] {
-  const raw = process.env.PORTAL_ADMIN_EMAILS ?? "";
-  return raw
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-export function isPortalAdminEmail(email: string | undefined | null): boolean {
-  if (!email) return false;
-  const admins = getPortalAdminEmails();
-  if (admins.length === 0) return false;
-  return admins.includes(email.trim().toLowerCase());
+export function isPortalAdmin(
+  profile: Pick<PortalProfile, "user_type"> | null | undefined
+): boolean {
+  return profile?.user_type === "ADMIN";
 }
 
 export function isPortalAdminConfigured(): boolean {
-  return getPortalAdminEmails().length > 0 && isSupabaseAdminConfigured();
+  return isSupabaseAdminConfigured();
 }
 
 export async function getPortalAdminUser() {
@@ -27,9 +20,10 @@ export async function getPortalAdminUser() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user || !isPortalAdminEmail(user.email)) {
-    return null;
-  }
+  if (!user) return null;
+
+  const profile = await getPortalProfile(user.id);
+  if (!isPortalAdmin(profile)) return null;
 
   return user;
 }
@@ -44,7 +38,8 @@ export async function requirePortalAdmin() {
     redirect("/portal/login?next=/portal/admin");
   }
 
-  if (!isPortalAdminEmail(user.email)) {
+  const profile = await getPortalProfile(user.id);
+  if (!isPortalAdmin(profile)) {
     redirect("/portal");
   }
 
