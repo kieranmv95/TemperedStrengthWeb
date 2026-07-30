@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { createCompetitionEntry } from "@/app/portal/(authenticated)/admin/competition/actions";
+import { CompetitionConditionsOfEntryLink } from "@/components/portal/admin/competition/CompetitionConditionsOfEntryLink";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
 import { getMetricConfig } from "@/lib/liveCompetition/metrics";
 import type { LiveCompetitionMetricType } from "@/lib/liveCompetition/metrics";
@@ -50,7 +51,8 @@ export function CompetitionAddEntryForm({ metricType, categories }: Props) {
       <div>
         <p className="text-sm font-semibold text-white">Add entry</p>
         <p className="mt-0.5 text-xs text-neutral-500">
-          Quick add during the event. Entries appear in the app after save.
+          Quick add during the event. Entries appear in the app after save.{" "}
+          <CompetitionConditionsOfEntryLink />
         </p>
       </div>
 
