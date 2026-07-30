@@ -17,4 +17,5 @@ export type AdminCompetitionEntry = {
   name: string;
   score: number;
   category: string;
+  contact: string | null;
 };

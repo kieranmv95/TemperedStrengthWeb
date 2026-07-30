@@ -116,6 +116,22 @@ export function CompetitionAddEntryForm({ metricType, categories }: Props) {
             </datalist>
           ) : null}
         </label>
+
+        <label className="block sm:col-span-3">
+          <span className="mb-1 block text-xs font-medium text-neutral-400">
+            Contact
+          </span>
+          <input
+            type="text"
+            name="contact"
+            placeholder="Phone, email, or Instagram"
+            className={inputClass}
+            autoComplete="off"
+          />
+          <span className="mt-1 block text-[10px] text-neutral-500">
+            Admin only — not shown in the app.
+          </span>
+        </label>
       </div>
 
       <button

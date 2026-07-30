@@ -124,6 +124,19 @@ export function CompetitionEntryRow({ entry, metricType, categories }: Props) {
               </datalist>
             ) : null}
           </label>
+
+          <label className="block min-w-0 sm:col-span-3">
+            <span className="mb-1 block text-[10px] font-medium uppercase tracking-wide text-neutral-500">
+              Contact
+            </span>
+            <input
+              type="text"
+              name="contact"
+              defaultValue={entry.contact ?? ""}
+              placeholder="Phone, email, or Instagram"
+              className={inputClass}
+            />
+          </label>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2">

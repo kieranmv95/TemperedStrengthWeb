@@ -69,6 +69,7 @@ export async function createCompetitionEntry(
       name: entry.name,
       category: entry.category,
       score: entry.score,
+      contact: entry.contact,
       created_at: now,
       updated_at: now,
     });
@@ -103,6 +104,7 @@ export async function updateCompetitionEntry(
         name: entry.name,
         category: entry.category,
         score: entry.score,
+        contact: entry.contact,
         updated_at: new Date().toISOString(),
       })
       .eq("id", id)

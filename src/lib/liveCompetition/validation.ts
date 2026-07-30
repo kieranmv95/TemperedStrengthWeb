@@ -80,9 +80,12 @@ export function parseCompetitionDetailsFromForm(formData: FormData) {
 }
 
 export function parseCompetitionEntryFromForm(formData: FormData) {
+  const contact = optionalText(formData.get("contact"), 200);
+
   return {
     name: requireText(formData.get("name"), "Name", 200),
     category: requireText(formData.get("category"), "Category", 50),
     score: parseScore(formData.get("score")),
+    contact: contact || null,
   };
 }

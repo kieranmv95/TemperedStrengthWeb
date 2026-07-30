@@ -43,11 +43,18 @@ function mapAdminEntry(row: Record<string, unknown>): AdminCompetitionEntry {
     throw new Error(`Invalid score for entry: ${row.name}`);
   }
 
+  const contactRaw = row.contact;
+  const contact =
+    typeof contactRaw === "string" && contactRaw.trim()
+      ? contactRaw.trim()
+      : null;
+
   return {
     id: String(row.id),
     name: String(row.name ?? ""),
     score,
     category: String(row.category ?? ""),
+    contact,
   };
 }
 
@@ -76,7 +83,7 @@ export async function fetchAdminCompetitionEntries(): Promise<AdminCompetitionEn
 
   const { data, error } = await admin
     .from("competition_entry")
-    .select("id, name, score, category")
+    .select("id, name, score, category, contact")
     .eq("competition_id", ACTIVE_COMPETITION_ID)
     .order("category", { ascending: true })
     .order("name", { ascending: true });
