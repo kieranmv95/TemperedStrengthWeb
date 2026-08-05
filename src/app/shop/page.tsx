@@ -24,10 +24,10 @@ export default async function ShopPage() {
             {products.length === 1 ? "product" : "products"}
           </h1>
           <h2 className="text-lg font-medium text-neutral-300">
-            Next shipping run: 2nd August
+            Next shipping run: 28th August
           </h2>
           <p className="mx-auto mt-2 max-w-2xl text-sm leading-relaxed text-neutral-400 text-balance">
-            Orders placed before 2nd August ship on that date. Printing and
+            Orders placed before 28th August ship on that date. Printing and
             fulfilment then take 2–3 weeks.
           </p>
           <p className="mx-auto mt-2 max-w-2xl text-sm leading-relaxed text-neutral-400 text-balance">
