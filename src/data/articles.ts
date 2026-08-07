@@ -818,47 +818,78 @@ export const articles: Article[] = [
   {
     id: "article_015",
     slug: "the-deload-why-doing-less-gets-you-more",
-    title: "The Deload: Why Doing Less Gets You More",
-    subtitle: "How planned rest weeks unlock your next level of performance",
+    title: "What Is a Deload (And Why You Need One)",
+    subtitle:
+      "Deload weeks get skipped more than any other part of a programme. Here is why that is a mistake.",
     category: "Methodology",
-    readTime: 3,
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
-    content: `Every serious training program has one thing in common: planned periods of reduced training. A deload is not a sign of weakness or laziness. It is the mechanism by which your body converts accumulated training stress into actual adaptation. Without it, you are building a debt you cannot pay back.
-    
-    ## What Is a Deload?
-    
-    A deload is a planned reduction in training volume, intensity, or both, typically lasting one week. You still train, but at a reduced load that allows your central nervous system, connective tissue, and muscles to fully recover from accumulated fatigue. Think of it as the period where the gains from the previous block are actually locked in.
-    
-    ## Why You Need One
-    
-    Training creates stress. Stress creates fatigue. Fatigue masks fitness. This is the fundamental paradox of training – the harder you work, the more fatigued you become, and the harder it is to see the progress you are actually making. A deload removes the fatigue, and suddenly your true fitness level is revealed. This is why many lifters hit personal bests in the week after a deload.
-    
-    Connective tissue – tendons and ligaments – adapts more slowly than muscle. You can build the strength to lift a weight before your joints are ready to handle it repeatedly. Deloads give connective tissue the time it needs to catch up, which is one of the most effective long-term injury prevention strategies available.
-    
-    ## When to Deload
-    
-    ### Scheduled Deloads
-    The most reliable approach. Plan a deload every 4-8 weeks regardless of how you feel. Most structured programs build this in automatically. This removes the psychological temptation to skip it when you feel good.
-    
-    ### Reactive Deloads
-    Take an unplanned deload when you notice multiple warning signs at once: persistent fatigue that does not improve with one rest day, decreasing performance across several sessions, unusual joint soreness, disrupted sleep, or a general loss of motivation to train.
-    
-    ## How to Deload
-    
-    There are two main approaches:
-    
-    - **Volume deload**: Keep the same weights but reduce sets by 40-50%. If you normally do 4 sets, do 2. This maintains neural drive while reducing total stress.
-    - **Intensity deload**: Keep the same sets but drop the weight by 40-50%. Useful when joints feel beaten up from heavy loading.
-    
-    Either approach works. The key principle is that the week should feel noticeably easier than your normal training. If it does not, you have not deloaded – you have just had a slightly easier week.
-    
-    ## What Not to Do
-    
-    Do not use a deload week as an excuse for zero activity. Complete rest can leave you feeling flat and stiff, and the return to training feels harder. Keep moving, keep the pattern, reduce the load. You are maintaining the habit while allowing the body to recover.
-    
-    ## The Return
-    
-    The week after a proper deload, most lifters feel noticeably stronger, move better, and have higher energy in sessions. This is not coincidence – it is the adaptation that the previous training block was building toward, finally visible once the fatigue is cleared. Trust the process.`,
+    readTime: 6,
+    image:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    content: `Deload weeks get skipped more than any other part of a programme. People treat them like optional padding, something you can cut when life gets busy or when you feel like you are "finally making progress." That instinct is understandable. It is also one of the most expensive mistakes you can make in long-term training.
+
+    A deload is not a rest week. It is not going soft. It is a deliberate reset – and without it, you are stacking fatigue faster than your body can cash it in.
+
+    ## What a Deload Actually Is
+
+    A deload is a planned, short-term drop in training volume or intensity, usually lasting about one week every 4–6 weeks. That might mean lighter weights, fewer sets, or both. You still show up. You still move. You still practise the patterns that matter. You simply reduce the stress enough for recovery systems to catch up.
+
+    Think of hard training as depositing stress into an account. Muscle, skill, and fitness adapt from that stress – but only if you periodically clear the balance. Skip the clear-out and the debt keeps growing until something breaks: a stalled lift, a nagging injury, or a mind that no longer wants to train.
+
+    ## Why It Matters
+
+    ### Muscles adapt fast. The rest of you does not.
+    Your muscles can adapt in days. Your joints, tendons, and central nervous system take longer. Keep pushing volume and intensity without a reset and you create a mismatch: the tissue that contracts is ready for more load before the tissue that holds everything together is. A deload lets the slow stuff catch up to the fast stuff. That is one of the simplest, most effective injury-prevention tools available.
+
+    ### Fatigue is cumulative.
+    Even when you feel fine, your body is quietly stacking stress week after week. Sleep debt, joint irritation, neural fatigue, and incomplete recovery do not always announce themselves with drama. They accumulate quietly until they show up as missed lifts, bad sessions, or pain that will not leave. Deloads cash that fatigue in before it turns into a nagging injury or a stalled lift.
+
+    ### Adaptation happens in recovery.
+    Training breaks you down. Recovery is where you get stronger. Skip the recovery and you are just breaking down on repeat. This is why so many lifters hit personal bests in the week after a proper deload: the fitness was already there. The fatigue was masking it. Clear the fatigue and the adaptation becomes visible.
+
+    ### It protects your mental game too.
+    Constant grinding burns people out. A lighter week keeps you wanting to show up. Motivation is not an endless resource you can will into existence forever. Programmed ease protects the desire to train hard when it counts.
+
+    ## How to Spot You Need One
+
+    You do not always need to wait for the calendar. Watch for clusters of these signals:
+
+    - Lifts that used to feel manageable now feel heavy
+    - Sleep and motivation are dipping
+    - Small aches that are not going away
+    - Performance is flat or sliding across several sessions, not just one bad day
+    - You are just… over it
+
+    One rough session is noise. Several of these at once is a message. Listen early and the deload stays productive. Ignore them long enough and the deload gets forced on you by injury or burnout.
+
+    ## Planned Beats Forced
+
+    The mistake people make is waiting until they are injured or burnt out to take one. A deload works best when it is planned, not when it is forced on you.
+
+    ### Scheduled deloads
+    The most reliable approach. Build a lighter week into the programme every 4–6 weeks regardless of how you feel. Feeling good is not a reason to skip it. Feeling good is often exactly when people skip it – and then wonder why week seven feels like walking through wet concrete.
+
+    ### Reactive deloads
+    Take an unplanned deload when warning signs stack up. This is still smart programming. It is not weakness. It is adjusting the plan to the athlete in front of you – which, in this case, is you.
+
+    ## How to Deload Properly
+
+    There are two main approaches. Both work. Pick the one that matches what feels most beaten up.
+
+    - **Volume deload**: Keep similar weights, cut sets by roughly 40–50%. If you normally do 4 sets, do 2. This maintains neural drive and technique while reducing total stress.
+    - **Intensity deload**: Keep similar sets and reps, drop the load by roughly 40–50%. Useful when joints and connective tissue feel cooked from heavy loading.
+
+    You can also combine a smaller cut in both. The rule is simple: the week should feel noticeably easier than normal training. If it does not, you have not deloaded – you have just had a slightly easier week.
+
+    ### What not to do
+    Do not turn a deload into a week on the sofa. Complete rest can leave you flat and stiff, and the return feels harder than it needs to. Keep the habit. Keep the movement. Reduce the load. You are maintaining the pattern while allowing recovery systems to do their job.
+
+    Do not invent a new sport for the week either. A deload is not the time to "make up" volume with random high-intensity extras. That defeats the point.
+
+    ## What Comes After
+
+    The week after a proper deload, most lifters feel sharper, move better, and have more in the tank. That is not coincidence. It is the adaptation the previous block was building toward, finally visible once fatigue is cleared.
+
+    Programmed recovery is not a break from progress. It is part of it. Plan the lighter weeks with the same seriousness you plan the hard ones – because without them, the hard ones stop working.`,
   },
   {
     id: "article_016",
