@@ -825,15 +825,15 @@ export const articles: Article[] = [
     readTime: 6,
     image:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: `Deload weeks get skipped more than any other part of a programme. People treat them like optional padding, something you can cut when life gets busy or when you feel like you are "finally making progress." That instinct is understandable. It is also one of the most expensive mistakes you can make in long-term training.
+    content: `Deload weeks get skipped more than any other part of a programme. People treat them like optional padding, something you can cut when life gets busy or when you feel like you are "finally making progress". That instinct is understandable. It is also one of the most expensive mistakes you can make in long-term training.
 
-    A deload is not a rest week. It is not going soft. It is a deliberate reset – and without it, you are stacking fatigue faster than your body can cash it in.
+    A deload is not a rest week. It is not going soft. It is a deliberate reset, and without it, you are stacking fatigue faster than your body can cash it in.
 
     ## What a Deload Actually Is
 
-    A deload is a planned, short-term drop in training volume or intensity, usually lasting about one week every 4–6 weeks. That might mean lighter weights, fewer sets, or both. You still show up. You still move. You still practise the patterns that matter. You simply reduce the stress enough for recovery systems to catch up.
+    A deload is a planned, short-term drop in training volume or intensity, usually lasting about one week every 4-6 weeks. That might mean lighter weights, fewer sets, or both. You still show up. You still move. You still practise the patterns that matter. You simply reduce the stress enough for recovery systems to catch up.
 
-    Think of hard training as depositing stress into an account. Muscle, skill, and fitness adapt from that stress – but only if you periodically clear the balance. Skip the clear-out and the debt keeps growing until something breaks: a stalled lift, a nagging injury, or a mind that no longer wants to train.
+    Think of hard training as depositing stress into an account. Muscle, skill, and fitness adapt from that stress, but only if you periodically clear the balance. Skip the clear-out and the debt keeps growing until something breaks: a stalled lift, a nagging injury, or a mind that no longer wants to train.
 
     ## Why It Matters
 
@@ -857,7 +857,7 @@ export const articles: Article[] = [
     - Sleep and motivation are dipping
     - Small aches that are not going away
     - Performance is flat or sliding across several sessions, not just one bad day
-    - You are just… over it
+    - You are just over it
 
     One rough session is noise. Several of these at once is a message. Listen early and the deload stays productive. Ignore them long enough and the deload gets forced on you by injury or burnout.
 
@@ -866,19 +866,19 @@ export const articles: Article[] = [
     The mistake people make is waiting until they are injured or burnt out to take one. A deload works best when it is planned, not when it is forced on you.
 
     ### Scheduled deloads
-    The most reliable approach. Build a lighter week into the programme every 4–6 weeks regardless of how you feel. Feeling good is not a reason to skip it. Feeling good is often exactly when people skip it – and then wonder why week seven feels like walking through wet concrete.
+    The most reliable approach. Build a lighter week into the programme every 4-6 weeks regardless of how you feel. Feeling good is not a reason to skip it. Feeling good is often exactly when people skip it, and then wonder why week seven feels like walking through wet concrete.
 
     ### Reactive deloads
-    Take an unplanned deload when warning signs stack up. This is still smart programming. It is not weakness. It is adjusting the plan to the athlete in front of you – which, in this case, is you.
+    Take an unplanned deload when warning signs stack up. This is still smart programming. It is not weakness. It is adjusting the plan to the athlete in front of you, which, in this case, is you.
 
     ## How to Deload Properly
 
     There are two main approaches. Both work. Pick the one that matches what feels most beaten up.
 
-    - **Volume deload**: Keep similar weights, cut sets by roughly 40–50%. If you normally do 4 sets, do 2. This maintains neural drive and technique while reducing total stress.
-    - **Intensity deload**: Keep similar sets and reps, drop the load by roughly 40–50%. Useful when joints and connective tissue feel cooked from heavy loading.
+    - **Volume deload**: Keep similar weights, cut sets by roughly 40-50%. If you normally do 4 sets, do 2. This maintains neural drive and technique while reducing total stress.
+    - **Intensity deload**: Keep similar sets and reps, drop the load by roughly 40-50%. Useful when joints and connective tissue feel cooked from heavy loading.
 
-    You can also combine a smaller cut in both. The rule is simple: the week should feel noticeably easier than normal training. If it does not, you have not deloaded – you have just had a slightly easier week.
+    You can also combine a smaller cut in both. The rule is simple: the week should feel noticeably easier than normal training. If it does not, you have not deloaded. You have just had a slightly easier week.
 
     ### What not to do
     Do not turn a deload into a week on the sofa. Complete rest can leave you flat and stiff, and the return feels harder than it needs to. Keep the habit. Keep the movement. Reduce the load. You are maintaining the pattern while allowing recovery systems to do their job.
@@ -889,7 +889,7 @@ export const articles: Article[] = [
 
     The week after a proper deload, most lifters feel sharper, move better, and have more in the tank. That is not coincidence. It is the adaptation the previous block was building toward, finally visible once fatigue is cleared.
 
-    Programmed recovery is not a break from progress. It is part of it. Plan the lighter weeks with the same seriousness you plan the hard ones – because without them, the hard ones stop working.`,
+    Programmed recovery is not a break from progress. It is part of it. Plan the lighter weeks with the same seriousness you plan the hard ones, because without them, the hard ones stop working.`,
   },
   {
     id: "article_016",
