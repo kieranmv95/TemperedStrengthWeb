@@ -1,3 +1,5 @@
+import { skillArticles } from "./skillArticles";
+
 export type Article = {
   id: string;
   slug: string;
@@ -1123,4 +1125,5 @@ export const articles: Article[] = [
 
     Systems over chaos. Intent over ego. Trust the work you already put in, then go and enjoy the lights.`,
   },
+  ...skillArticles,
 ];
