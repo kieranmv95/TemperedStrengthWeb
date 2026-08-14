@@ -336,7 +336,8 @@ When you have 5 strict pull-ups, add a little load (a small plate in a belt or a
       "Using the hollow-arch cycle to cycle reps without losing the bar",
     category: "Technique",
     readTime: 4,
-    image: "image.png",
+    image:
+      "https://images.unsplash.com/photo-1556817411-e27a2f370c0c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     content: `## Why this movement is worth getting right
 
 A kipping pull-up uses a hollow-to-arch swing to help you get the chin over the bar so you can cycle more reps than strict pulling allows. The kip is not a cheat if the standard is kipping. It is a skill: you load the swing, then you pull, then you push away to set the next rep.
