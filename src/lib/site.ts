@@ -8,6 +8,8 @@ export const GOOGLE_PLAY_ENABLED = true;
 
 export const INSTAGRAM_URL = "https://www.instagram.com/temperedstrength/";
 
+export const TIKTOK_URL = "https://www.tiktok.com/@temperedstrength";
+
 export const YOUTUBE_URL =
   "https://www.youtube.com/channel/UC0wAjKOPO7pmhA3oOnYNG0w";
 
