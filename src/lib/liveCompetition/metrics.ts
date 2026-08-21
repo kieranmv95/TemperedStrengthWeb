@@ -1,6 +1,7 @@
 export const COMPETITION_METRIC_TYPES = [
   "max_weight",
   "max_reps",
+  "max_reps_no_label",
   "max_time",
   "max_calories",
   "max_distance",
@@ -35,6 +36,15 @@ export const METRIC_TYPE_OPTIONS: MetricConfig[] = [
     scoreHint: "Rep count (e.g. 25)",
     scorePlaceholder: "25",
     unit: "reps",
+    sortDirection: "desc",
+  },
+  {
+    value: "max_reps_no_label",
+    label: "Max reps (no label)",
+    description: "Most reps wins, shown as a number only",
+    scoreHint: "Rep count (e.g. 25)",
+    scorePlaceholder: "25",
+    unit: "",
     sortDirection: "desc",
   },
   {
@@ -98,6 +108,8 @@ export function formatScoreForDisplay(
       return `${score} kg`;
     case "max_reps":
       return `${score} reps`;
+    case "max_reps_no_label":
+      return String(score);
     case "max_time": {
       const minutes = Math.floor(score / 60);
       const seconds = Math.round(score % 60);
