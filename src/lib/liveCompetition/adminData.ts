@@ -97,6 +97,25 @@ export async function fetchAdminCompetitionEntries(): Promise<AdminCompetitionEn
   );
 }
 
+export function uniqueCompetitionCategories(
+  entries: Pick<AdminCompetitionEntry, "category">[]
+): string[] {
+  const seen = new Map<string, string>();
+
+  for (const entry of entries) {
+    const trimmed = entry.category.trim();
+    if (!trimmed) continue;
+    const key = trimmed.toLowerCase();
+    if (!seen.has(key)) {
+      seen.set(key, trimmed);
+    }
+  }
+
+  return [...seen.values()].sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: "base" })
+  );
+}
+
 export function sortEntriesForAdmin(
   entries: AdminCompetitionEntry[],
   metricType: LiveCompetitionMetricType

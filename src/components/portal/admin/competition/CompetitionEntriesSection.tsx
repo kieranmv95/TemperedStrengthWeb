@@ -1,5 +1,8 @@
 import { CompetitionAddEntryForm } from "@/components/portal/admin/competition/CompetitionAddEntryForm";
 import { CompetitionEntryRow } from "@/components/portal/admin/competition/CompetitionEntryRow";
+import {
+  uniqueCompetitionCategories,
+} from "@/lib/liveCompetition/adminData";
 import type { AdminCompetitionEntry } from "@/lib/liveCompetition/adminTypes";
 import { getSortDescription } from "@/lib/liveCompetition/metrics";
 import type { LiveCompetitionMetricType } from "@/lib/liveCompetition/metrics";
@@ -9,28 +12,38 @@ type Props = {
   metricType: LiveCompetitionMetricType;
 };
 
-export function CompetitionEntriesSection({ entries, metricType }: Props) {
-  const categories = [...new Set(entries.map((entry) => entry.category))].sort(
-    (a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })
-  );
+function groupEntries(entries: AdminCompetitionEntry[]) {
+  const categories = uniqueCompetitionCategories(entries);
 
   const grouped = categories.map((category) => ({
     category,
-    entries: entries.filter((entry) => entry.category === category),
+    entries: entries.filter(
+      (entry) =>
+        entry.category.trim().toLowerCase() === category.toLowerCase()
+    ),
   }));
 
-  const uncategorised = entries.filter(
-    (entry) => !entry.category.trim()
-  );
+  const uncategorised = entries.filter((entry) => !entry.category.trim());
+
+  return { categories, grouped, uncategorised };
+}
+
+export function CompetitionEntriesSection({ entries, metricType }: Props) {
+  const { categories, grouped, uncategorised } = groupEntries(entries);
+  const sortHint = getSortDescription(metricType);
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <div>
         <h2 className="text-xl font-semibold text-white">Leaderboard entries</h2>
         <p className="mt-1 text-sm text-neutral-500">
-          {entries.length} {entries.length === 1 ? "entry" : "entries"}.
-          Sorted for admin preview — the app sorts per category using{" "}
-          <span className="text-neutral-400">{getSortDescription(metricType)}</span>.
+          {entries.length} {entries.length === 1 ? "entry" : "entries"}
+          {categories.length > 0
+            ? ` across ${categories.length} ${
+                categories.length === 1 ? "category" : "categories"
+              }`
+            : ""}
+          . Sorted {sortHint}.
         </p>
       </div>
 
@@ -41,42 +54,66 @@ export function CompetitionEntriesSection({ entries, metricType }: Props) {
           No entries yet. Add athletes above as scores come in.
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-8">
+          <div>
+            <h3 className="text-lg font-semibold text-white">Current leaders</h3>
+            <p className="mt-1 text-sm text-neutral-500">
+              Ranked within each category. Tap Edit if a score or name needs a
+              fix.
+            </p>
+          </div>
+
           {grouped.map(({ category, entries: categoryEntries }) => (
-            <div key={category} className="space-y-2">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-[#c9b072]">
-                {category}
-                <span className="ml-2 text-neutral-500">({categoryEntries.length})</span>
-              </h3>
-              <div className="space-y-2">
-                {categoryEntries.map((entry) => (
+            <section
+              key={category}
+              className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/50"
+            >
+              <div className="flex items-baseline justify-between gap-3 border-b border-neutral-800 bg-neutral-900/60 px-4 py-3">
+                <h4 className="text-base font-semibold text-[#d4c08a]">
+                  {category}
+                </h4>
+                <p className="text-xs font-medium uppercase tracking-[0.12em] text-neutral-500">
+                  {categoryEntries.length}{" "}
+                  {categoryEntries.length === 1 ? "athlete" : "athletes"}
+                </p>
+              </div>
+              <div className="space-y-2 p-3 sm:p-4">
+                {categoryEntries.map((entry, index) => (
                   <CompetitionEntryRow
                     key={entry.id}
                     entry={entry}
+                    rank={index + 1}
                     metricType={metricType}
                     categories={categories}
                   />
                 ))}
               </div>
-            </div>
+            </section>
           ))}
 
           {uncategorised.length > 0 ? (
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-neutral-500">
-                Uncategorized
-              </h3>
-              <div className="space-y-2">
-                {uncategorised.map((entry) => (
+            <section className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/50">
+              <div className="flex items-baseline justify-between gap-3 border-b border-neutral-800 bg-neutral-900/60 px-4 py-3">
+                <h4 className="text-base font-semibold text-neutral-400">
+                  Uncategorized
+                </h4>
+                <p className="text-xs font-medium uppercase tracking-[0.12em] text-neutral-500">
+                  {uncategorised.length}{" "}
+                  {uncategorised.length === 1 ? "athlete" : "athletes"}
+                </p>
+              </div>
+              <div className="space-y-2 p-3 sm:p-4">
+                {uncategorised.map((entry, index) => (
                   <CompetitionEntryRow
                     key={entry.id}
                     entry={entry}
+                    rank={index + 1}
                     metricType={metricType}
                     categories={categories}
                   />
                 ))}
               </div>
-            </div>
+            </section>
           ) : null}
         </div>
       )}

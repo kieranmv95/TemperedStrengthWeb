@@ -10,6 +10,15 @@ export function isPortalAdmin(
   return profile?.user_type === "ADMIN";
 }
 
+export function canAccessPortalAdmin(
+  profile: Pick<PortalProfile, "user_type"> | null | undefined
+): boolean {
+  return (
+    profile?.user_type === "ADMIN" ||
+    profile?.user_type === "LEADERBOARD_ACCESS"
+  );
+}
+
 export function isPortalAdminConfigured(): boolean {
   return isSupabaseAdminConfigured();
 }
@@ -28,7 +37,7 @@ export async function getPortalAdminUser() {
   return user;
 }
 
-export async function requirePortalAdmin() {
+async function requireSignedInAdminArea() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -39,7 +48,7 @@ export async function requirePortalAdmin() {
   }
 
   const profile = await getPortalProfile(user.id);
-  if (!isPortalAdmin(profile)) {
+  if (!canAccessPortalAdmin(profile) || !profile) {
     redirect("/portal");
   }
 
@@ -47,5 +56,26 @@ export async function requirePortalAdmin() {
     redirect("/portal");
   }
 
+  return { user, profile };
+}
+
+/** ADMIN or LEADERBOARD_ACCESS — header Admin link and /portal/admin area. */
+export async function requirePortalAdminAreaAccess() {
+  return requireSignedInAdminArea();
+}
+
+/** Full portal admin (partner review, promo codes, competition details). */
+export async function requirePortalAdmin() {
+  const { user, profile } = await requireSignedInAdminArea();
+
+  if (!isPortalAdmin(profile)) {
+    redirect("/portal/admin");
+  }
+
   return user;
+}
+
+/** ADMIN or LEADERBOARD_ACCESS — add / update / delete competition entries. */
+export async function requireLeaderboardAccess() {
+  return requireSignedInAdminArea();
 }

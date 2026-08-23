@@ -2,12 +2,54 @@ import Link from "next/link";
 import { AdminEntityRow } from "@/components/portal/admin/AdminEntityRow";
 import { ENTITY_CONFIGS } from "@/lib/portal/constants";
 import {
+  isPortalAdmin,
+  requirePortalAdminAreaAccess,
+} from "@/lib/portal/adminAccess";
+import {
   fetchAdminPendingCounts,
   fetchAllPendingEntities,
 } from "@/lib/portal/adminData";
-import type { PortalEntityKind } from "@/lib/portal/types";
+
+function LiveCompetitionCard() {
+  return (
+    <Link
+      href="/portal/admin/competition"
+      className="block rounded-xl border border-[#c9b072]/30 bg-[#c9b072]/10 p-4 transition-colors hover:border-[#c9b072]/50 sm:p-5"
+    >
+      <p className="text-sm font-semibold text-[#d4c08a]">
+        Live competition board
+      </p>
+      <p className="mt-2 text-sm text-neutral-300">
+        Add and remove leaderboard scores during the event. Changes go live in
+        the app within about 30 seconds.
+      </p>
+    </Link>
+  );
+}
 
 export default async function AdminDashboardPage() {
+  const { profile } = await requirePortalAdminAreaAccess();
+
+  if (!isPortalAdmin(profile)) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
+            Admin
+          </p>
+          <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+            Live competition board
+          </h1>
+          <p className="mt-2 max-w-2xl text-neutral-400">
+            Event staff access — add athletes and scores as they come in.
+          </p>
+        </div>
+
+        <LiveCompetitionCard />
+      </div>
+    );
+  }
+
   const [counts, pending] = await Promise.all([
     fetchAdminPendingCounts(),
     fetchAllPendingEntities(),
@@ -28,16 +70,7 @@ export default async function AdminDashboardPage() {
         </p>
       </div>
 
-      <Link
-        href="/portal/admin/competition"
-        className="block rounded-xl border border-[#c9b072]/30 bg-[#c9b072]/10 p-4 transition-colors hover:border-[#c9b072]/50"
-      >
-        <p className="text-sm font-semibold text-[#d4c08a]">Live competition</p>
-        <p className="mt-2 text-sm text-neutral-300">
-          Manage event leaderboard scores, categories, and in-app banner settings
-          during the show.
-        </p>
-      </Link>
+      <LiveCompetitionCard />
 
       <Link
         href="/portal/admin/promo-codes"

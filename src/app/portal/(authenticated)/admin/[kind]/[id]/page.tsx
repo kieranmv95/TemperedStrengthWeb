@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AdminEntityReview } from "@/components/portal/admin/AdminEntityReview";
+import { requirePortalAdmin } from "@/lib/portal/adminAccess";
 import { isPortalEntityKind } from "@/lib/portal/constants";
 import { fetchAdminEntity, fetchOwnerInfo } from "@/lib/portal/adminData";
 
@@ -16,6 +17,7 @@ export default async function AdminEntityDetailPage({
   params,
   searchParams,
 }: Props) {
+  await requirePortalAdmin();
   const { kind: kindParam, id } = await params;
   const { approved, rejected, error } = await searchParams;
 

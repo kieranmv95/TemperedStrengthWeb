@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PromoCodeCreateForm } from "@/components/portal/admin/promoCodes/PromoCodeCreateForm";
 import { PromoCodeList } from "@/components/portal/admin/promoCodes/PromoCodeList";
 import { PromoEmailSearch } from "@/components/portal/admin/promoCodes/PromoEmailSearch";
+import { requirePortalAdmin } from "@/lib/portal/adminAccess";
 import {
   fetchAdminPromoCodes,
   fetchAllPromoRedemptions,
@@ -14,6 +15,7 @@ type PageProps = {
 };
 
 export default async function AdminPromoCodesPage({ searchParams }: PageProps) {
+  await requirePortalAdmin();
   const params = await searchParams;
   const searchEmail = params.email?.trim() ? normalizeEmail(params.email) : undefined;
 

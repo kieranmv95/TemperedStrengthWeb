@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdminEntityRow } from "@/components/portal/admin/AdminEntityRow";
 import { AdminStatusFilters } from "@/components/portal/admin/AdminStatusFilters";
+import { requirePortalAdmin } from "@/lib/portal/adminAccess";
 import { ENTITY_CONFIGS, isPortalEntityKind } from "@/lib/portal/constants";
 import { fetchAdminEntities } from "@/lib/portal/adminData";
 import type { PortalEntityStatus } from "@/lib/portal/types";
@@ -24,6 +25,7 @@ function parseStatus(value: string | undefined): PortalEntityStatus | "all" {
 }
 
 export default async function AdminEntityListPage({ params, searchParams }: Props) {
+  await requirePortalAdmin();
   const { kind: kindParam } = await params;
   const { status: statusParam } = await searchParams;
 

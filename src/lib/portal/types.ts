@@ -80,7 +80,7 @@ export type Coach = PortalEntityBase & {
 
 export type PortalEntity = Gym | Club | Coach;
 
-export type PortalUserType = "ADMIN";
+export type PortalUserType = "ADMIN" | "LEADERBOARD_ACCESS";
 
 export type PortalProfile = {
   id: string;

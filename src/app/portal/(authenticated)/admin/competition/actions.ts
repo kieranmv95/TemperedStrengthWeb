@@ -1,7 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { requirePortalAdmin } from "@/lib/portal/adminAccess";
+import {
+  requireLeaderboardAccess,
+  requirePortalAdmin,
+} from "@/lib/portal/adminAccess";
 import { ACTIVE_COMPETITION_ID } from "@/lib/liveCompetition/constants";
 import {
   parseCompetitionDetailsFromForm,
@@ -57,7 +60,7 @@ export async function updateCompetitionDetails(
 export async function createCompetitionEntry(
   formData: FormData
 ): Promise<CompetitionActionResult> {
-  await requirePortalAdmin();
+  await requireLeaderboardAccess();
 
   try {
     const admin = requireAdminClient();
@@ -92,7 +95,7 @@ export async function updateCompetitionEntry(
   id: string,
   formData: FormData
 ): Promise<CompetitionActionResult> {
-  await requirePortalAdmin();
+  await requireLeaderboardAccess();
 
   try {
     const admin = requireAdminClient();
@@ -127,7 +130,7 @@ export async function updateCompetitionEntry(
 export async function deleteCompetitionEntry(
   id: string
 ): Promise<CompetitionActionResult> {
-  await requirePortalAdmin();
+  await requireLeaderboardAccess();
 
   try {
     const admin = requireAdminClient();
