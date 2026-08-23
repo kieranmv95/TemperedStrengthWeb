@@ -16,6 +16,9 @@ export const YOUTUBE_URL =
 /** Canonical public website URL */
 export const PUBLIC_SITE_URL = "https://temperedstrength.com";
 
+/** CrossFit Fixus — home gym and filming location */
+export const CROSSFIT_FIXUS_URL = "https://www.crossfit-fixus.com/";
+
 /** Optimal Plates — sister app (barbell plate calculator) */
 export const OPTIMAL_PLATES_SITE_URL = "https://optimalplates.com/";
 export const OPTIMAL_PLATES_APP_STORE_URL =

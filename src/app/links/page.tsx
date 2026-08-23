@@ -8,6 +8,7 @@ import {
 import {
   APP_STORE_URL,
   GOOGLE_PLAY_URL,
+  CROSSFIT_FIXUS_URL,
   INSTAGRAM_URL,
   TIKTOK_URL,
   YOUTUBE_URL,
@@ -283,6 +284,29 @@ export default function LinksPage() {
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on YouTube</span>
                     <span className="text-xs text-neutral-500 truncate">@TemperedStrength</span>
+                  </span>
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="filmed-at-heading">
+            <SectionTitle id="filmed-at-heading">Special Mentions</SectionTitle>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href={CROSSFIT_FIXUS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkRowClassName()}
+                >
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
+                    <span className="font-semibold text-white">CrossFit Fixus</span>
+                    <span className="text-xs text-neutral-500">
+                      Middleton, Manchester — thanks for filming with us.
+                    </span>
                   </span>
                   <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
                 </a>
