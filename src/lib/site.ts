@@ -19,6 +19,9 @@ export const PUBLIC_SITE_URL = "https://temperedstrength.com";
 /** CrossFit Fixus — home gym and filming location */
 export const CROSSFIT_FIXUS_URL = "https://www.crossfit-fixus.com/";
 
+/** Driathlon — prize-pool sponsor for the 26/27 competition season */
+export const DRIATHLON_URL = "https://www.driathlon.co.uk/";
+
 /** Optimal Plates — sister app (barbell plate calculator) */
 export const OPTIMAL_PLATES_SITE_URL = "https://optimalplates.com/";
 export const OPTIMAL_PLATES_APP_STORE_URL =
