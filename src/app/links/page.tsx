@@ -64,25 +64,6 @@ function PartnerGlyph({ className }: { className?: string }) {
   );
 }
 
-function ShopGlyph({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      aria-hidden
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-      />
-    </svg>
-  );
-}
-
 function WebsiteGlyph({ className }: { className?: string }) {
   return (
     <svg
@@ -229,18 +210,6 @@ export default function LinksPage() {
           <section aria-labelledby="site-heading">
             <SectionTitle id="site-heading">Website</SectionTitle>
             <ul className="space-y-2">
-              <li>
-                <Link href="/shop" className={linkRowClassName()}>
-                  <ShopGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
-                    <span className="font-semibold text-white">Shop</span>
-                    <span className="text-xs text-neutral-500">
-                      Apparel, kit, and Tempered Strength merch.
-                    </span>
-                  </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
-                </Link>
-              </li>
               <li>
                 <Link href="/" className={linkRowClassName()}>
                   <WebsiteGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
