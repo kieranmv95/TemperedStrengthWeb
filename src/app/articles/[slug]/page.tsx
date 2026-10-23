@@ -43,14 +43,14 @@ export default async function ArticlePage({
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
         <SiteHeader className="mb-6" />
         <div className="mb-8">
           <Link
             href="/articles"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#c9b072] hover:text-[#d4c08a] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#FFBA6F] hover:text-[#FFCA91] transition-colors"
           >
             <span aria-hidden>←</span>
             Back to Articles
@@ -70,7 +70,7 @@ export default async function ArticlePage({
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
               <div className="flex flex-wrap items-center gap-3 mb-3">
-                <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold border border-[#c9b072]/35 text-[#c9b072] bg-[#c9b072]/10">
+                <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold border border-[#FFBA6F]/35 text-[#FFBA6F] bg-[#FFBA6F]/10">
                   {article.category}
                 </span>
                 <span className="text-xs text-neutral-200/90">

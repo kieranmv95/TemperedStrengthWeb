@@ -94,7 +94,7 @@ function PromoCodeRow({
             <button
               type="button"
               onClick={() => setExpanded((value) => !value)}
-              className="rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-neutral-200 hover:border-[#c9b072]/40"
+              className="rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-neutral-200 hover:border-[#FFBA6F]/40"
             >
               {expanded ? "Hide redemptions" : `View redemptions (${redemptions.length})`}
             </button>
@@ -133,7 +133,7 @@ function PromoCodeRow({
               <button
                 type="submit"
                 disabled={busy}
-                className="rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-neutral-200 hover:border-[#c9b072]/40 disabled:opacity-50"
+                className="rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-neutral-200 hover:border-[#FFBA6F]/40 disabled:opacity-50"
               >
                 {isDeactivating ? "Deactivating…" : "Deactivate"}
               </button>

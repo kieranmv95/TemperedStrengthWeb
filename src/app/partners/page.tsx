@@ -35,7 +35,7 @@ function downloadFilename(fileUrl: string) {
 export default function PartnersPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
         <header className="flex justify-center mb-10">
@@ -51,7 +51,7 @@ export default function PartnersPage() {
         </header>
 
         <div className="text-center mb-10 md:mb-12">
-          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-3">
+          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-3">
             Brand resources
           </p>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -96,7 +96,7 @@ export default function PartnersPage() {
                   <a
                     href={asset.fileUrl}
                     download={filename}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#c9b072]/35 bg-[#c9b072]/10 px-4 py-2.5 text-sm font-semibold text-[#c9b072] transition-colors hover:border-[#c9b072]/60 hover:bg-[#c9b072]/20"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#FFBA6F]/35 bg-[#FFBA6F]/10 px-4 py-2.5 text-sm font-semibold text-[#FFBA6F] transition-colors hover:border-[#FFBA6F]/60 hover:bg-[#FFBA6F]/20"
                   >
                     <DownloadIcon className="h-4 w-4" />
                     Download {filename}
@@ -112,7 +112,7 @@ export default function PartnersPage() {
           or proportions. Questions?{" "}
           <a
             href="mailto:contact@localhostdevelopment.com"
-            className="text-[#c9b072] hover:underline"
+            className="text-[#FFBA6F] hover:underline"
           >
             Get in touch
           </a>
@@ -123,13 +123,13 @@ export default function PartnersPage() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link href="/" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/" className="hover:text-[#FFBA6F] transition-colors">
                 Home
               </Link>
-              <Link href="/links" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/links" className="hover:text-[#FFBA6F] transition-colors">
                 Links
               </Link>
-              <Link href="/portal/login" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/portal/login" className="hover:text-[#FFBA6F] transition-colors">
                 Partner portal
               </Link>
             </div>

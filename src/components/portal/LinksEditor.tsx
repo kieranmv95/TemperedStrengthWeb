@@ -12,7 +12,7 @@ import {
 } from "@/lib/portal/validation";
 
 const inputClass =
-  "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none";
+  "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none";
 
 type EditProps = {
   mode: "edit";
@@ -46,7 +46,7 @@ function LinkListItem({
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-0.5 block break-all text-xs text-[#c9b072] hover:underline"
+          className="mt-0.5 block break-all text-xs text-[#FFBA6F] hover:underline"
         >
           {link.url}
         </a>
@@ -95,7 +95,7 @@ function AddLinkForm({
 
   return (
     <div
-      className="space-y-3 rounded-lg border border-[#c9b072]/25 bg-[#c9b072]/5 p-3"
+      className="space-y-3 rounded-lg border border-[#FFBA6F]/25 bg-[#FFBA6F]/5 p-3"
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           e.stopPropagation();
@@ -147,7 +147,7 @@ function AddLinkForm({
           type="button"
           onClick={handleSubmit}
           disabled={pending}
-          className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+          className="inline-flex items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-2 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
         >
           {pending ? "Saving…" : submitLabel}
         </button>
@@ -267,7 +267,7 @@ function LinksEditorEdit({ kind, entityId, links: initialLinks }: EditProps) {
             setFormError(null);
             setSuccess(null);
           }}
-          className="inline-flex items-center justify-center rounded-lg border border-neutral-700 bg-neutral-900/50 px-4 py-2 text-sm font-semibold text-white hover:border-[#c9b072]/40 transition-colors"
+          className="inline-flex items-center justify-center rounded-lg border border-neutral-700 bg-neutral-900/50 px-4 py-2 text-sm font-semibold text-white hover:border-[#FFBA6F]/40 transition-colors"
         >
           Add link
         </button>
@@ -337,7 +337,7 @@ function LinksEditorCreate({ links: initialLinks = [], formId }: CreateProps) {
             setShowForm(true);
             setFormError(null);
           }}
-          className="inline-flex items-center justify-center rounded-lg border border-neutral-700 bg-neutral-900/50 px-4 py-2 text-sm font-semibold text-white hover:border-[#c9b072]/40 transition-colors"
+          className="inline-flex items-center justify-center rounded-lg border border-neutral-700 bg-neutral-900/50 px-4 py-2 text-sm font-semibold text-white hover:border-[#FFBA6F]/40 transition-colors"
         >
           Add link
         </button>

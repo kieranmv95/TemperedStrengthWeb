@@ -56,7 +56,7 @@ export function AdminRejectForm({ kind, id, initialError }: Props) {
           name="rejection_note"
           rows={4}
           placeholder="e.g. Please add a complete street address and opening hours."
-          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
         />
       </label>
       <button

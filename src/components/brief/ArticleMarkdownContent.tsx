@@ -94,7 +94,7 @@ export function ArticleMarkdownContent({ content }: { content: string }) {
       elements.push(
         <h1
           key={`h1-${elements.length}`}
-          className="text-2xl md:text-3xl font-extrabold mt-7 mb-3 text-[#c9b072] tracking-tight"
+          className="text-2xl md:text-3xl font-extrabold mt-7 mb-3 text-[#FFBA6F] tracking-tight"
         >
           {renderInline(trimmed.slice(2).trim())}
         </h1>
@@ -107,7 +107,7 @@ export function ArticleMarkdownContent({ content }: { content: string }) {
       elements.push(
         <h2
           key={`h2-${elements.length}`}
-          className="text-xl md:text-2xl font-bold mt-6 mb-2.5 text-[#c9b072] tracking-tight"
+          className="text-xl md:text-2xl font-bold mt-6 mb-2.5 text-[#FFBA6F] tracking-tight"
         >
           {renderInline(trimmed.slice(3).trim())}
         </h2>
@@ -120,7 +120,7 @@ export function ArticleMarkdownContent({ content }: { content: string }) {
       elements.push(
         <h3
           key={`h3-${elements.length}`}
-          className="text-lg md:text-xl font-semibold mt-5 mb-2 text-[#c9b072]"
+          className="text-lg md:text-xl font-semibold mt-5 mb-2 text-[#FFBA6F]"
         >
           {renderInline(trimmed.slice(4).trim())}
         </h3>

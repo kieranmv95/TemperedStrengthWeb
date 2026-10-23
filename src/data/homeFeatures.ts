@@ -1,13 +1,15 @@
-export const RECOVERY_FLOWS_COUNT = 20;
-export const WORKOUTS_COUNT = "150+";
+export const RECOVERY_FLOWS_COUNT = 21;
+export const FREE_RECOVERY_FLOWS_COUNT = 6;
+export const WORKOUTS_COUNT = "168+";
+export const FREE_WORKOUTS_COUNT = 77;
 
 export type FeatureIcon =
   | "programs"
+  | "daily"
   | "workouts"
   | "mobility"
   | "swaps"
-  | "hub"
-  | "perks";
+  | "explore";
 
 export interface HomeFeature {
   id: string;
@@ -22,80 +24,80 @@ export interface HomeFeature {
   span?: "wide" | "narrow";
 }
 
-/** Desktop bento rows: wide cards span 2 cols, narrow span 1 (3-col grid) */
+/** Desktop bento rows: wide cards span 2 cols, narrow span 1 (3-col grid). Tempered Daily is rendered separately. */
 export const homeFeatureRows: string[][] = [
-  ["programs", "mobility"],
-  ["workouts", "swaps"],
-  ["hub", "perks"],
+  ["programs", "swaps"],
+  ["workouts", "explore"],
+  ["recovery"],
 ];
 
 export const homeFeatures: HomeFeature[] = [
   {
     id: "programs",
     label: "Programs",
-    title: "Structured Programs",
+    title: "One programme at a time",
     description:
-      "13 complete programmes from bodybuilding to Olympic lifting, with 7 free, forever.",
-    mockup: "/mockups/programs.png",
-    mockupAlt: "Tempered Strength programs screen",
+      "Fourteen blocks, seven of them free, from a weekend full-body plan to Olympic lifting and 5/3/1. Sessions land on set days, with warm-ups and logging. Move a session when the week changes. Onboarding picks a starting point from your interests and experience.",
+    mockup: "/iphone-mockups/program-view-top-of-screen-portrait.png",
+    mockupAlt: "A programme session with the week strip, warm-up, and barbell deadlift",
     icon: "programs",
     span: "wide",
   },
   {
-    id: "mobility",
-    label: "Recovery",
-    title: "Recovery & Mobility Flows",
+    id: "daily",
+    label: "Tempered Daily",
+    title: "A new week every Monday",
     description:
-      "20 guided flows for rest days, warm-ups, and staying mobile between heavy sessions.",
-    mockup: "/mockups/mobility-flow-in-progress.png",
-    mockupAlt: "Recovery and mobility flow in progress",
-    icon: "mobility",
+      "Coming soon. Seven sessions a week, each with RX and Scaled versions. Do the days you can. Weeks are themed, and the theme changes, from strength to metcon and the work in between, to build a well-rounded athlete. Pro opens the full week. Free accounts will see the shape of the day, then a lock.",
+    mockup: "/iphone-mockups/daily-program-screen-portrait.png",
+    mockupAlt: "Tempered Daily week view for The Big Three discovery block",
+    icon: "daily",
     highlighted: true,
     span: "narrow",
   },
   {
     id: "workouts",
     label: "Workouts",
-    title: "On-Demand Workouts",
+    title: "One-off sessions",
     description:
-      "150+ standalone sessions including CrossFit, Hyrox, Pilates, and more. No programme required.",
-    mockup: "/mockups/workouts.png",
-    mockupAlt: "Tempered Strength on-demand workouts screen",
+      "168+ workouts you can favourite, filter, and log. CrossFit-style WODs, Hyrox, conditioning, strength, Olympic lifting, Rainhill, Arena Games, and Girl Games. Skill sessions are on Pro, and for coaches. Filter by discipline, equipment, duration, and format.",
+    mockup: "/iphone-mockups/workouts-page-portrait.png",
+    mockupAlt: "Workouts library with disciplines and a CrossFit session",
     icon: "workouts",
     span: "wide",
   },
   {
     id: "swaps",
-    label: "Smart",
-    title: "Smart Exercise Swaps",
+    label: "Swaps",
+    title: "Swap the exercise, keep the session",
     description:
-      "Swap any exercise to match your equipment without breaking the programme structure.",
-    mockup: "/mockups/program-in-progress.png",
-    mockupAlt: "Smart exercise swap in a program session",
+      "Alternatives come from the same movement pattern and muscle group, with a bodyweight-only filter. Free includes 10 swaps a month, resetting on the 1st. Putting an exercise back does not use a swap. Pro is unlimited.",
+    mockup: "/iphone-mockups/exerise-swap-portrait.png",
+    mockupAlt: "Exercise swap sheet suggesting hip-hinge alternatives for a barbell deadlift",
     icon: "swaps",
     span: "narrow",
   },
   {
-    id: "hub",
-    label: "Learn",
-    title: "The Hub",
+    id: "recovery",
+    label: "Recovery",
+    title: "Flows for the days between",
     description:
-      "Articles, glossary, and learning resources to help you train smarter, not just harder.",
-    mockup: "/mockups/hub.png",
-    mockupAlt: "Tempered Strength Hub articles and learning resources",
-    icon: "hub",
-    span: "narrow",
+      "21 guided flows. Six are free: core stability, desk-job recovery, handstand prep, shoulder health, a full-body flush, and a quick full-body flow. The rest, including hips, wrists, running, and climbing, are Pro. Coaches get every flow. Premium flows stay locked in the rest-day carousel on Free.",
+    mockup: "/iphone-mockups/mobility-and-flows-list-portrait.png",
+    mockupAlt: "Recovery list with free and Pro mobility flows",
+    icon: "mobility",
+    span: "wide",
   },
   {
-    id: "perks",
-    label: "Perks",
-    title: "Member Perks",
+    id: "explore",
+    label: "Explore",
+    title: "Read, calculate, and shop",
     description:
-      "Exclusive fitness discounts and partner offers, built into the app.",
-    mockup: "/mockups/exlusive-deals-shop.png",
-    mockupAlt: "Member discounts and partner offers shop",
-    icon: "perks",
-    span: "wide",
+      "Training articles, a glossary, and a shop of partner products. Together We Lift, the mental-health charity the app supports, lives here too. One-rep max, creatine, and water calculators work offline. Skills and Cues, with videos, drills, and coaching notes, are Pro, and free for coaches.",
+    mockup: "/iphone-mockups/explore-page-portrait.png",
+    mockupAlt: "Explore tab with Skills and Cues, the shop, and offline tools",
+    icon: "explore",
+    span: "narrow",
   },
 ];
 
@@ -103,29 +105,96 @@ export const homeFeatureMap = Object.fromEntries(
   homeFeatures.map((feature) => [feature.id, feature])
 ) as Record<string, HomeFeature>;
 
-export const smartTrainingBullets = [
-  "Equipment-adaptive exercise swaps",
-  "In-session timers and logging built in",
-  "Move programme days when life gets in the way",
+export const sessionBullets = [
+  "Log weight and reps, or the score for a timed piece",
+  "Rest timer with a lock-screen countdown, including skip and restart",
+  "Warm-ups, cool-downs, and notes you can copy from another session",
+  "A prompt when a set beats a stored personal best",
+  "Training-max percentages that pre-fill the bar on 5/3/1",
+];
+
+export const sessionPhones = [
+  {
+    src: "/iphone-mockups/program-view-deadlift-logged-rest-time-counting-down-portrait.png",
+    alt: "Deadlift set logged at 120 kg while the rest timer counts down",
+  },
+  {
+    src: "/iphone-mockups/lock-screen-coundown-ios-widget-portrait.png",
+    alt: "iPhone lock screen showing a rest countdown for barbell bench press",
+  },
+];
+
+export interface AppScreen {
+  id: string;
+  title: string;
+  caption: string;
+  src: string;
+  alt: string;
+}
+
+export const moreAppScreens: AppScreen[] = [
+  {
+    id: "workout",
+    title: "Open a workout",
+    caption: "Format, warm-up, and a place to log the score.",
+    src: "/iphone-mockups/workout-view-portrait.png",
+    alt: "Angie workout with a for-time chipper and a log result button",
+  },
+  {
+    id: "flow",
+    title: "Follow a flow",
+    caption: "Guided blocks with a timer, from the free list or the Pro set.",
+    src: "/iphone-mockups/mobility-and-flow-in-progress-portrait.png",
+    alt: "Climbing recovery flow in progress with a countdown",
+  },
+  {
+    id: "glossary",
+    title: "Look it up",
+    caption: "A glossary for the terms in the session, with no account required.",
+    src: "/iphone-mockups/glossary-view-portrait.png",
+    alt: "Glossary with training terms such as AMRAP expanded",
+  },
+  {
+    id: "pbs",
+    title: "Personal bests",
+    caption: "Records by exercise and rep range, with a strip of recent bests on Home.",
+    src: "/iphone-mockups/pb-view-portrait.png",
+    alt: "Personal bests for clean and jerk and related lifts",
+  },
+  {
+    id: "trophies",
+    title: "Trophies",
+    caption: "Bronze and silver for everyone. Platinum milestones are Pro.",
+    src: "/iphone-mockups/trophies-view-portrait.png",
+    alt: "Trophies list with achieved milestones",
+  },
 ];
 
 export const freeTierFeatures = [
-  "Multiple complete training programmes",
-  "On-demand workouts (limited)",
-  "Recovery & mobility flows",
-  "The Hub: articles & glossary",
-  "Discounts & offers shop",
-  "Tools access",
-  "All video tutorials",
-  "10 Smart exercise swaps per month",
+  "7 complete programmes",
+  "77 workouts in the free library",
+  "6 recovery and mobility flows",
+  "10 exercise swaps a month",
+  "Logging, rest timer, and personal bests",
+  "Daily training streak",
+  "Check-in for 3 behaviours",
+  "Women’s health tracking, always included",
+  "1 supplement, with dose reminders",
+  "Bronze and silver trophies",
+  "Articles, glossary, shop, and offline tools",
+  "Reorder Home. Works with no account",
+  "Live competition and leaderboard, when one is running",
 ];
 
 export const proTierFeatures = [
   "Everything in Free",
-  "All PRO programmes available",
-  "Full on-demand workouts library",
-  "Unlimited Smart exercise swaps",
-  "Exclusive content & features",
-  "Early access to new features",
-  "Access to all Mobility flows",
+  "Every programme, including 5/3/1 and Olympic peaking",
+  "Tempered Daily, coming soon",
+  "Full library of 168+ workouts, including skill sessions",
+  "Unlimited exercise swaps",
+  "All 21 recovery flows",
+  "Unlimited check-in behaviours and supplements",
+  "Platinum trophies",
+  "Skills and Cues",
+  "Hide sections on Home",
 ];

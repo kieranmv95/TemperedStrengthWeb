@@ -25,7 +25,7 @@ export function AdminEntityRow({ kind, entity, showSubmittedAt = false }: Props)
   return (
     <Link
       href={`/portal/admin/${kind}/${entity.id}`}
-      className="flex min-w-0 items-center justify-between gap-3 rounded-xl border border-neutral-800 bg-neutral-900/50 p-4 transition-colors hover:border-[#c9b072]/35 sm:gap-4"
+      className="flex min-w-0 items-center justify-between gap-3 rounded-xl border border-neutral-800 bg-neutral-900/50 p-4 transition-colors hover:border-[#FFBA6F]/35 sm:gap-4"
     >
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">

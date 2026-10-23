@@ -126,7 +126,7 @@ export function ListingImageEditor({
             accept={PARTNER_IMAGE_ACCEPT}
             disabled={isProcessing}
             onChange={(e) => void handlePick(e.target.files?.[0] ?? null)}
-            className="block w-full text-xs text-neutral-400 file:mr-3 file:rounded-md file:border-0 file:bg-[#c9b072] file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-black hover:file:bg-[#d4c08a] disabled:opacity-50"
+            className="block w-full text-xs text-neutral-400 file:mr-3 file:rounded-md file:border-0 file:bg-[#FFBA6F] file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-[#1A1108] hover:file:bg-[#FFCA91] disabled:opacity-50"
           />
           {processedSize != null ? (
             <p className="text-xs text-emerald-300/90">

@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const siteDescription =
-  "Download Tempered Strength: 13 structured gym programmes (7 free), 150+ on-demand workouts, and 20 recovery and mobility flows for iOS and Android. Smart exercise swapping and training that adapts to your equipment.";
+  "Tempered Strength is a local-first training app for iOS and Android. 14 programmes (7 free), 168+ workouts, and 21 recovery flows, with logging, swaps, and tools that work on your phone. Tempered Daily is coming soon.";
 
 export const metadata: Metadata = {
   title: "Tempered Strength | Gym Programs That Actually Work",

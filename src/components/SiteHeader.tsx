@@ -188,7 +188,7 @@ export function SiteHeader({ className = "" }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow on Instagram"
-            className="inline-flex items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900/50 p-2 text-neutral-300 hover:text-white hover:border-[#c9b072]/40 hover:bg-[#c9b072]/5 transition-colors"
+            className="inline-flex items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900/50 p-2 text-neutral-300 hover:text-white hover:border-[#FFBA6F]/40 hover:bg-[#FFBA6F]/5 transition-colors"
           >
             <InstagramGlyph className="h-4 w-4" />
           </a>
@@ -197,7 +197,7 @@ export function SiteHeader({ className = "" }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Subscribe on YouTube"
-            className="inline-flex items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900/50 p-2 text-neutral-300 hover:text-white hover:border-[#c9b072]/40 hover:bg-[#c9b072]/5 transition-colors"
+            className="inline-flex items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900/50 p-2 text-neutral-300 hover:text-white hover:border-[#FFBA6F]/40 hover:bg-[#FFBA6F]/5 transition-colors"
           >
             <YouTubeGlyph className="h-4 w-4" />
           </a>

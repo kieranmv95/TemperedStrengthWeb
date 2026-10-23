@@ -50,7 +50,7 @@ export function SubmitForReviewButton({ kind, id }: Props) {
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex w-full items-center justify-center rounded-lg border border-[#c9b072]/40 bg-[#c9b072]/10 px-4 py-2 text-sm font-semibold text-[#d4c08a] hover:bg-[#c9b072]/20 disabled:opacity-60 transition-colors sm:w-auto"
+          className="inline-flex w-full items-center justify-center rounded-lg border border-[#FFBA6F]/40 bg-[#FFBA6F]/10 px-4 py-2 text-sm font-semibold text-[#FFCA91] hover:bg-[#FFBA6F]/20 disabled:opacity-60 transition-colors sm:w-auto"
         >
           {isPending ? "Submitting…" : "Submit for review"}
         </button>

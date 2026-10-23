@@ -27,7 +27,7 @@ export function AdminStatusFilters({ basePath, current }: Props) {
             href={href}
             className={`rounded-lg border px-3 py-1.5 text-sm font-semibold transition-colors ${
               active
-                ? "border-[#c9b072]/40 bg-[#c9b072]/10 text-[#d4c08a]"
+                ? "border-[#FFBA6F]/40 bg-[#FFBA6F]/10 text-[#FFCA91]"
                 : "border-neutral-800 bg-neutral-900/50 text-neutral-400 hover:border-neutral-700 hover:text-white"
             }`}
           >

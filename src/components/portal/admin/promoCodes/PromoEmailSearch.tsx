@@ -32,11 +32,11 @@ export function PromoEmailSearch({ email, results }: Props) {
           defaultValue={email ?? ""}
           required
           placeholder="user@example.com"
-          className="min-w-0 flex-1 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+          className="min-w-0 flex-1 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
         />
         <button
           type="submit"
-          className="rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:border-[#c9b072]/40 transition-colors"
+          className="rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:border-[#FFBA6F]/40 transition-colors"
         >
           Search
         </button>

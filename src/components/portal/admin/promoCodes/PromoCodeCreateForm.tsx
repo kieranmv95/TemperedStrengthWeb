@@ -6,7 +6,7 @@ import { createPromoCode } from "@/app/portal/(authenticated)/admin/promo-codes/
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
 
 const inputClass =
-  "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none";
+  "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none";
 
 type FormState = {
   error: string | null;
@@ -37,7 +37,7 @@ export function PromoCodeCreateForm() {
     <form
       key={state.resetKey}
       action={formAction}
-      className="space-y-4 rounded-lg border border-[#c9b072]/25 bg-[#c9b072]/5 p-4"
+      className="space-y-4 rounded-lg border border-[#FFBA6F]/25 bg-[#FFBA6F]/5 p-4"
     >
       <div>
         <p className="text-sm font-semibold text-white">Create promo code</p>
@@ -122,7 +122,7 @@ export function PromoCodeCreateForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex w-full items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors sm:w-auto"
       >
         {isPending ? "Creating…" : "Create code"}
       </button>

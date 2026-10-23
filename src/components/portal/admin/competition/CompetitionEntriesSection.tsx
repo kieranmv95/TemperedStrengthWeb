@@ -69,7 +69,7 @@ export function CompetitionEntriesSection({ entries, metricType }: Props) {
               className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/50"
             >
               <div className="flex items-baseline justify-between gap-3 border-b border-neutral-800 bg-neutral-900/60 px-4 py-3">
-                <h4 className="text-base font-semibold text-[#d4c08a]">
+                <h4 className="text-base font-semibold text-[#FFCA91]">
                   {category}
                 </h4>
                 <p className="text-xs font-medium uppercase tracking-[0.12em] text-neutral-500">

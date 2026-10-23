@@ -82,7 +82,7 @@ export default function PortalLoginForm() {
   return (
       <div className="mx-auto w-full min-w-0 max-w-md">
         <div className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4 sm:p-6 md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
           Partner portal
         </p>
         <h1 className="mt-3 text-2xl font-bold text-white">Sign in</h1>
@@ -120,14 +120,14 @@ export default function PortalLoginForm() {
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="123456"
-                  className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white tracking-[0.3em] placeholder:tracking-normal placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+                  className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white tracking-[0.3em] placeholder:tracking-normal placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
                 />
               </label>
 
               <button
                 type="submit"
                 disabled={verifying || code.replace(/\D/g, "").length < 6}
-                className="w-full rounded-lg bg-[#c9b072] px-4 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+                className="w-full rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
               >
                 {verifying ? "Signing in…" : "Sign in with code"}
               </button>
@@ -140,7 +140,7 @@ export default function PortalLoginForm() {
                 setError(null);
                 setCode("");
               }}
-              className="w-full text-center text-sm text-[#c9b072] hover:underline"
+              className="w-full text-center text-sm text-[#FFBA6F] hover:underline"
             >
               Use a different email
             </button>
@@ -165,14 +165,14 @@ export default function PortalLoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+                className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
               />
             </label>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-[#c9b072] px-4 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+              className="w-full rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
             >
               {loading ? "Sending…" : "Send sign-in email"}
             </button>
@@ -180,7 +180,7 @@ export default function PortalLoginForm() {
         )}
 
         <p className="mt-6 text-center text-sm text-neutral-500">
-          <Link href="/" className="text-[#c9b072] hover:underline">
+          <Link href="/" className="text-[#FFBA6F] hover:underline">
             Back to website
           </Link>
         </p>

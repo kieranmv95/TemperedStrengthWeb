@@ -22,7 +22,7 @@ export function ClubOpeningHoursSection({
           type="checkbox"
           checked={!hasOpeningHours}
           onChange={(e) => setHasOpeningHours(!e.target.checked)}
-          className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/50"
+          className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/50"
         />
         <span className="text-xs text-neutral-400">
           No fixed opening hours — we won&apos;t show a schedule in the app (e.g.

@@ -9,7 +9,7 @@ export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Subtle grid background */}
-      <div className="fixed inset-0 z-0 bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
         {/* Header */}
@@ -207,7 +207,7 @@ export default function PrivacyPage() {
                       href="https://www.apple.com/legal/privacy/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       Apple&apos;s Privacy Policy
                     </a>
@@ -222,7 +222,7 @@ export default function PrivacyPage() {
                       href="https://www.revenuecat.com/privacy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       RevenueCat&apos;s Privacy Policy
                     </a>
@@ -238,7 +238,7 @@ export default function PrivacyPage() {
                       href="https://resend.com/legal/privacy-policy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       Resend&apos;s Privacy Policy
                     </a>
@@ -255,7 +255,7 @@ export default function PrivacyPage() {
                       href="https://supabase.com/privacy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       Supabase&apos;s Privacy Policy
                     </a>
@@ -271,7 +271,7 @@ export default function PrivacyPage() {
                       href="https://posthog.com/privacy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       PostHog&apos;s Privacy Policy
                     </a>
@@ -371,7 +371,7 @@ export default function PrivacyPage() {
                 To exercise any of these rights, please contact us at{" "}
                 <a
                   href="mailto:contact@localhostdevelopment.com"
-                  className="text-[#c9b072] hover:underline"
+                  className="text-[#FFBA6F] hover:underline"
                 >
                   contact@localhostdevelopment.com
                 </a>
@@ -435,7 +435,7 @@ export default function PrivacyPage() {
                   Email:{" "}
                   <a
                     href="mailto:contact@localhostdevelopment.com"
-                    className="text-[#c9b072] hover:underline"
+                    className="text-[#FFBA6F] hover:underline"
                   >
                     contact@localhostdevelopment.com
                   </a>
@@ -449,7 +449,7 @@ export default function PrivacyPage() {
                   href="https://ico.org.uk/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#c9b072] hover:underline"
+                  className="text-[#FFBA6F] hover:underline"
                 >
                   https://ico.org.uk/
                 </a>
@@ -465,13 +465,13 @@ export default function PrivacyPage() {
             <div className="flex gap-6">
               <Link
                 href="/terms"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 Terms & Conditions
               </Link>
               <Link
                 href="/"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 Home
               </Link>

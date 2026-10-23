@@ -1,7 +1,7 @@
 "use client";
 
 const inputClass =
-  "w-full min-h-12 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-3 text-base text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none sm:text-sm sm:min-h-0 sm:py-2.5";
+  "w-full min-h-12 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-3 text-base text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none sm:text-sm sm:min-h-0 sm:py-2.5";
 
 type Props = {
   name?: string;
@@ -42,8 +42,8 @@ export function CategoryPicker({
                 aria-pressed={selected}
                 className={`min-h-11 rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors ${
                   selected
-                    ? "border-[#c9b072] bg-[#c9b072] text-black"
-                    : "border-neutral-700 bg-neutral-950 text-neutral-200 hover:border-[#c9b072]/50 hover:text-white"
+                    ? "border-[#FFBA6F] bg-[#FFBA6F] text-[#1A1108]"
+                    : "border-neutral-700 bg-neutral-950 text-neutral-200 hover:border-[#FFBA6F]/50 hover:text-white"
                 }`}
               >
                 {category}

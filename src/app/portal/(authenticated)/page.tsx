@@ -49,7 +49,7 @@ export default async function PortalHubPage() {
               </div>
               <Link
                 href={`/portal/${kind}/new`}
-                className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] transition-colors sm:w-auto"
+                className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-2 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] transition-colors sm:w-auto"
               >
                 Add {config.singular}
               </Link>

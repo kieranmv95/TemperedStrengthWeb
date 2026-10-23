@@ -57,7 +57,7 @@ export async function PortalHeader() {
             {showAdminLink ? (
               <Link
                 href="/portal/admin"
-                className="rounded-lg border border-[#c9b072]/30 bg-[#c9b072]/10 px-2.5 py-2 text-[#d4c08a] hover:bg-[#c9b072]/20 transition-colors sm:px-3"
+                className="rounded-lg border border-[#FFBA6F]/30 bg-[#FFBA6F]/10 px-2.5 py-2 text-[#FFCA91] hover:bg-[#FFBA6F]/20 transition-colors sm:px-3"
               >
                 Admin
               </Link>
@@ -71,7 +71,7 @@ export async function PortalHeader() {
             <form action={signOut}>
               <button
                 type="submit"
-                className="rounded-lg border border-neutral-800 bg-neutral-900/50 px-3 py-2 text-neutral-300 hover:text-white hover:border-[#c9b072]/40 transition-colors"
+                className="rounded-lg border border-neutral-800 bg-neutral-900/50 px-3 py-2 text-neutral-300 hover:text-white hover:border-[#FFBA6F]/40 transition-colors"
               >
                 Sign out
               </button>

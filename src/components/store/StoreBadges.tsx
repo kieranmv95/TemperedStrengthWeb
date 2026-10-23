@@ -57,7 +57,7 @@ export function AppStoreBadge({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9b072] ${className}`}
+      className={`inline-block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFBA6F] ${className}`}
       aria-label="Download on the App Store"
     >
       <BadgeImage
@@ -98,7 +98,7 @@ export function GooglePlayBadge({
         title="Google Play — coming soon"
       >
         <span className="block opacity-45 grayscale">{image}</span>
-        <span className="absolute -right-1 -top-2 rounded-full border border-[#c9b072]/40 bg-[#0a0a0a] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-[#c9b072]">
+        <span className="absolute -right-1 -top-2 rounded-full border border-[#FFBA6F]/40 bg-[#0a0a0a] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-[#FFBA6F]">
           Coming soon
         </span>
       </span>
@@ -110,7 +110,7 @@ export function GooglePlayBadge({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9b072] ${className}`}
+      className={`inline-block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFBA6F] ${className}`}
       aria-label="Get it on Google Play"
     >
       {image}

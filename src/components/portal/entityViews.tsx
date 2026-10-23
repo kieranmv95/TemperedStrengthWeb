@@ -44,7 +44,7 @@ export async function EntityListView({ config }: Props) {
         </div>
         <Link
           href={`/portal/${config.kind}/new`}
-          className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] transition-colors sm:w-auto"
+          className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-2 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] transition-colors sm:w-auto"
         >
           Add {config.singular}
         </Link>
@@ -55,7 +55,7 @@ export async function EntityListView({ config }: Props) {
           <p className="text-neutral-400">No {config.plural.toLowerCase()} yet.</p>
           <Link
             href={`/portal/${config.kind}/new`}
-            className="mt-4 inline-flex text-sm font-semibold text-[#c9b072] hover:underline"
+            className="mt-4 inline-flex text-sm font-semibold text-[#FFBA6F] hover:underline"
           >
             Create your first {config.singular}
           </Link>

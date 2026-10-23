@@ -8,7 +8,7 @@ import { METRIC_TYPE_OPTIONS } from "@/lib/liveCompetition/metrics";
 import type { AdminCompetition } from "@/lib/liveCompetition/adminTypes";
 
 const inputClass =
-  "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none";
+  "w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none";
 
 type FormState = {
   error: string | null;
@@ -199,7 +199,7 @@ export function CompetitionDetailsForm({ competition }: Props) {
             type="checkbox"
             name="active_in_test"
             defaultChecked={competition.activeInTest}
-            className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/50"
+            className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/50"
           />
           <span className="text-sm text-neutral-300">
             Live in <span className="font-semibold text-white">test</span> app builds
@@ -211,7 +211,7 @@ export function CompetitionDetailsForm({ competition }: Props) {
             type="checkbox"
             name="active_in_production"
             defaultChecked={competition.activeInProduction}
-            className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/50"
+            className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/50"
           />
           <span className="text-sm text-neutral-300">
             Live in <span className="font-semibold text-white">production</span> app
@@ -223,7 +223,7 @@ export function CompetitionDetailsForm({ competition }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+        className="inline-flex items-center justify-center rounded-lg bg-[#FFBA6F] px-5 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
       >
         {isPending ? "Saving…" : "Save competition details"}
       </button>

@@ -58,7 +58,7 @@ export default async function AdminCompetitionPage() {
           >
             {canEditCompetition ? "← Partner review" : "← Admin"}
           </Link>
-          <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
+          <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
             Admin · Event
           </p>
           <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">

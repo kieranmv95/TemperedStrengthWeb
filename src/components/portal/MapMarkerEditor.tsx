@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { MapMarker } from "@/lib/portal/types";
 
 const inputClass =
-  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none tabular-nums";
+  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none tabular-nums";
 
 type Props = {
   mapMarker?: MapMarker | null;
@@ -33,7 +33,7 @@ export function MapMarkerEditor({ mapMarker }: Props) {
         <button
           type="button"
           onClick={() => setShowHelp((open) => !open)}
-          className="shrink-0 text-xs font-medium text-[#c9b072] hover:underline"
+          className="shrink-0 text-xs font-medium text-[#FFBA6F] hover:underline"
           aria-expanded={showHelp}
         >
           {showHelp ? "Hide help" : "How do I find these?"}
@@ -41,7 +41,7 @@ export function MapMarkerEditor({ mapMarker }: Props) {
       </div>
 
       {showHelp ? (
-        <div className="rounded-md border border-[#c9b072]/25 bg-[#c9b072]/5 p-3 text-xs leading-relaxed text-neutral-300">
+        <div className="rounded-md border border-[#FFBA6F]/25 bg-[#FFBA6F]/5 p-3 text-xs leading-relaxed text-neutral-300">
           <p className="font-semibold text-white">Google Maps (desktop)</p>
           <ol className="mt-1 list-decimal space-y-1 pl-4">
             <li>Open Google Maps and find your venue.</li>

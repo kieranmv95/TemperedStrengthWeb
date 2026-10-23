@@ -6,7 +6,7 @@ import { addressUsesManualEntry, formatPostcodeSummary } from "@/lib/portal/vali
 import type { VenueAddress } from "@/lib/portal/types";
 
 const inputClass =
-  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none";
+  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-sm text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none";
 
 type LookupStatus = "idle" | "loading" | "verified" | "error";
 
@@ -140,7 +140,7 @@ export function AddressEditor({
         <button
           type="button"
           onClick={manualMode ? switchToPostcode : switchToManual}
-          className="shrink-0 text-xs font-medium text-[#c9b072] hover:underline"
+          className="shrink-0 text-xs font-medium text-[#FFBA6F] hover:underline"
         >
           {manualMode ? "Use postcode" : "Enter manually"}
         </button>
@@ -183,7 +183,7 @@ export function AddressEditor({
             type="button"
             onClick={runPostcodeLookup}
             disabled={isLoading || !postcode.trim()}
-            className="shrink-0 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:border-[#c9b072]/40 disabled:opacity-40 sm:self-stretch"
+            className="shrink-0 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:border-[#FFBA6F]/40 disabled:opacity-40 sm:self-stretch"
           >
             {isLoading ? "…" : "Look up"}
           </button>
@@ -210,7 +210,7 @@ export function AddressEditor({
         <div className="space-y-2 border-t border-neutral-800/80 pt-2">
           <label className="block">
             <span className="mb-1 block text-xs font-medium text-neutral-400">
-              Building number and street <span className="text-[#c9b072]">*</span>
+              Building number and street <span className="text-[#FFBA6F]">*</span>
             </span>
             <input
               type="text"
@@ -282,7 +282,7 @@ export function AddressEditor({
             type="checkbox"
             name="hide_location"
             defaultChecked={initialHideLocation}
-            className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/50"
+            className="mt-0.5 rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/50"
           />
           <span className="text-xs text-neutral-400">
             Hide location from the app. Use this if the address is only for our

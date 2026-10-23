@@ -10,7 +10,7 @@ import { dayHoursToEditorState } from "@/lib/portal/validation";
 import type { DayKey, OpeningHours } from "@/lib/portal/types";
 
 const inputClass =
-  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2 py-1 text-xs text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none tabular-nums";
+  "w-full rounded-md border border-neutral-800 bg-neutral-950 px-2 py-1 text-xs text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none tabular-nums";
 
 type DayState = {
   closed: boolean;
@@ -169,7 +169,7 @@ function DayToggles({
               twentyFour: e.target.checked ? false : day.twentyFour,
             })
           }
-          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40"
+          className="rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/40"
           title="Closed"
         />
         Off
@@ -186,7 +186,7 @@ function DayToggles({
               close: TWENTY_FOUR_HOUR_CLOSE,
             })
           }
-          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40 disabled:opacity-40"
+          className="rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/40 disabled:opacity-40"
           title="Open 24 hours"
         />
         24h
@@ -248,7 +248,7 @@ function DesktopDayRow({ dayKey, shortLabel, day, onUpdate }: DayRowProps) {
               twentyFour: e.target.checked ? false : day.twentyFour,
             })
           }
-          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40"
+          className="rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/40"
           title="Closed"
         />
       </label>
@@ -265,7 +265,7 @@ function DesktopDayRow({ dayKey, shortLabel, day, onUpdate }: DayRowProps) {
               close: TWENTY_FOUR_HOUR_CLOSE,
             })
           }
-          className="rounded border-neutral-700 bg-neutral-950 text-[#c9b072] focus:ring-[#c9b072]/40 disabled:opacity-40"
+          className="rounded border-neutral-700 bg-neutral-950 text-[#FFBA6F] focus:ring-[#FFBA6F]/40 disabled:opacity-40"
           title="Open 24 hours"
         />
       </label>

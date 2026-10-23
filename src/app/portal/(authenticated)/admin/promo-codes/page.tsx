@@ -34,7 +34,7 @@ export default async function AdminPromoCodesPage({ searchParams }: PageProps) {
         >
           ← Partner review
         </Link>
-        <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
+        <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
           Admin · Promo codes
         </p>
         <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">Promo codes</h1>

@@ -167,7 +167,7 @@ export function AdminEntityReview({
                   {entity.email ? (
                     <a
                       href={`mailto:${entity.email}`}
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       {entity.email}
                     </a>
@@ -182,7 +182,7 @@ export function AdminEntityReview({
                   {entity.phone ? (
                     <a
                       href={`tel:${entity.phone.replace(/\s/g, "")}`}
-                      className="text-[#c9b072] hover:underline"
+                      className="text-[#FFBA6F] hover:underline"
                     >
                       {entity.phone}
                     </a>
@@ -295,7 +295,7 @@ export function AdminEntityReview({
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="break-all text-[#c9b072] hover:underline"
+                      className="break-all text-[#FFBA6F] hover:underline"
                     >
                       {link.url}
                     </a>

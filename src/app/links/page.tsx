@@ -131,7 +131,7 @@ function SectionTitle({
   return (
     <h2
       id={id}
-      className="text-xs font-semibold uppercase tracking-[0.2em] text-[#c9b072]/90 mb-3"
+      className="text-xs font-semibold uppercase tracking-[0.2em] text-[#FFBA6F]/90 mb-3"
     >
       {children}
     </h2>
@@ -139,13 +139,13 @@ function SectionTitle({
 }
 
 function linkRowClassName() {
-  return "group flex items-center gap-4 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm px-4 py-3.5 md:px-5 md:py-4 transition-colors hover:border-[#c9b072]/35 hover:bg-[#c9b072]/[0.04]";
+  return "group flex items-center gap-4 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm px-4 py-3.5 md:px-5 md:py-4 transition-colors hover:border-[#FFBA6F]/35 hover:bg-[#FFBA6F]/[0.04]";
 }
 
 export default function LinksPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-lg mx-auto px-4 py-8 md:py-12">
         <header className="flex justify-center mb-10">
@@ -161,7 +161,7 @@ export default function LinksPage() {
         </header>
 
         <div className="text-center mb-10">
-          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-3">
+          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-3">
             Everything in one place
           </p>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Links</h1>
@@ -184,9 +184,9 @@ export default function LinksPage() {
                   <AppStoreBadgeIcon />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on the App Store</span>
-                    <span className="text-xs text-neutral-500">A range of programs and workouts with logging, swaps, timers and more.</span>
+                    <span className="text-xs text-neutral-500">Programmes, workouts, logging, and recovery. Seven programmes are free.</span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
               <li>
@@ -199,9 +199,9 @@ export default function LinksPage() {
                   <GooglePlayBadgeIcon />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Tempered Strength on Google Play</span>
-                    <span className="text-xs text-neutral-500">A range of programs and workouts with logging, swaps, timers and more.</span>
+                    <span className="text-xs text-neutral-500">Programmes, workouts, logging, and recovery. Seven programmes are free.</span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
             </ul>
@@ -212,14 +212,14 @@ export default function LinksPage() {
             <ul className="space-y-2">
               <li>
                 <Link href="/" className={linkRowClassName()}>
-                  <WebsiteGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <WebsiteGlyph className="w-6 h-6 shrink-0 text-[#FFBA6F]" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Website</span>
                     <span className="text-xs text-neutral-500">
                       Programs, features, and everything Tempered Strength.
                     </span>
                   </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </Link>
               </li>
             </ul>
@@ -235,7 +235,7 @@ export default function LinksPage() {
                     <span className="font-semibold text-white">Tempered Strength on Instagram</span>
                     <span className="text-xs text-neutral-500 truncate">@temperedstrength</span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
               <li>
@@ -245,7 +245,7 @@ export default function LinksPage() {
                     <span className="font-semibold text-white">Tempered Strength on TikTok</span>
                     <span className="text-xs text-neutral-500 truncate">@temperedstrength</span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
               <li>
@@ -255,7 +255,7 @@ export default function LinksPage() {
                     <span className="font-semibold text-white">Tempered Strength on YouTube</span>
                     <span className="text-xs text-neutral-500 truncate">@TemperedStrength</span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
             </ul>
@@ -271,14 +271,14 @@ export default function LinksPage() {
                   rel="noopener noreferrer"
                   className={linkRowClassName()}
                 >
-                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#FFBA6F]" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Driathlon</span>
                     <span className="text-xs text-neutral-500">
                       Prize-pool sponsor for the 26/27 competition season.
                     </span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
               <li>
@@ -288,14 +288,14 @@ export default function LinksPage() {
                   rel="noopener noreferrer"
                   className={linkRowClassName()}
                 >
-                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#FFBA6F]" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">CrossFit Fixus</span>
                     <span className="text-xs text-neutral-500">
                       Middleton, Manchester — thanks for filming with us.
                     </span>
                   </span>
-                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ExternalArrow className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </a>
               </li>
             </ul>
@@ -306,26 +306,26 @@ export default function LinksPage() {
             <ul className="space-y-2">
               <li>
                 <Link href="/partners" className={linkRowClassName()}>
-                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#FFBA6F]" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Brand assets</span>
                     <span className="text-xs text-neutral-500">
                       Download logos for designs, mockups, and marketing.
                     </span>
                   </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </Link>
               </li>
               <li>
                 <Link href="/portal/login" className={linkRowClassName()}>
-                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#c9b072]" />
+                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#FFBA6F]" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Partner portal</span>
                     <span className="text-xs text-neutral-500">
                       Sign in or set up your gym, club, or coaching profile.
                     </span>
                   </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </Link>
               </li>
             </ul>
@@ -339,7 +339,7 @@ export default function LinksPage() {
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Terms &amp; Conditions</span>
                   </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </Link>
               </li>
               <li>
@@ -347,7 +347,7 @@ export default function LinksPage() {
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
                     <span className="font-semibold text-white">Privacy Policy</span>
                   </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#c9b072]" />
+                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </Link>
               </li>
             </ul>
@@ -358,14 +358,14 @@ export default function LinksPage() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link href="/" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/" className="hover:text-[#FFBA6F] transition-colors">
                 Home
               </Link>
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 Instagram
               </a>
@@ -373,7 +373,7 @@ export default function LinksPage() {
                 href={TIKTOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 TikTok
               </a>
@@ -381,17 +381,17 @@ export default function LinksPage() {
                 href={YOUTUBE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 YouTube
               </a>
-              <Link href="/portal/login" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/portal/login" className="hover:text-[#FFBA6F] transition-colors">
                 Partners
               </Link>
-              <Link href="/terms" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/terms" className="hover:text-[#FFBA6F] transition-colors">
                 Terms
               </Link>
-              <Link href="/privacy" className="hover:text-[#c9b072] transition-colors">
+              <Link href="/privacy" className="hover:text-[#FFBA6F] transition-colors">
                 Privacy
               </Link>
             </div>

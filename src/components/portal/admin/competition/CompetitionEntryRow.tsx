@@ -14,7 +14,7 @@ import {
 } from "@/lib/liveCompetition/metrics";
 
 const inputClass =
-  "w-full min-h-12 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-3 text-base text-white focus:border-[#c9b072]/50 focus:outline-none sm:min-h-0 sm:px-2.5 sm:py-1.5 sm:text-sm";
+  "w-full min-h-12 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-3 text-base text-white focus:border-[#FFBA6F]/50 focus:outline-none sm:min-h-0 sm:px-2.5 sm:py-1.5 sm:text-sm";
 
 type RowState = {
   error: string | null;
@@ -78,7 +78,7 @@ export function CompetitionEntryRow({
     <div
       className={`rounded-xl border p-3 sm:p-4 ${
         isLeader
-          ? "border-[#c9b072]/35 bg-[#c9b072]/8"
+          ? "border-[#FFBA6F]/35 bg-[#FFBA6F]/8"
           : "border-neutral-800/80 bg-neutral-950/40"
       }`}
     >
@@ -153,7 +153,7 @@ export function CompetitionEntryRow({
             <button
               type="submit"
               disabled={busy}
-              className="inline-flex min-h-11 flex-1 items-center justify-center rounded-lg bg-[#c9b072] px-4 py-2 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-50 sm:flex-none"
+              className="inline-flex min-h-11 flex-1 items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-2 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-50 sm:flex-none"
             >
               {isUpdating ? "Saving…" : "Save"}
             </button>
@@ -174,7 +174,7 @@ export function CompetitionEntryRow({
         <div className="flex items-start gap-3">
           <span
             className={`w-8 shrink-0 pt-0.5 text-center text-lg font-bold tabular-nums sm:w-9 sm:text-xl ${
-              isLeader ? "text-[#c9b072]" : "text-neutral-500"
+              isLeader ? "text-[#FFBA6F]" : "text-neutral-500"
             }`}
             aria-label={`Rank ${rank}`}
           >
@@ -188,7 +188,7 @@ export function CompetitionEntryRow({
               </p>
               <p
                 className={`shrink-0 text-lg font-bold tabular-nums leading-snug sm:text-xl ${
-                  isLeader ? "text-[#d4c08a]" : "text-white"
+                  isLeader ? "text-[#FFCA91]" : "text-white"
                 }`}
               >
                 {displayScore}
@@ -207,7 +207,7 @@ export function CompetitionEntryRow({
                 type="button"
                 disabled={busy}
                 onClick={() => setIsEditing(true)}
-                className="inline-flex min-h-10 items-center rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-sm font-semibold text-white hover:border-[#c9b072]/40 disabled:opacity-50"
+                className="inline-flex min-h-10 items-center rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-1.5 text-sm font-semibold text-white hover:border-[#FFBA6F]/40 disabled:opacity-50"
               >
                 Edit
               </button>

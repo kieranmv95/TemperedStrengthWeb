@@ -118,7 +118,7 @@ export function EntityForm({
           required
           defaultValue={entity?.name ?? ""}
           placeholder={`${config.label} name`}
-          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
         />
       </label>
 
@@ -131,7 +131,7 @@ export function EntityForm({
           rows={5}
           defaultValue={entity?.description ?? ""}
           placeholder="Tell people about your offering..."
-          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
         />
       </label>
 
@@ -159,7 +159,7 @@ export function EntityForm({
               defaultValue={entity?.email ?? ""}
               placeholder="contact@example.com"
               autoComplete="email"
-              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
             />
           </label>
           <label className="block min-w-0">
@@ -172,7 +172,7 @@ export function EntityForm({
               defaultValue={entity?.phone ?? ""}
               placeholder="07xxx xxxxxx"
               autoComplete="tel"
-              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+              className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
             />
           </label>
         </div>
@@ -226,7 +226,7 @@ export function EntityForm({
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex items-center justify-center rounded-lg bg-[#c9b072] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+        className="inline-flex items-center justify-center rounded-lg bg-[#FFBA6F] px-5 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
       >
         {isPending ? "Saving…" : submitLabel}
       </button>

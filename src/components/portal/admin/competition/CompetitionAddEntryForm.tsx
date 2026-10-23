@@ -10,7 +10,7 @@ import { getMetricConfig } from "@/lib/liveCompetition/metrics";
 import type { LiveCompetitionMetricType } from "@/lib/liveCompetition/metrics";
 
 const inputClass =
-  "w-full min-h-12 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-3 text-base text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none sm:min-h-0 sm:py-2.5 sm:text-sm";
+  "w-full min-h-12 rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-3 text-base text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none sm:min-h-0 sm:py-2.5 sm:text-sm";
 
 type FormState = {
   error: string | null;
@@ -48,7 +48,7 @@ export function CompetitionAddEntryForm({ metricType, categories }: Props) {
     <form
       key={state.resetKey}
       action={formAction}
-      className="space-y-4 rounded-xl border border-[#c9b072]/25 bg-[#c9b072]/5 p-4 sm:p-5"
+      className="space-y-4 rounded-xl border border-[#FFBA6F]/25 bg-[#FFBA6F]/5 p-4 sm:p-5"
     >
       <div>
         <p className="text-base font-semibold text-white sm:text-sm">Add entry</p>
@@ -140,7 +140,7 @@ export function CompetitionAddEntryForm({ metricType, categories }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-[#c9b072] px-4 py-3 text-base font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors sm:min-h-0 sm:w-auto sm:py-2.5 sm:text-sm"
+        className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-3 text-base font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors sm:min-h-0 sm:w-auto sm:py-2.5 sm:text-sm"
       >
         {isPending ? "Adding…" : "Add entry"}
       </button>

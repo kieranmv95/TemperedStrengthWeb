@@ -52,7 +52,7 @@ export default function ConfirmMagicLinkForm({ tokenHash, type, next }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-[#c9b072] px-4 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+        className="w-full rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
       >
         {loading ? "Signing in…" : "Continue to Partner Portal"}
       </button>

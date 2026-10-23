@@ -95,7 +95,7 @@ export function TagListInput({
         </div>
       ) : null}
 
-      <div className="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 focus-within:border-[#c9b072]/50">
+      <div className="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 focus-within:border-[#FFBA6F]/50">
         {tags.length > 0 ? (
           <ul className="mb-2 flex flex-wrap gap-2">
             {tags.map((tag, index) => (

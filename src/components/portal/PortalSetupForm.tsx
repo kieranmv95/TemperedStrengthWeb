@@ -55,14 +55,14 @@ export function PortalSetupForm({ initialError }: Props) {
           autoFocus
           maxLength={100}
           placeholder="e.g. Alex or Ironworks Gym"
-          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#c9b072]/50 focus:outline-none"
+          className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
         />
       </label>
 
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-lg bg-[#c9b072] px-4 py-2.5 text-sm font-semibold text-black hover:bg-[#d4c08a] disabled:opacity-60 transition-colors"
+        className="w-full rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
       >
         {isPending ? "Saving…" : "Continue to portal"}
       </button>

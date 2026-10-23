@@ -9,7 +9,7 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Subtle grid background */}
-      <div className="fixed inset-0 z-0 bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
         {/* Header */}
@@ -77,14 +77,15 @@ export default function TermsPage() {
                 Tempered Strength is a fitness application that provides:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
-                <li>Structured gym training programs</li>
-                <li>On-demand workout library</li>
+                <li>Structured training programmes</li>
+                <li>A library of standalone workouts</li>
+                <li>Set logging, timers, personal bests, and trophies</li>
+                <li>Recovery and mobility flows</li>
+                <li>Exercise swaps matched to movement pattern and equipment</li>
                 <li>
-                  Educational content including fitness articles and gym
-                  terminology glossary
+                  Check-in, training articles, a glossary, and offline
+                  calculators
                 </li>
-                <li>Smart exercise swapping functionality</li>
-                <li>Curated Apple Music playlists</li>
               </ul>
               <p className="leading-relaxed mt-4">
                 The App is available in both free and premium (&quot;Pro&quot;)
@@ -324,7 +325,7 @@ export default function TermsPage() {
                   Email:{" "}
                   <a
                     href="mailto:contact@localhostdevelopment.com"
-                    className="text-[#c9b072] hover:underline"
+                    className="text-[#FFBA6F] hover:underline"
                   >
                     contact@localhostdevelopment.com
                   </a>
@@ -341,13 +342,13 @@ export default function TermsPage() {
             <div className="flex gap-6">
               <Link
                 href="/privacy"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/"
-                className="hover:text-[#c9b072] transition-colors"
+                className="hover:text-[#FFBA6F] transition-colors"
               >
                 Home
               </Link>

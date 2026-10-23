@@ -32,13 +32,13 @@ export default function ArticlesPage() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
         <SiteHeader className="mb-10" />
 
         <div className="text-center mb-10">
-          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-4">
+          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
             The Brief
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -67,7 +67,7 @@ export default function ArticlesPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search titles and subtitles..."
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-950/60 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none focus:border-[#c9b072]/60 focus:ring-2 focus:ring-[#c9b072]/20"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-950/60 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none focus:border-[#FFBA6F]/60 focus:ring-2 focus:ring-[#FFBA6F]/20"
               />
             </div>
 
@@ -84,7 +84,7 @@ export default function ArticlesPage() {
                 onChange={(e) =>
                   setCategory(e.target.value as Category | "All")
                 }
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-950/60 px-4 py-3 text-sm text-white outline-none focus:border-[#c9b072]/60 focus:ring-2 focus:ring-[#c9b072]/20"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-950/60 px-4 py-3 text-sm text-white outline-none focus:border-[#FFBA6F]/60 focus:ring-2 focus:ring-[#FFBA6F]/20"
               >
                 <option value="All">All</option>
                 {categories.map((c) => (
@@ -107,7 +107,7 @@ export default function ArticlesPage() {
                   setQuery("");
                   setCategory("All");
                 }}
-                className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#c9b072] hover:text-[#d4c08a] transition-colors"
+                className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#FFBA6F] hover:text-[#FFCA91] transition-colors"
               >
                 Clear filters
                 <span aria-hidden>×</span>
@@ -141,7 +141,7 @@ export default function ArticlesPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3">
-                    <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold border border-[#c9b072]/35 text-[#c9b072] bg-[#c9b072]/10">
+                    <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold border border-[#FFBA6F]/35 text-[#FFBA6F] bg-[#FFBA6F]/10">
                       {a.category}
                     </span>
                     <span className="text-xs text-neutral-200/90">

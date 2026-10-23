@@ -14,9 +14,9 @@ function LiveCompetitionCard() {
   return (
     <Link
       href="/portal/admin/competition"
-      className="block rounded-xl border border-[#c9b072]/30 bg-[#c9b072]/10 p-4 transition-colors hover:border-[#c9b072]/50 sm:p-5"
+      className="block rounded-xl border border-[#FFBA6F]/30 bg-[#FFBA6F]/10 p-4 transition-colors hover:border-[#FFBA6F]/50 sm:p-5"
     >
-      <p className="text-sm font-semibold text-[#d4c08a]">
+      <p className="text-sm font-semibold text-[#FFCA91]">
         Live competition board
       </p>
       <p className="mt-2 text-sm text-neutral-300">
@@ -34,7 +34,7 @@ export default async function AdminDashboardPage() {
     return (
       <div className="space-y-8">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
             Admin
           </p>
           <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
@@ -58,7 +58,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-10">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#c9b072]">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
           Admin
         </p>
         <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
@@ -74,9 +74,9 @@ export default async function AdminDashboardPage() {
 
       <Link
         href="/portal/admin/promo-codes"
-        className="block rounded-xl border border-[#c9b072]/30 bg-[#c9b072]/10 p-4 transition-colors hover:border-[#c9b072]/50"
+        className="block rounded-xl border border-[#FFBA6F]/30 bg-[#FFBA6F]/10 p-4 transition-colors hover:border-[#FFBA6F]/50"
       >
-        <p className="text-sm font-semibold text-[#d4c08a]">Promo codes</p>
+        <p className="text-sm font-semibold text-[#FFCA91]">Promo codes</p>
         <p className="mt-2 text-sm text-neutral-300">
           Create and manage Pro redemption codes for the app, with email audit
           logging.
@@ -92,7 +92,7 @@ export default async function AdminDashboardPage() {
             <Link
               key={kind}
               href={`/portal/admin/${kind}?status=pending`}
-              className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-4 transition-colors hover:border-[#c9b072]/35"
+              className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-4 transition-colors hover:border-[#FFBA6F]/35"
             >
               <p className="text-sm font-semibold text-white">{config.plural}</p>
               <p className="mt-2 text-3xl font-bold text-white">{pendingCount}</p>

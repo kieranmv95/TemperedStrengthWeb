@@ -13,13 +13,13 @@ export default async function PatchNotesIndexPage() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
         <SiteHeader className="mb-10" />
 
         <div className="text-center mb-10">
-          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-4">
+          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
             Changelog
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -58,7 +58,7 @@ export default async function PatchNotesIndexPage() {
                         {version}
                       </h2>
                     </div>
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#c9b072] group-hover:text-[#d4c08a] transition-colors shrink-0">
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#FFBA6F] group-hover:text-[#FFCA91] transition-colors shrink-0">
                       Read
                       <svg
                         className="w-4 h-4"
@@ -78,7 +78,7 @@ export default async function PatchNotesIndexPage() {
                   </div>
 
                   <div className="mt-5 flex items-center justify-between gap-3 text-sm text-neutral-500">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#c9b072]/25 bg-[#c9b072]/5 text-[#c9b072]">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full border border-[#FFBA6F]/25 bg-[#FFBA6F]/5 text-[#FFBA6F]">
                       Update {version}
                     </span>
                     <span className="font-mono text-xs text-neutral-600">

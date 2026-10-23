@@ -86,7 +86,7 @@ export function CompetitionConditionsOfEntryLink() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-xs font-medium text-[#c9b072] underline-offset-2 hover:underline"
+        className="text-xs font-medium text-[#FFBA6F] underline-offset-2 hover:underline"
       >
         Conditions of entry
       </button>

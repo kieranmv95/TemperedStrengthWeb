@@ -36,19 +36,19 @@ function Markdown({
         components={{
           h1: (props) => (
             <h1
-              className="text-2xl md:text-3xl font-extrabold mt-2 mb-4 text-[#c9b072] tracking-tight"
+              className="text-2xl md:text-3xl font-extrabold mt-2 mb-4 text-[#FFBA6F] tracking-tight"
               {...props}
             />
           ),
           h2: (props) => (
             <h2
-              className="text-xl md:text-2xl font-bold mt-8 mb-3 text-[#c9b072] tracking-tight"
+              className="text-xl md:text-2xl font-bold mt-8 mb-3 text-[#FFBA6F] tracking-tight"
               {...props}
             />
           ),
           h3: (props) => (
             <h3
-              className="text-lg md:text-xl font-semibold mt-7 mb-2 text-[#c9b072]"
+              className="text-lg md:text-xl font-semibold mt-7 mb-2 text-[#FFBA6F]"
               {...props}
             />
           ),
@@ -61,7 +61,7 @@ function Markdown({
           em: (props) => <em className="text-neutral-200 italic" {...props} />,
           a: (props) => (
             <a
-              className="text-[#c9b072] hover:text-[#d4c08a] underline underline-offset-4"
+              className="text-[#FFBA6F] hover:text-[#FFCA91] underline underline-offset-4"
               target="_blank"
               rel="noopener noreferrer"
               {...props}
@@ -79,7 +79,7 @@ function Markdown({
           li: (props) => <li className="text-neutral-300 leading-relaxed" {...props} />,
           blockquote: (props) => (
             <blockquote
-              className="my-6 border-l-2 border-[#c9b072]/50 pl-4 text-neutral-300"
+              className="my-6 border-l-2 border-[#FFBA6F]/50 pl-4 text-neutral-300"
               {...props}
             />
           ),
@@ -112,7 +112,7 @@ function Markdown({
       <div className="mt-10 pt-6 border-t border-neutral-800 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
         <Link
           href="/patch-notes"
-          className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#c9b072] hover:text-[#d4c08a] transition-colors"
+          className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#FFBA6F] hover:text-[#FFCA91] transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -145,13 +145,13 @@ export default async function PatchNotesVersionPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(201,176,114,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(201,176,114,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+      <div className="fixed inset-0 z-[1] bg-[linear-gradient(rgba(255, 186, 111,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255, 186, 111,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 py-8 md:py-12">
         <SiteHeader className="mb-10" />
 
         <div className="text-center mb-10">
-          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#c9b072] font-medium mb-4">
+          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
             Patch Notes
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
