@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   deactivatePromoCodeAction,
   deletePromoCodeAction,
-} from "@/app/portal/(authenticated)/admin/promo-codes/actions";
+} from "@/app/portal/(authenticated)/promo-codes/actions";
 import type { AdminPromoCode, AdminPromoRedemption } from "@/lib/promoCodes/types";
 
 type RowState = {

@@ -13,7 +13,6 @@ type Props = {
 const navItems = [
   { href: "/programs", label: "Programs" },
   { href: "/articles", label: "Articles" },
-  { href: "/portal/login", label: "Partner login" },
 ] as const;
 
 function InstagramGlyph({ className }: { className?: string }) {

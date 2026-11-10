@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Partner Portal | Tempered Strength",
+  title: "Portal | Tempered Strength",
   robots: { index: false, follow: false },
 };
 

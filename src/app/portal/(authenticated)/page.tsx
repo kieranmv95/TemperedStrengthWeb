@@ -1,80 +1,65 @@
 import Link from "next/link";
-import { EntityCard } from "@/components/portal/EntityCard";
-import { ENTITY_CONFIGS } from "@/lib/portal/constants";
-import { mapClub, mapCoach, mapGym } from "@/lib/portal/db";
-import { APPROVAL_SLA } from "@/lib/portal/statusCopy";
-import { createClient } from "@/lib/supabase/server";
+import {
+  isPortalAdmin,
+  requirePortalAdminAreaAccess,
+} from "@/lib/portal/adminAccess";
 
-export default async function PortalHubPage() {
-  const supabase = await createClient();
+function LiveCompetitionCard() {
+  return (
+    <Link
+      href="/portal/competition"
+      className="block rounded-xl border border-[#FFBA6F]/30 bg-[#FFBA6F]/10 p-4 transition-colors hover:border-[#FFBA6F]/50 sm:p-5"
+    >
+      <p className="text-sm font-semibold text-[#FFCA91]">
+        Live competition board
+      </p>
+      <p className="mt-2 text-sm text-neutral-300">
+        Add and remove leaderboard scores during the event. Changes go live in
+        the app within about 30 seconds.
+      </p>
+    </Link>
+  );
+}
 
-  const [gymsResult, clubsResult, coachesResult] = await Promise.all([
-    supabase.from("gyms").select("*").order("created_at", { ascending: false }),
-    supabase.from("clubs").select("*").order("created_at", { ascending: false }),
-    supabase
-      .from("coaches")
-      .select("*")
-      .order("created_at", { ascending: false }),
-  ]);
+function PromoCodesCard() {
+  return (
+    <Link
+      href="/portal/promo-codes"
+      className="block rounded-xl border border-[#FFBA6F]/30 bg-[#FFBA6F]/10 p-4 transition-colors hover:border-[#FFBA6F]/50 sm:p-5"
+    >
+      <p className="text-sm font-semibold text-[#FFCA91]">Promo codes</p>
+      <p className="mt-2 text-sm text-neutral-300">
+        Create and manage Pro redemption codes for the app, with email audit
+        logging.
+      </p>
+    </Link>
+  );
+}
 
-  const gyms = (gymsResult.data ?? []).map((row) => mapGym(row));
-  const clubs = (clubsResult.data ?? []).map((row) => mapClub(row));
-  const coaches = (coachesResult.data ?? []).map((row) => mapCoach(row));
+export default async function PortalHomePage() {
+  const { profile } = await requirePortalAdminAreaAccess();
+  const isAdmin = isPortalAdmin(profile);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white sm:text-3xl">Partner portal</h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
+          Portal
+        </p>
+        <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+          {isAdmin ? "Tempered Strength admin" : "Live competition board"}
+        </h1>
         <p className="mt-2 max-w-2xl text-neutral-400">
-          Manage gym, club, and coaching profiles for Tempered Strength. Create
-          a profile, submit it for review, and unlock partner tools once
-          approved. {APPROVAL_SLA}
+          {isAdmin
+            ? "Run the live competition board and manage promo codes for the app."
+            : "Event staff access — add athletes and scores as they come in."}
         </p>
       </div>
 
-      {(
-        [
-          { kind: "gyms" as const, items: gyms },
-          { kind: "clubs" as const, items: clubs },
-          { kind: "coaches" as const, items: coaches },
-        ] as const
-      ).map(({ kind, items }) => {
-        const config = ENTITY_CONFIGS[kind];
-        return (
-          <section key={kind} className="space-y-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-              <div className="min-w-0">
-                <h2 className="text-xl font-semibold text-white">{config.plural}</h2>
-                <p className="mt-1 text-sm text-neutral-500">{config.description}</p>
-              </div>
-              <Link
-                href={`/portal/${kind}/new`}
-                className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-2 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] transition-colors sm:w-auto"
-              >
-                Add {config.singular}
-              </Link>
-            </div>
-
-            {items.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-neutral-800 bg-neutral-900/20 px-4 py-8 text-center text-sm text-neutral-500">
-                No {config.plural.toLowerCase()} yet.
-              </div>
-            ) : (
-              <div className="grid gap-3">
-                {items.map((item) => (
-                  <EntityCard
-                    key={item.id}
-                    kind={kind}
-                    id={item.id}
-                    name={item.name}
-                    status={item.status}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
-        );
-      })}
+      <div className="grid gap-3">
+        <LiveCompetitionCard />
+        {isAdmin ? <PromoCodesCard /> : null}
+      </div>
     </div>
   );
 }

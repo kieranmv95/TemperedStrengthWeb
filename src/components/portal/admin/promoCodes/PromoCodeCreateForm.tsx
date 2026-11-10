@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
-import { createPromoCode } from "@/app/portal/(authenticated)/admin/promo-codes/actions";
+import { createPromoCode } from "@/app/portal/(authenticated)/promo-codes/actions";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
 
 const inputClass =

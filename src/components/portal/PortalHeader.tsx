@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "@/app/portal/actions";
-import { canAccessPortalAdmin } from "@/lib/portal/adminAccess";
 import { ensurePortalProfile } from "@/lib/portal/profile";
 import { createClient } from "@/lib/supabase/server";
 
@@ -13,7 +12,6 @@ export async function PortalHeader() {
 
   const profile = user ? await ensurePortalProfile(user.id) : null;
   const displayName = profile?.display_name?.trim();
-  const showAdminLink = canAccessPortalAdmin(profile);
 
   return (
     <header className="border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
@@ -29,7 +27,7 @@ export async function PortalHeader() {
             />
           </Link>
           <span className="hidden sm:inline text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-            Partner portal
+            Portal
           </span>
         </div>
 
@@ -54,14 +52,6 @@ export async function PortalHeader() {
           ) : null}
 
           <nav className="flex items-center gap-2 text-sm font-semibold sm:gap-3">
-            {showAdminLink ? (
-              <Link
-                href="/portal/admin"
-                className="rounded-lg border border-[#FFBA6F]/30 bg-[#FFBA6F]/10 px-2.5 py-2 text-[#FFCA91] hover:bg-[#FFBA6F]/20 transition-colors sm:px-3"
-              >
-                Admin
-              </Link>
-            ) : null}
             <Link
               href="/"
               className="hidden text-neutral-400 hover:text-white transition-colors sm:inline"

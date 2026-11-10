@@ -17,7 +17,7 @@ export type CompetitionActionResult =
   | { ok: false; error: string };
 
 function revalidateCompetitionPaths() {
-  revalidatePath("/portal/admin/competition");
+  revalidatePath("/portal/competition");
   revalidatePath("/api/live-competition");
 }
 

@@ -2,7 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createCompetitionEntry } from "@/app/portal/(authenticated)/admin/competition/actions";
+import { createCompetitionEntry } from "@/app/portal/(authenticated)/competition/actions";
 import { CategoryPicker } from "@/components/portal/admin/competition/CategoryPicker";
 import { CompetitionConditionsOfEntryLink } from "@/components/portal/admin/competition/CompetitionConditionsOfEntryLink";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";

@@ -54,7 +54,7 @@ export function PortalSetupForm({ initialError }: Props) {
           required
           autoFocus
           maxLength={100}
-          placeholder="e.g. Alex or Ironworks Gym"
+          placeholder="e.g. Alex"
           className="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2.5 text-white placeholder:text-neutral-600 focus:border-[#FFBA6F]/50 focus:outline-none"
         />
       </label>

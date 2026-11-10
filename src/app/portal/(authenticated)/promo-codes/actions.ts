@@ -15,7 +15,7 @@ export type PromoCodeActionResult =
   | { ok: false; error: string };
 
 function revalidatePromoPaths() {
-  revalidatePath("/portal/admin/promo-codes");
+  revalidatePath("/portal/promo-codes");
 }
 
 export async function createPromoCode(

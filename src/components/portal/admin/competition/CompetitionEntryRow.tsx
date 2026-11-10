@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   deleteCompetitionEntry,
   updateCompetitionEntry,
-} from "@/app/portal/(authenticated)/admin/competition/actions";
+} from "@/app/portal/(authenticated)/competition/actions";
 import { CategoryPicker } from "@/components/portal/admin/competition/CategoryPicker";
 import type { AdminCompetitionEntry } from "@/lib/liveCompetition/adminTypes";
 import {

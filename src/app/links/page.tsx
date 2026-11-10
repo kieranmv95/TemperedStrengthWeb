@@ -316,18 +316,6 @@ export default function LinksPage() {
                   <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
                 </Link>
               </li>
-              <li>
-                <Link href="/portal/login" className={linkRowClassName()}>
-                  <PartnerGlyph className="w-6 h-6 shrink-0 text-[#FFBA6F]" />
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
-                    <span className="font-semibold text-white">Partner portal</span>
-                    <span className="text-xs text-neutral-500">
-                      Sign in or set up your gym, club, or coaching profile.
-                    </span>
-                  </span>
-                  <ChevronRight className="w-5 h-5 shrink-0 text-neutral-500 group-hover:text-[#FFBA6F]" />
-                </Link>
-              </li>
             </ul>
           </section>
 
@@ -385,9 +373,6 @@ export default function LinksPage() {
               >
                 YouTube
               </a>
-              <Link href="/portal/login" className="hover:text-[#FFBA6F] transition-colors">
-                Partners
-              </Link>
               <Link href="/terms" className="hover:text-[#FFBA6F] transition-colors">
                 Terms
               </Link>

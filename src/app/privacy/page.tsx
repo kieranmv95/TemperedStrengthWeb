@@ -248,8 +248,8 @@ export default function PrivacyPage() {
                 <div className="p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
                   <p className="font-semibold text-white">Supabase</p>
                   <p className="text-sm mt-1">
-                    Hosts the partner portal: account sign-in and gym, club, and
-                    coach profile data you submit through our website. Subject
+                    Hosts the staff portal on our website, including account
+                    sign-in. Subject
                     to{" "}
                     <a
                       href="https://supabase.com/privacy"

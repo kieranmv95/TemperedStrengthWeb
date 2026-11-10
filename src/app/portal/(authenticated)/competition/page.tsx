@@ -21,10 +21,10 @@ export default async function AdminCompetitionPage() {
       <div className="space-y-6">
         <div>
           <Link
-            href="/portal/admin"
+            href="/portal"
             className="text-sm font-semibold text-neutral-500 hover:text-white transition-colors"
           >
-            {canEditCompetition ? "← Partner review" : "← Admin"}
+            ← Portal
           </Link>
           <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
             Live competition
@@ -53,13 +53,13 @@ export default async function AdminCompetitionPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
         <div className="min-w-0">
           <Link
-            href="/portal/admin"
+            href="/portal"
             className="text-sm font-semibold text-neutral-500 hover:text-white transition-colors"
           >
-            {canEditCompetition ? "← Partner review" : "← Admin"}
+            ← Portal
           </Link>
           <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
-            Admin · Event
+            Portal · Event
           </p>
           <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
             {canEditCompetition ? "Live competition" : "Leaderboard entries"}

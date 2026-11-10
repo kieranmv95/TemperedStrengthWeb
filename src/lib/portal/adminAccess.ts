@@ -44,32 +44,32 @@ async function requireSignedInAdminArea() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/portal/login?next=/portal/admin");
+    redirect("/portal/login");
   }
 
   const profile = await getPortalProfile(user.id);
   if (!canAccessPortalAdmin(profile) || !profile) {
-    redirect("/portal");
+    redirect("/portal/no-access");
   }
 
   if (!isSupabaseAdminConfigured()) {
-    redirect("/portal");
+    redirect("/portal/no-access");
   }
 
   return { user, profile };
 }
 
-/** ADMIN or LEADERBOARD_ACCESS — header Admin link and /portal/admin area. */
+/** ADMIN or LEADERBOARD_ACCESS — the signed-in /portal area. */
 export async function requirePortalAdminAreaAccess() {
   return requireSignedInAdminArea();
 }
 
-/** Full portal admin (partner review, promo codes, competition details). */
+/** Full portal admin (promo codes, competition details). */
 export async function requirePortalAdmin() {
   const { user, profile } = await requireSignedInAdminArea();
 
   if (!isPortalAdmin(profile)) {
-    redirect("/portal/admin");
+    redirect("/portal");
   }
 
   return user;

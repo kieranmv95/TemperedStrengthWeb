@@ -29,13 +29,13 @@ export default async function AdminPromoCodesPage({ searchParams }: PageProps) {
     <div className="space-y-10">
       <div>
         <Link
-          href="/portal/admin"
+          href="/portal"
           className="text-sm font-semibold text-neutral-500 hover:text-white transition-colors"
         >
-          ← Partner review
+          ← Portal
         </Link>
         <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
-          Admin · Promo codes
+          Portal · Promo codes
         </p>
         <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">Promo codes</h1>
         <p className="mt-2 max-w-2xl text-sm text-neutral-400">

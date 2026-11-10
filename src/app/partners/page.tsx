@@ -129,9 +129,6 @@ export default function PartnersPage() {
               <Link href="/links" className="hover:text-[#FFBA6F] transition-colors">
                 Links
               </Link>
-              <Link href="/portal/login" className="hover:text-[#FFBA6F] transition-colors">
-                Partner portal
-              </Link>
             </div>
           </div>
         </footer>

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { PortalHeader } from "@/components/portal/PortalHeader";
+import { requirePortalAdminAreaAccess } from "@/lib/portal/adminAccess";
 import { createClient } from "@/lib/supabase/server";
 import {
   ensurePortalProfile,
@@ -22,6 +23,8 @@ export default async function AuthenticatedPortalLayout({
       redirect("/portal/setup");
     }
   }
+
+  await requirePortalAdminAreaAccess();
 
   return (
     <>

@@ -27,7 +27,7 @@ export default async function ConfirmMagicLinkPage({ searchParams }: Props) {
       <div className="mx-auto w-full min-w-0 max-w-md">
         <div className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4 sm:p-6 md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#FFBA6F]">
-            Partner portal
+            Portal
           </p>
           <h1 className="mt-3 text-2xl font-bold text-white">Finish signing in</h1>
           <p className="mt-2 text-sm text-neutral-400">

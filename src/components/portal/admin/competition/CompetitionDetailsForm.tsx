@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
-import { updateCompetitionDetails } from "@/app/portal/(authenticated)/admin/competition/actions";
+import { updateCompetitionDetails } from "@/app/portal/(authenticated)/competition/actions";
 import { useScrollOnError } from "@/components/portal/useScrollOnError";
 import { METRIC_TYPE_OPTIONS } from "@/lib/liveCompetition/metrics";
 import type { AdminCompetition } from "@/lib/liveCompetition/adminTypes";

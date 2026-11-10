@@ -48,9 +48,8 @@ export default async function PortalSetupPage({ searchParams }: Props) {
         </p>
         <h1 className="mt-3 text-2xl font-bold text-white">What should we call you?</h1>
         <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
-          This can be your personal name or your gym, club, or coaching business
-          name — whatever you&apos;d like us to use in the portal. It isn&apos;t
-          shown publicly anywhere; it&apos;s only for your account here.
+          Whatever you&apos;d like us to use in the portal. It isn&apos;t shown
+          publicly anywhere; it&apos;s only for your account here.
         </p>
 
         <PortalSetupForm initialError={error} />
