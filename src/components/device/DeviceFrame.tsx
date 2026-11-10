@@ -9,7 +9,7 @@ import {
   type RefObject,
 } from "react";
 import styles from "./DeviceFrame.module.css";
-import { registerDeviceVideo } from "./videoPlayback";
+import { registerDeviceVideo, retryOnGesture } from "./videoPlayback";
 
 export type DeviceFrameMediaType = "video" | "image";
 export type DeviceFrameShadow = "none" | "soft" | "deep";
@@ -127,7 +127,18 @@ export function DeviceFrame({
       return;
     }
 
-    video.play().catch(() => {});
+    let cancelled = false;
+    let cancelRetry: (() => void) | undefined;
+    video.play().catch(() => {
+      if (cancelled) return;
+      cancelRetry = retryOnGesture(() => {
+        video.play().catch(() => {});
+      });
+    });
+    return () => {
+      cancelled = true;
+      cancelRetry?.();
+    };
   }, [type, loaded, active, reducedMotion]);
 
   const tiltX = tilt?.x ?? 0;

@@ -24,6 +24,35 @@ function reconcile() {
   }
 }
 
+const GESTURES = ["touchend", "pointerup", "click", "keydown"] as const;
+const pendingRetries = new Set<() => void>();
+let listening = false;
+
+function onGesture() {
+  const retries = [...pendingRetries];
+  pendingRetries.clear();
+  GESTURES.forEach((type) => document.removeEventListener(type, onGesture, true));
+  listening = false;
+  retries.forEach((retry) => retry());
+}
+
+/**
+ * iOS Low Power Mode rejects autoplay, even when muted, until the page gets
+ * a user gesture. Queues `retry` for the next tap or key press.
+ */
+export function retryOnGesture(retry: () => void) {
+  pendingRetries.add(retry);
+  if (!listening) {
+    listening = true;
+    GESTURES.forEach((type) =>
+      document.addEventListener(type, onGesture, { capture: true, passive: true })
+    );
+  }
+  return () => {
+    pendingRetries.delete(retry);
+  };
+}
+
 /**
  * Page-wide playback budget for device-frame videos. Each frame reports how
  * much of its observed element is visible; the most visible frames that clear
