@@ -219,7 +219,7 @@
   object-fit: cover;
   display: block;
   background: #000;
-  transition: opacity 0.2s linear;
+  transition: opacity 0.3s ease;
 }
 
 .pending {

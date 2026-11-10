@@ -15,12 +15,6 @@ export function HeroSection({ freeProgramCount }: HeroSectionProps) {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
       <div className={styles.copy}>
-        <span
-          className={`${styles.line} ${styles.delay0} inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-[#FFBA6F]/35 text-[#FFBA6F] bg-[#FFBA6F]/10`}
-        >
-          Local-first training · iOS &amp; Android
-        </span>
-
         <h1
           id="hero-heading"
           className="mt-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.12]"

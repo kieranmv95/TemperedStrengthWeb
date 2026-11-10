@@ -1,0 +1,239 @@
+@property --daily-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.shell {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 1.75rem;
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radius);
+  padding: 1px;
+  box-shadow: 0 0 90px rgba(255, 186, 111, 0.22);
+}
+
+/* ---------- Animated border ---------- */
+
+.border {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--daily-border-angle),
+    #5a3818 0deg,
+    #ffba6f 50deg,
+    #ffe2bd 80deg,
+    #ffba6f 110deg,
+    #5a3818 190deg,
+    #b8743a 270deg,
+    #5a3818 360deg
+  );
+  animation: border-spin 8s linear infinite;
+  will-change: transform;
+}
+
+@keyframes border-spin {
+  to {
+    --daily-border-angle: 360deg;
+  }
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 1px);
+  background: #16120c;
+  transform: translateZ(0);
+}
+
+/* ---------- Cursor glow ---------- */
+
+.spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 640px;
+  height: 640px;
+  margin: -320px 0 0 -320px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle closest-side,
+    rgba(255, 186, 111, 0.16),
+    rgba(255, 186, 111, 0.05) 55%,
+    transparent
+  );
+  transition: opacity 0.4s ease;
+}
+
+.card[data-hovering] .spotlight {
+  opacity: 1;
+}
+
+.card[data-hovering] .spotlight,
+.card[data-hovering] .tilt,
+.card[data-hovering] .shadow {
+  will-change: transform;
+}
+
+/* ---------- Staggered entrance ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 0.7s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.7s var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.reveal[data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Badge ---------- */
+
+.badge {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.65) 50%,
+    transparent 70%
+  );
+  transform: translate3d(-120%, 0, 0);
+  animation: badge-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes badge-shimmer {
+  0% {
+    transform: translate3d(-120%, 0, 0);
+  }
+  28%,
+  100% {
+    transform: translate3d(120%, 0, 0);
+  }
+}
+
+/* ---------- Chips ---------- */
+
+.chip {
+  position: relative;
+  transition:
+    opacity 0.7s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.7s var(--ease-out) var(--reveal-delay, 0ms),
+    translate 0.25s var(--ease-out);
+}
+
+.chip::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid #ffba6f;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    translate: 0 -2px;
+  }
+
+  .chip:hover::after {
+    opacity: 1;
+  }
+}
+
+/* ---------- Phone ---------- */
+
+.phoneEnter {
+  position: relative;
+  opacity: 0;
+  transform: translate3d(0, 60px, 0);
+  transition:
+    opacity 1s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 1s var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.phoneEnter[data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+.glow {
+  position: absolute;
+  inset: -4% -34% 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse closest-side at 50% 46%,
+    rgba(255, 186, 111, 0.34),
+    rgba(255, 186, 111, 0.1) 55%,
+    transparent
+  );
+}
+
+.shadow {
+  position: absolute;
+  inset: 12% 12% -3%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 3rem;
+  background: rgba(0, 0, 0, 0.72);
+  filter: blur(28px);
+  transform: translate3d(17px, 26px, 0);
+}
+
+.tilt {
+  position: relative;
+  z-index: 1;
+  transform: perspective(1200px) rotateX(6deg) rotateY(-14deg);
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .border,
+  .badge::after {
+    animation: none;
+  }
+
+  .border {
+    will-change: auto;
+  }
+
+  .reveal,
+  .phoneEnter {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .chip,
+  .chip:hover {
+    translate: none;
+    transition: none;
+  }
+
+  .spotlight {
+    display: none;
+  }
+}

@@ -1,7 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+  type RefObject,
+} from "react";
 import styles from "./DeviceFrame.module.css";
+import { registerDeviceVideo } from "./videoPlayback";
 
 export type DeviceFrameMediaType = "video" | "image";
 export type DeviceFrameShadow = "none" | "soft" | "deep";
@@ -19,7 +27,13 @@ export type DeviceFrameProps = {
   /** Device width. A number is pixels. Defaults to the container width. */
   width?: number | string;
   className?: string;
+  /** Share (0–1) of the observed element that must be visible before the video plays. */
+  playThreshold?: number;
+  /** Element whose visibility drives playback. Defaults to the frame itself. */
+  visibilityRef?: RefObject<HTMLElement | null>;
 };
+
+const VISIBILITY_STEPS = Array.from({ length: 21 }, (_, i) => i / 20);
 
 type FrameStyle = CSSProperties & {
   "--tilt-x"?: string;
@@ -66,68 +80,60 @@ export function DeviceFrame({
   shadow = "soft",
   width,
   className,
+  playThreshold = 0.2,
+  visibilityRef,
 }: DeviceFrameProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [inView, setInView] = useState(false);
+  const [active, setActive] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const reducedMotionPref = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotion,
     getServerReducedMotion
   );
-  const motionReady = reducedMotionPref !== null;
   const reducedMotion = reducedMotionPref === true;
   const [playingSrc, setPlayingSrc] = useState<string | null>(null);
   const frameReady = playingSrc === src;
 
   useEffect(() => {
     if (type !== "video") return;
-    const node = rootRef.current;
+    const node = visibilityRef?.current ?? rootRef.current;
     if (!node) return;
 
-    const syncPlayback = (visible: boolean) => {
-      const video = videoRef.current;
-      if (!video) return;
-      if (!visible || getReducedMotion()) {
-        video.pause();
-        return;
-      }
-      if (video.src) video.play().catch(() => {});
-    };
-
+    const playback = registerDeviceVideo(playThreshold, setActive);
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const visible = entry.isIntersecting;
-        setInView(visible);
-        if (visible) setLoaded(true);
-        syncPlayback(visible);
+        if (entry.isIntersecting) setLoaded(true);
+        playback.update(entry.isIntersecting ? entry.intersectionRatio : 0);
       },
-      { threshold: 0.2 }
+      { threshold: VISIBILITY_STEPS }
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
-  }, [type]);
+    return () => {
+      observer.disconnect();
+      playback.unregister();
+    };
+  }, [type, playThreshold, visibilityRef]);
 
   useEffect(() => {
     if (type !== "video") return;
     const video = videoRef.current;
     if (!video || !loaded) return;
 
-    if (reducedMotion || !inView) {
+    if (reducedMotion || !active) {
       video.pause();
       return;
     }
 
     video.play().catch(() => {});
-  }, [type, loaded, inView, reducedMotion]);
+  }, [type, loaded, active, reducedMotion]);
 
   const tiltX = tilt?.x ?? 0;
   const tiltY = tilt?.y ?? 0;
   const tilted = tiltX !== 0 || tiltY !== 0;
   const shouldLoad = loaded && !reducedMotion;
-  const playVideo = motionReady && shouldLoad && inView;
   const stageClass = tilted ? `${styles.stage} ${styles.stageTilted}` : styles.stage;
 
   const style: FrameStyle = {};
@@ -178,7 +184,6 @@ export function DeviceFrame({
                       loop
                       playsInline
                       preload={shouldLoad ? "metadata" : "none"}
-                      autoPlay={playVideo}
                       aria-label={alt}
                       onPlaying={() => setPlayingSrc(src)}
                     />

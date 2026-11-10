@@ -3,24 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { DeviceFrame as VideoDeviceFrame } from "@/components/device/DeviceFrame";
+import { FeatureBento } from "@/components/home/FeatureBento";
 import { HeroSection } from "@/components/home/HeroSection";
+import { SessionSpotlight } from "@/components/home/SessionSpotlight";
+import { TemperedDailySpotlight } from "@/components/home/TemperedDailySpotlight";
 import { SiteHeader } from "../components/SiteHeader";
 import { StoreDownloadRow } from "@/components/store/StoreBadges";
 import { INSTAGRAM_URL } from "@/lib/site";
 import { programs } from "@/data/programs";
 import {
-  homeFeatureRows,
-  homeFeatureMap,
   RECOVERY_FLOWS_COUNT,
   WORKOUTS_COUNT,
-  sessionBullets,
-  sessionPhones,
   moreAppScreens,
   freeTierFeatures,
   proTierFeatures,
-  type FeatureIcon,
-  type HomeFeature,
 } from "@/data/homeFeatures";
 import { homeTestimonials } from "@/data/homeTestimonials";
 
@@ -205,50 +201,6 @@ function CheckIcon({ className }: { className?: string }) {
   );
 }
 
-function FeatureIconGlyph({ icon }: { icon: FeatureIcon }) {
-  const className = "w-5 h-5 text-[#FFBA6F]";
-
-  switch (icon) {
-    case "programs":
-      return (
-        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-        </svg>
-      );
-    case "daily":
-      return (
-        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      );
-    case "workouts":
-      return (
-        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      );
-    case "mobility":
-      return (
-        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      );
-    case "swaps":
-      return (
-        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-        </svg>
-      );
-    case "explore":
-      return (
-        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
-        </svg>
-      );
-  }
-}
-
 function DeviceFrame({
   src,
   alt,
@@ -272,167 +224,6 @@ function DeviceFrame({
       sizes={sizes}
       className={`h-auto w-full drop-shadow-[0_18px_40px_rgba(0,0,0,0.45)] ${className}`}
     />
-  );
-}
-
-function TemperedDailySpotlight() {
-  const feature = homeFeatureMap.daily;
-  const points = [
-    { label: "7 sessions", detail: "Do the days you can" },
-    { label: "RX and Scaled", detail: "Two versions of every day" },
-    { label: "Every Monday", detail: "A new week at 00:01" },
-  ];
-
-  return (
-    <AnimatedSection className="mb-16 md:mb-24">
-      <section
-        aria-labelledby="tempered-daily-heading"
-        className="relative overflow-hidden rounded-[1.75rem] border-2 border-[#FFBA6F] bg-[#16120c] shadow-[0_0_90px_rgba(255,186,111,0.22)]"
-      >
-        <div className="pointer-events-none absolute -top-40 -right-16 h-96 w-96 rounded-full bg-[#FFBA6F]/30 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 left-0 h-64 w-64 rounded-full bg-[#FFCA91]/10 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,186,111,0.2),transparent_52%)]" />
-        <div className="pointer-events-none absolute inset-0 shimmer opacity-40" />
-
-        <div className="relative grid items-center gap-8 p-6 sm:p-8 md:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6 lg:p-14">
-          <div>
-            <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span className="inline-flex items-center rounded-full bg-[#FFBA6F] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1108] shadow-[0_0_24px_rgba(255,186,111,0.45)]">
-                Coming soon
-              </span>
-              <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-[#FFCA91]">
-                {feature.label}
-              </span>
-            </div>
-            <h2
-              id="tempered-daily-heading"
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
-            >
-              A new week,
-              <span className="block text-[#FFBA6F]">every Monday.</span>
-            </h2>
-            <p className="mt-5 max-w-xl text-base md:text-lg text-neutral-200 leading-relaxed">
-              The biggest thing on the way. Not in the app yet. Seven sessions a
-              week, each with an RX and a Scaled version. Train the days you can.
-            </p>
-            <ul className="mt-7 grid gap-3 sm:grid-cols-3">
-              {points.map((point) => (
-                <li
-                  key={point.label}
-                  className="rounded-xl border border-[#FFBA6F]/40 bg-[#FFBA6F]/10 px-4 py-3"
-                >
-                  <p className="text-sm font-bold text-[#FFCA91]">{point.label}</p>
-                  <p className="mt-0.5 text-xs text-neutral-400">{point.detail}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 max-w-xl text-sm md:text-base text-neutral-400 leading-relaxed">
-              Each week has a theme, and the theme changes. Strength one block,
-              a metcon the next, and something else after that. The aim is a
-              well-rounded athlete. Pro opens the full week. Free accounts will
-              see the shape of the day, then a lock.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <div className="w-[230px] sm:w-[270px] lg:w-[320px]">
-              <DeviceFrame
-                src={feature.mockup ?? ""}
-                alt={feature.mockupAlt ?? feature.title}
-                sizes="(min-width: 1024px) 320px, 270px"
-              />
-            </div>
-            <p className="mt-3 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[#FFCA91]">
-              Preview
-            </p>
-          </div>
-        </div>
-      </section>
-    </AnimatedSection>
-  );
-}
-
-function FeatureCard({
-  feature,
-  delay = 0,
-  className = "",
-}: {
-  feature: HomeFeature;
-  delay?: number;
-  className?: string;
-}) {
-  const isWide = feature.span === "wide";
-  const isHighlighted = feature.highlighted;
-  const phoneWidth = isWide
-    ? "w-[168px] sm:w-[188px] lg:w-[200px]"
-    : "w-[156px] sm:w-[168px]";
-
-  return (
-    <AnimatedSection
-      animation="scale"
-      delay={delay}
-      className={["flex w-full", className].filter(Boolean).join(" ")}
-    >
-      <div
-        className={`group relative flex flex-1 rounded-2xl border backdrop-blur-sm transition-all duration-300 ${isHighlighted
-          ? "border-[#FFBA6F]/40 bg-[#FFBA6F]/5 hover:border-[#FFBA6F]/55 hover:bg-[#FFBA6F]/8"
-          : "border-neutral-800 bg-neutral-900/50 hover:border-[#FFBA6F]/35"
-          } ${feature.mockup
-            ? isWide
-              ? "flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 p-6 md:p-7"
-              : "flex-col gap-5 p-6 md:p-7"
-            : "flex-col"}`}
-      >
-        {isHighlighted && (
-          <div className="absolute inset-0 rounded-2xl overflow-hidden shimmer pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-        )}
-
-        <div className={`relative flex flex-col ${feature.mockup ? "flex-1 min-w-0" : "p-6 md:p-7 flex-1"}`}>
-          <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <FeatureIconGlyph icon={feature.icon} />
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#FFBA6F]">
-              {feature.label}
-            </span>
-            {isHighlighted && (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#FFBA6F] text-[#1A1108]">
-                New
-              </span>
-            )}
-          </div>
-          <h3 className="text-xl md:text-2xl font-bold mb-2">{feature.title}</h3>
-          <p className="text-neutral-400 text-sm md:text-base leading-relaxed">
-            {feature.description}
-          </p>
-        </div>
-
-        {feature.mockup && (
-          <div className={`flex shrink-0 justify-center ${isWide ? "sm:justify-end" : ""} ${phoneWidth}`}>
-            {feature.video ? (
-              <VideoDeviceFrame
-                type="video"
-                src={feature.video.src}
-                poster={feature.video.poster}
-                alt={feature.mockupAlt ?? feature.title}
-              />
-            ) : (
-              <DeviceFrame
-                src={feature.mockup}
-                alt={feature.mockupAlt ?? feature.title}
-                sizes="(min-width: 1024px) 200px, 160px"
-              />
-            )}
-          </div>
-        )}
-
-        {!feature.mockup && (
-          <div className="px-6 pb-6 pt-2 mt-auto">
-            <div className="flex items-center justify-center h-24 rounded-xl border border-neutral-800 bg-neutral-950/40">
-              <FeatureIconGlyph icon={feature.icon} />
-            </div>
-          </div>
-        )}
-      </div>
-    </AnimatedSection>
   );
 }
 
@@ -496,85 +287,9 @@ export default function Home() {
 
         <TemperedDailySpotlight />
 
-        {/* Feature Bento Grid */}
-        <section className="mb-20 md:mb-28">
-          <AnimatedSection className="text-center mb-12 md:mb-14">
-            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
-              Everything in one app
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight max-w-2xl mx-auto">
-              Built for lifters who want structure, not guesswork.
-            </h2>
-          </AnimatedSection>
+        <FeatureBento />
 
-          <div className="flex flex-col gap-4 md:gap-5">
-            {homeFeatureRows.map((row, rowIndex) => (
-              <div
-                key={row.join("-")}
-                className="flex flex-col min-[1024px]:flex-row gap-4 md:gap-5 items-stretch"
-              >
-                {row.map((featureId, colIndex) => {
-                  const feature = homeFeatureMap[featureId];
-                  const delay = rowIndex * 0.07 + colIndex * 0.04;
-                  return (
-                    <FeatureCard
-                      key={feature.id}
-                      feature={feature}
-                      delay={delay}
-                      className={
-                        feature.span === "wide"
-                          ? "min-[1024px]:flex-[2] min-w-0"
-                          : "min-[1024px]:flex-1 min-w-0"
-                      }
-                    />
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Smart Training Spotlight */}
-        <AnimatedSection className="mb-20 md:mb-28">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center rounded-2xl border border-neutral-800 bg-neutral-900/30 backdrop-blur-sm p-8 md:p-10 lg:p-12">
-            <div className="space-y-6">
-              <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium">
-                In the session
-              </p>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-                Log the set.
-                <span className="block text-neutral-400 mt-1">
-                  Rest. The timer stays with you.
-                </span>
-              </h2>
-              <ul className="space-y-4">
-                {sessionBullets.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-neutral-300">
-                    <CheckIcon className="w-5 h-5 text-[#FFBA6F] flex-shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="flex items-end justify-center gap-3 sm:gap-5">
-              <div className="w-[46%] max-w-[210px]">
-                <DeviceFrame
-                  src={sessionPhones[0].src}
-                  alt={sessionPhones[0].alt}
-                  sizes="210px"
-                />
-              </div>
-              <div className="w-[40%] max-w-[180px] mb-6 sm:mb-10">
-                <DeviceFrame
-                  src={sessionPhones[1].src}
-                  alt={sessionPhones[1].alt}
-                  sizes="180px"
-                />
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
+        <SessionSpotlight />
 
         <section className="mb-20 md:mb-28" aria-labelledby="more-screens-heading">
           <AnimatedSection className="text-center mb-12 md:mb-14">
