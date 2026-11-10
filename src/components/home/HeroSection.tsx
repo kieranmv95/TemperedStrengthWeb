@@ -5,7 +5,7 @@ import styles from "./HeroSection.module.css";
 const HERO_VIDEO = "/video-mockups/hero.mp4";
 const HERO_POSTER = "/video-mockups/hero-poster.jpg";
 const HERO_ALT =
-  "Daily program opening, a set being logged, the rest timer starting, then back to the home screen";
+  "Opening today's Back Squat session from Home, logging a set, and the rest timer starting";
 
 type HeroSectionProps = {
   freeProgramCount: number;

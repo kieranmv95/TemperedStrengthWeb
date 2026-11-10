@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { DeviceFrame as VideoDeviceFrame } from "@/components/device/DeviceFrame";
 import { HeroSection } from "@/components/home/HeroSection";
 import { SiteHeader } from "../components/SiteHeader";
 import { StoreDownloadRow } from "@/components/store/StoreBadges";
@@ -406,11 +407,20 @@ function FeatureCard({
 
         {feature.mockup && (
           <div className={`flex shrink-0 justify-center ${isWide ? "sm:justify-end" : ""} ${phoneWidth}`}>
-            <DeviceFrame
-              src={feature.mockup}
-              alt={feature.mockupAlt ?? feature.title}
-              sizes="(min-width: 1024px) 200px, 160px"
-            />
+            {feature.video ? (
+              <VideoDeviceFrame
+                type="video"
+                src={feature.video.src}
+                poster={feature.video.poster}
+                alt={feature.mockupAlt ?? feature.title}
+              />
+            ) : (
+              <DeviceFrame
+                src={feature.mockup}
+                alt={feature.mockupAlt ?? feature.title}
+                sizes="(min-width: 1024px) 200px, 160px"
+              />
+            )}
           </div>
         )}
 
