@@ -2,17 +2,15 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { headers } from "next/headers";
-import { userAgent } from "next/server";
 import { Atmosphere } from "@/components/motion/Atmosphere";
 import conic from "@/components/motion/ConicBorder.module.css";
 import { Monogram } from "@/components/links/Monogram";
-import { AppStoreBadge, GooglePlayBadge } from "@/components/store/StoreBadges";
+import { SmartDownload } from "@/components/store/SmartDownload";
+import { getRequestPlatform } from "@/lib/platform";
 import {
   APP_STORE_URL,
   CROSSFIT_FIXUS_URL,
   DRIATHLON_URL,
-  GOOGLE_PLAY_ENABLED,
   GOOGLE_PLAY_URL,
   INSTAGRAM_URL,
   PUBLIC_SITE_URL,
@@ -40,8 +38,6 @@ export const metadata: Metadata = {
 const STAGGER_MS = 60;
 const SITE_HOST = new URL(PUBLIC_SITE_URL).host.replace(/^www\./, "");
 
-type Platform = "ios" | "android" | "desktop";
-
 function rise(index: number): CSSProperties {
   return { "--links-delay": `${index * STAGGER_MS}ms` } as CSSProperties;
 }
@@ -51,13 +47,6 @@ function withLinkInBioUtm(url: string) {
   next.searchParams.set("utm_source", "linkinbio");
   next.searchParams.set("utm_medium", "social");
   return next.toString();
-}
-
-function platformFromAgent(osName: string | undefined, rawUa: string): Platform {
-  const os = (osName ?? "").toLowerCase();
-  if (os === "ios" || /iPad|iPhone|iPod/i.test(rawUa)) return "ios";
-  if (os === "android" || /Android/i.test(rawUa)) return "android";
-  return "desktop";
 }
 
 function Eyebrow({
@@ -101,15 +90,7 @@ const mentions = [
 ] as const;
 
 export default async function LinksPage() {
-  const headerList = await headers();
-  const agent = userAgent({ headers: headerList });
-  const platform = platformFromAgent(agent.os.name, agent.ua);
-  const appleUrl = withLinkInBioUtm(APP_STORE_URL);
-  const playUrl = withLinkInBioUtm(GOOGLE_PLAY_URL);
-  const singleStore =
-    platform === "ios" || (platform === "android" && GOOGLE_PLAY_ENABLED);
-  const primaryHref = platform === "android" ? playUrl : appleUrl;
-  const primaryStore = platform === "android" ? "Google Play" : "the App Store";
+  const platform = await getRequestPlatform();
   const year = new Date().getFullYear();
 
   return (
@@ -138,49 +119,12 @@ export default async function LinksPage() {
             </div>
 
             <div className={`${styles.item} ${styles.downloadItem}`} style={rise(2)}>
-              <div className={styles.downloadBlock}>
-                {singleStore ? (
-                  <div className={styles.downloadWrap}>
-                    <span className={styles.downloadGlow} aria-hidden="true" />
-                    <a
-                      href={primaryHref}
-                      className={styles.download}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span className={styles.shimmer} aria-hidden="true" />
-                      <span className={styles.downloadLabel}>Download free</span>
-                      <span className={styles.srOnly}> on {primaryStore}</span>
-                    </a>
-                  </div>
-                ) : (
-                  <div className={styles.badges}>
-                    <AppStoreBadge href={appleUrl} />
-                    <GooglePlayBadge href={playUrl} />
-                  </div>
-                )}
-                <p className={styles.trust}>Free to start · 7 programmes free, forever</p>
-                {singleStore && platform === "ios" && GOOGLE_PLAY_ENABLED ? (
-                  <a
-                    href={playUrl}
-                    className={styles.altStore}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Also on Google Play
-                  </a>
-                ) : null}
-                {singleStore && platform === "android" ? (
-                  <a
-                    href={appleUrl}
-                    className={styles.altStore}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Also on the App Store
-                  </a>
-                ) : null}
-              </div>
+              <SmartDownload
+                platform={platform}
+                appStoreHref={withLinkInBioUtm(APP_STORE_URL)}
+                googlePlayHref={withLinkInBioUtm(GOOGLE_PLAY_URL)}
+                trust="Free to start · 7 programmes free, forever"
+              />
             </div>
           </div>
         </div>

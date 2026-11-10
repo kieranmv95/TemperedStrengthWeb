@@ -118,34 +118,6 @@ export function GooglePlayBadge({
   );
 }
 
-type StoreDownloadRowProps = {
-  appStoreHref?: string;
-  googlePlayHref?: string;
-  googlePlayEnabled?: boolean;
-  className?: string;
-  layout?: "row" | "column";
-};
-
-export function StoreDownloadRow({
-  appStoreHref,
-  googlePlayHref,
-  googlePlayEnabled,
-  className = "",
-  layout = "row",
-}: StoreDownloadRowProps) {
-  const layoutClass =
-    layout === "column"
-      ? "flex flex-col items-center gap-3"
-      : "flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:items-center";
-
-  return (
-    <div className={`${layoutClass} ${className}`}>
-      <AppStoreBadge href={appStoreHref} />
-      <GooglePlayBadge href={googlePlayHref} enabled={googlePlayEnabled} />
-    </div>
-  );
-}
-
 /** Compact badge for link list rows (decorative; parent provides label). */
 export function AppStoreBadgeIcon({ className = "" }: { className?: string }) {
   return (

@@ -1,5 +1,6 @@
 import { DeviceFrame } from "@/components/device/DeviceFrame";
-import { StoreDownloadRow } from "@/components/store/StoreBadges";
+import { SmartDownload } from "@/components/store/SmartDownload";
+import type { Platform } from "@/lib/platform";
 import styles from "./HeroSection.module.css";
 
 const HERO_VIDEO = "/video-mockups/hero.mp4";
@@ -9,9 +10,10 @@ const HERO_ALT =
 
 type HeroSectionProps = {
   freeProgramCount: number;
+  platform: Platform;
 };
 
-export function HeroSection({ freeProgramCount }: HeroSectionProps) {
+export function HeroSection({ freeProgramCount, platform }: HeroSectionProps) {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading" data-site-hero>
       <div className={styles.copy}>
@@ -30,18 +32,14 @@ export function HeroSection({ freeProgramCount }: HeroSectionProps) {
         <p
           className={`${styles.line} ${styles.delay3} mt-6 text-lg md:text-xl text-neutral-400 max-w-xl mx-auto md:mx-0 leading-relaxed`}
         >
-          Programmes, one-off workouts, logging, and recovery, kept on your
-          phone. Run one block at a time, or open a session on its own.{" "}
-          <span className="text-neutral-200 font-medium">
-            {freeProgramCount} programmes free, forever.
-          </span>
+          Programmes, one-off workouts, and recovery, with logging built in.
         </p>
 
         <div className={`${styles.line} ${styles.delay4} mt-6 space-y-3`}>
           <p className="text-sm text-neutral-500 uppercase tracking-wider font-medium">
             Free to download · Free to start
           </p>
-          <StoreDownloadRow className={`${styles.storeRow} justify-center md:justify-start`} />
+          <SmartDownload platform={platform} alignStart />
         </div>
       </div>
 

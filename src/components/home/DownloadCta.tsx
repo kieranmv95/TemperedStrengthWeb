@@ -1,9 +1,10 @@
 import { Atmosphere } from "@/components/motion/Atmosphere";
 import { Reveal } from "@/components/motion/Reveal";
-import { StoreDownloadRow } from "@/components/store/StoreBadges";
+import { SmartDownload } from "@/components/store/SmartDownload";
+import type { Platform } from "@/lib/platform";
 import styles from "./DownloadCta.module.css";
 
-export function DownloadCta() {
+export function DownloadCta({ platform }: { platform: Platform }) {
   return (
     <Reveal as="section" className="relative mb-16" aria-labelledby="download-cta-heading" stagger={90}>
       <Atmosphere />
@@ -19,7 +20,7 @@ export function DownloadCta() {
             Upgrade to Pro when you&apos;re ready for the full library.
           </p>
           <div data-reveal-item="pop" className="pt-2">
-            <StoreDownloadRow />
+            <SmartDownload platform={platform} />
           </div>
         </div>
       </div>
