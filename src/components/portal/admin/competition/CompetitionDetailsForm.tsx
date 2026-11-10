@@ -223,7 +223,7 @@ export function CompetitionDetailsForm({ competition }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex items-center justify-center rounded-lg bg-[#FFBA6F] px-5 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
+        className="inline-flex items-center justify-center lift-hover rounded-lg bg-[#FFBA6F] px-5 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
       >
         {isPending ? "Saving…" : "Save competition details"}
       </button>

@@ -51,6 +51,7 @@ export default function RootLayout({
         className={`${plusJakarta.variable} ${jetbrainsMono.variable} antialiased font-[family-name:var(--font-jakarta)]`}
       >
         {children}
+        <div className="site-grain" aria-hidden="true" />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,0 +1,39 @@
+@property --conic-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Place inside a rounded, 1px-padded shell, under a solid card background. */
+.border {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--conic-border-angle),
+    #5a3818 0deg,
+    #ffba6f 50deg,
+    #ffe2bd 80deg,
+    #ffba6f 110deg,
+    #5a3818 190deg,
+    #b8743a 270deg,
+    #5a3818 360deg
+  );
+  animation: conic-border-spin 8s linear infinite;
+  will-change: transform;
+}
+
+@keyframes conic-border-spin {
+  to {
+    --conic-border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border {
+    animation: none;
+    will-change: auto;
+  }
+}

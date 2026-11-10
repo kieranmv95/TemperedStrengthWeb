@@ -1,9 +1,3 @@
-@property --daily-border-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 .shell {
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 1.75rem;
@@ -14,32 +8,8 @@
   box-shadow: 0 0 90px rgba(255, 186, 111, 0.22);
 }
 
-/* ---------- Animated border ---------- */
-
-.border {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: conic-gradient(
-    from var(--daily-border-angle),
-    #5a3818 0deg,
-    #ffba6f 50deg,
-    #ffe2bd 80deg,
-    #ffba6f 110deg,
-    #5a3818 190deg,
-    #b8743a 270deg,
-    #5a3818 360deg
-  );
-  animation: border-spin 8s linear infinite;
-  will-change: transform;
-}
-
-@keyframes border-spin {
-  to {
-    --daily-border-angle: 360deg;
-  }
+.shell > .atmosphere {
+  z-index: -1;
 }
 
 .card {
@@ -211,13 +181,8 @@
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .border,
   .badge::after {
     animation: none;
-  }
-
-  .border {
-    will-change: auto;
   }
 
   .reveal,

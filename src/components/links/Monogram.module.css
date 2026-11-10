@@ -1,0 +1,48 @@
+.monogram {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 186, 111, 0.5);
+  background: linear-gradient(155deg, #1a140f 0%, #3a2616 62%, #8f5d36 100%);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.initials {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #fff;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+  padding: 6px;
+}
+
+.monogram::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid #ffba6f;
+  box-shadow: 0 0 14px rgba(255, 186, 111, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .monogram,
+  .monogram::after {
+    transition: none;
+  }
+}

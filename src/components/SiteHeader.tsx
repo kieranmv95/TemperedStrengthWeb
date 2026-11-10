@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { INSTAGRAM_URL, YOUTUBE_URL } from "@/lib/site";
+import styles from "./SiteHeader.module.css";
 
 type Props = {
   className?: string;
@@ -44,9 +45,74 @@ export function SiteHeader({ className = "" }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const dialogLabelId = useId();
+  const barRef = useRef<HTMLDivElement>(null);
+  const openRef = useRef(open);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    openRef.current = open;
+    if (open) delete barRef.current?.dataset.hidden;
+  }, [open]);
+
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let lastY = window.scrollY;
+    let frame = 0;
+
+    const solidAfter = () => {
+      const hero = document.querySelector<HTMLElement>("[data-site-hero]");
+      if (!hero) return 80;
+      return hero.getBoundingClientRect().bottom + window.scrollY - bar.offsetHeight;
+    };
+
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      const delta = y - lastY;
+      lastY = y;
+
+      const heroEnd = solidAfter();
+      const nearTop = y < 60;
+      const solid = reduced.matches ? !nearTop : y > heroEnd;
+      if (solid) bar.dataset.solid = "";
+      else delete bar.dataset.solid;
+
+      if (reduced.matches || openRef.current || nearTop) {
+        delete bar.dataset.hidden;
+      } else if (y <= heroEnd) {
+        // Inside the hero there is no backdrop yet, so the nav stays clear of the headline.
+        bar.dataset.hidden = "";
+      } else if (delta > 4) {
+        bar.dataset.hidden = "";
+      } else if (delta < -4) {
+        delete bar.dataset.hidden;
+      }
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    const measure = () => {
+      bar.style.setProperty("--viewport-w", `${document.documentElement.clientWidth}px`);
+      schedule();
+    };
+
+    measure();
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", measure);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -152,8 +218,11 @@ export function SiteHeader({ className = "" }: Props) {
   );
 
   return (
-    <header className={`relative ${className}`}>
-      <div className="relative flex items-center justify-end md:justify-between gap-3">
+    <header className={`sticky top-3 z-40 ${className}`}>
+      <div
+        ref={barRef}
+        className={`${styles.bar} relative flex items-center justify-end md:justify-between gap-3`}
+      >
         <Link
           href="/"
           className="absolute left-1/2 -translate-x-1/2 inline-flex items-center md:static md:translate-x-0"

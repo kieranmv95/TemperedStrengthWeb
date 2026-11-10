@@ -120,14 +120,16 @@
 
   .pose {
     transform-origin: 50% 100%;
-    transform: translate3d(0, var(--y), 0) rotate(var(--rot)) scale(var(--scale));
+    transform: translate3d(0, var(--y), 0) rotate(var(--rot))
+      scale(var(--scale));
     transition:
       transform 0.45s var(--ease-out),
       opacity 0.35s ease;
   }
 
+  /* Narrower than the phone-to-phone step so neighbouring captions never touch. */
   .item .label {
-    width: 78%;
+    width: calc((1 - var(--overlap)) * 100% - 0.75rem);
     margin: 1.75rem auto 0;
     opacity: 0;
     transform: translate3d(0, calc(var(--y) + 10px), 0);
@@ -138,15 +140,10 @@
 
   .track[data-dealt] .label {
     opacity: 1;
-    transform: translate3d(0, var(--y), 0);
   }
 
   .track[data-settled] .label {
     transition: opacity 0.35s ease;
-  }
-
-  .track[data-hovering] .parallax {
-    will-change: transform;
   }
 }
 
@@ -158,15 +155,6 @@
 }
 
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
-  .item:hover {
-    z-index: 20;
-  }
-
-  .item:hover .pose {
-    transform: translate3d(0, calc(var(--y) - 12px), 0) rotate(0deg)
-      scale(calc(var(--scale) + 0.05));
-  }
-
   .track:has(.item:hover) .item:not(:hover) .pose {
     opacity: 0.55;
   }
@@ -200,14 +188,6 @@
   .item .label {
     opacity: 1;
     transform: translate3d(0, var(--y), 0);
-  }
-
-  .item:hover {
-    z-index: calc(10 - var(--abs));
-  }
-
-  .item:hover .pose {
-    transform: translate3d(0, var(--y), 0) rotate(var(--rot)) scale(var(--scale));
   }
 
   .track:has(.item:hover) .item:not(:hover) .pose,

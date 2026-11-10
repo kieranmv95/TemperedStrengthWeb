@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { partnerAssets } from "@/data/partnerAssets";
+import { BrandColorSwatches } from "@/components/partners/BrandColorSwatches";
+import { deviceFrameAssets, partnerAssets } from "@/data/partnerAssets";
 
 export const metadata: Metadata = {
   title: "Partner Assets | Tempered Strength",
   description:
-    "Download official Tempered Strength logos and brand assets for partner designs, mockups, and marketing.",
+    "Download official Tempered Strength logos, framed device screens, and brand colours for partner designs, mockups, and marketing.",
 };
 
 function DownloadIcon({ className }: { className?: string }) {
@@ -58,10 +59,19 @@ export default function PartnersPage() {
             Partner Assets
           </h1>
           <p className="text-neutral-400 text-sm md:text-base mt-3 max-w-xl mx-auto leading-relaxed">
-            Download official Tempered Strength logos for your designs, mockups,
-            and partner marketing. Use on light or dark backgrounds as indicated.
+            Download official Tempered Strength logos and framed device screens
+            for your designs, mockups, and partner marketing. Click a colour to
+            copy its hex.
           </p>
         </div>
+
+        <section aria-labelledby="logos-heading">
+          <h2 id="logos-heading" className="text-xl md:text-2xl font-bold tracking-tight">
+            Logos
+          </h2>
+          <p className="text-sm text-neutral-400 mt-2 mb-6 max-w-xl leading-relaxed">
+            Use on light or dark backgrounds as indicated.
+          </p>
 
         <ul className="grid gap-5 sm:grid-cols-2">
           {partnerAssets.map((asset) => {
@@ -87,7 +97,7 @@ export default function PartnersPage() {
 
                 <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
                   <div className="flex-1">
-                    <h2 className="font-semibold text-white">{asset.title}</h2>
+                    <h3 className="font-semibold text-white">{asset.title}</h3>
                     <p className="text-sm text-neutral-400 mt-1.5 leading-relaxed">
                       {asset.description}
                     </p>
@@ -106,6 +116,65 @@ export default function PartnersPage() {
             );
           })}
         </ul>
+        </section>
+
+        <section className="mt-14" aria-labelledby="colours-heading">
+          <h2 id="colours-heading" className="text-xl md:text-2xl font-bold tracking-tight">
+            Colours
+          </h2>
+          <p className="text-sm text-neutral-400 mt-2 mb-6 max-w-xl leading-relaxed">
+            Click a swatch to copy the hex value.
+          </p>
+          <BrandColorSwatches />
+        </section>
+
+        <section className="mt-14" aria-labelledby="device-frames-heading">
+          <h2
+            id="device-frames-heading"
+            className="text-xl md:text-2xl font-bold tracking-tight"
+          >
+            Device frames
+          </h2>
+          <p className="text-sm text-neutral-400 mt-2 mb-6 max-w-xl leading-relaxed">
+            Framed iPhone screens of the app, ready to drop into mockups.
+          </p>
+
+          <ul className="grid grid-cols-2 gap-5 lg:grid-cols-4">
+            {deviceFrameAssets.map((asset) => {
+              const filename = downloadFilename(asset.fileUrl);
+
+              return (
+                <li
+                  key={asset.fileUrl}
+                  className="flex flex-col rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm overflow-hidden"
+                >
+                  <div className="border-b border-neutral-800 bg-[#141414] p-3 md:p-4">
+                    <Image
+                      src={asset.fileUrl}
+                      alt={`${asset.title} framed iPhone screen`}
+                      width={1530}
+                      height={3036}
+                      sizes="(min-width: 1024px) 240px, 45vw"
+                      className="h-auto w-full"
+                    />
+                  </div>
+
+                  <div className="flex flex-1 flex-col gap-3 p-4 md:p-5">
+                    <h3 className="flex-1 font-semibold text-white">{asset.title}</h3>
+                    <a
+                      href={asset.fileUrl}
+                      download={filename}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#FFBA6F]/35 bg-[#FFBA6F]/10 px-3 py-2.5 text-sm font-semibold text-[#FFBA6F] transition-colors hover:border-[#FFBA6F]/60 hover:bg-[#FFBA6F]/20"
+                    >
+                      <DownloadIcon className="h-4 w-4" />
+                      Download
+                    </a>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
 
         <p className="text-center text-sm text-neutral-500 mt-10 max-w-lg mx-auto leading-relaxed">
           Please use these assets as provided and do not alter the logo colours

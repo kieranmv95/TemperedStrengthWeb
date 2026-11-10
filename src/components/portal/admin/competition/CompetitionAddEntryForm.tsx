@@ -140,7 +140,7 @@ export function CompetitionAddEntryForm({ metricType, categories }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-[#FFBA6F] px-4 py-3 text-base font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors sm:min-h-0 sm:w-auto sm:py-2.5 sm:text-sm"
+        className="inline-flex min-h-12 w-full items-center justify-center lift-hover rounded-lg bg-[#FFBA6F] px-4 py-3 text-base font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors sm:min-h-0 sm:w-auto sm:py-2.5 sm:text-sm"
       >
         {isPending ? "Adding…" : "Add entry"}
       </button>

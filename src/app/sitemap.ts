@@ -6,8 +6,6 @@ function u(pathname: string) {
   return new URL(pathname, PUBLIC_SITE_URL).toString();
 }
 
-const patchNoteVersions = ["2.1.0", "2.0.0", "1.9.0"] as const;
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
@@ -19,13 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.6,
-    })),
-    { url: u("/patch-notes"), lastModified: now, changeFrequency: "monthly", priority: 0.5 },
-    ...patchNoteVersions.map((v) => ({
-      url: u(`/patch-notes/${v}`),
-      lastModified: now,
-      changeFrequency: "yearly" as const,
-      priority: 0.4,
     })),
     { url: u("/terms"), lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: u("/privacy"), lastModified: now, changeFrequency: "yearly", priority: 0.2 },

@@ -1,0 +1,91 @@
+.marquee {
+  --gap: 1.25rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.reverse {
+  animation-direction: reverse;
+}
+
+/* Each set carries its own trailing gap so -50% lands exactly on the copy. */
+.set {
+  display: flex;
+  gap: var(--gap);
+  padding-right: var(--gap);
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.card {
+  flex: none;
+  width: 300px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 360px;
+  }
+}
+
+/* ---------- Stars ---------- */
+
+.star {
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 0.25s ease calc(var(--i) * 60ms),
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i) * 60ms);
+}
+
+.card[data-stars-in] .star {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .track {
+    width: auto;
+    animation: none;
+  }
+
+  .set {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .clone,
+  .repeat {
+    display: none;
+  }
+
+  .star {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

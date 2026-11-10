@@ -57,7 +57,7 @@ export function AppStoreBadge({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFBA6F] ${className}`}
+      className={`lift-hover inline-block rounded-[8px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFBA6F] ${className}`}
       aria-label="Download on the App Store"
     >
       <BadgeImage
@@ -110,7 +110,7 @@ export function GooglePlayBadge({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFBA6F] ${className}`}
+      className={`lift-hover inline-block rounded-[8px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFBA6F] ${className}`}
       aria-label="Get it on Google Play"
     >
       {image}

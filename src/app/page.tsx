@@ -1,23 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { DownloadCta } from "@/components/home/DownloadCta";
 import { FeatureBento } from "@/components/home/FeatureBento";
 import { HeroSection } from "@/components/home/HeroSection";
+import { Pricing } from "@/components/home/Pricing";
 import { ScreenFan } from "@/components/home/ScreenFan";
 import { SessionSpotlight } from "@/components/home/SessionSpotlight";
+import { StatsRow } from "@/components/home/StatsRow";
 import { TemperedDailySpotlight } from "@/components/home/TemperedDailySpotlight";
+import { Testimonials } from "@/components/home/Testimonials";
+import { Reveal } from "@/components/motion/Reveal";
 import { SiteHeader } from "../components/SiteHeader";
-import { StoreDownloadRow } from "@/components/store/StoreBadges";
 import { INSTAGRAM_URL } from "@/lib/site";
 import { programs } from "@/data/programs";
-import {
-  RECOVERY_FLOWS_COUNT,
-  WORKOUTS_COUNT,
-  freeTierFeatures,
-  proTierFeatures,
-} from "@/data/homeFeatures";
+import { RECOVERY_FLOWS_COUNT, WORKOUTS_COUNT } from "@/data/homeFeatures";
 import { homeTestimonials } from "@/data/homeTestimonials";
 
 function useParallax() {
@@ -33,31 +31,6 @@ function useParallax() {
   }, []);
 
   return scrollY;
-}
-
-function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0, rootMargin: "0px 0px 8% 0px" }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return { ref, isVisible };
 }
 
 function BackgroundVideo() {
@@ -109,98 +82,6 @@ function BackgroundVideo() {
   );
 }
 
-function AnimatedSection({
-  children,
-  className = "",
-  animation = "slide-up",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  animation?: "slide-up" | "slide-left" | "slide-right" | "scale";
-  delay?: number;
-}) {
-  const { ref, isVisible } = useScrollAnimation();
-
-  const animationClass = {
-    "slide-up": "scroll-animate",
-    "slide-left": "scroll-animate-left",
-    "slide-right": "scroll-animate-right",
-    scale: "scroll-animate-scale",
-  }[animation];
-
-  return (
-    <div
-      ref={ref}
-      className={`${animationClass} ${isVisible ? "animate-in" : ""} ${className}`}
-      style={{ animationDelay: `${delay}s` }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
-      {Array.from({ length: 5 }, (_, i) => (
-        <svg
-          key={i}
-          className={`w-4 h-4 ${i < rating ? "text-[#FFBA6F]" : "text-neutral-700"}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          aria-hidden
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
-
-function TestimonialCard({
-  quote,
-  detail,
-  rating,
-  delay = 0,
-}: {
-  quote: string;
-  detail: string;
-  rating: number;
-  delay?: number;
-}) {
-  return (
-    <AnimatedSection animation="scale" delay={delay}>
-      <figure className="flex flex-col h-full p-6 md:p-7 rounded-2xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm hover:border-[#FFBA6F]/35 transition-colors">
-        <StarRating rating={rating} />
-        <blockquote className="mt-4 flex-1 text-neutral-300 text-sm md:text-base leading-relaxed">
-          &ldquo;{quote}&rdquo;
-        </blockquote>
-        <figcaption className="mt-5 pt-5 border-t border-neutral-800">
-          <p className="text-xs md:text-sm text-neutral-500">{detail}</p>
-        </figcaption>
-      </figure>
-    </AnimatedSection>
-  );
-}
-
-function CheckIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      aria-hidden
-    >
-      <path
-        fillRule="evenodd"
-        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
 export default function Home() {
   const scrollY = useParallax();
   const freeProgramCount = programs.filter((p) => p.tier === "Free").length;
@@ -241,23 +122,7 @@ export default function Home() {
 
         <HeroSection freeProgramCount={freeProgramCount} />
 
-        {/* Stats Bar */}
-        <AnimatedSection className="mb-20 md:mb-28">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-            {stats.map((stat, i) => (
-              <AnimatedSection key={stat.label} animation="scale" delay={i * 0.08}>
-                <div className="text-center p-5 md:p-6 rounded-xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm h-full">
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#FFBA6F]">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs md:text-sm text-neutral-500 mt-1 leading-snug">
-                    {stat.label}
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </AnimatedSection>
+        <StatsRow stats={stats} />
 
         <TemperedDailySpotlight />
 
@@ -266,167 +131,36 @@ export default function Home() {
         <SessionSpotlight />
 
         <section className="mb-20 md:mb-28" aria-labelledby="more-screens-heading">
-          <AnimatedSection className="text-center mb-12 md:mb-14">
-            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
+          <Reveal className="text-center mb-12 md:mb-14">
+            <p
+              data-reveal-item
+              className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4"
+            >
               Also in the app
             </p>
             <h2
               id="more-screens-heading"
+              data-reveal-item
               className="text-3xl md:text-4xl font-bold leading-tight max-w-2xl mx-auto"
             >
               From the workout to the record.
             </h2>
-          </AnimatedSection>
+          </Reveal>
 
           <ScreenFan />
         </section>
 
-        {/* Testimonials */}
-        <section className="mb-20 md:mb-28" aria-labelledby="testimonials-heading">
-          <AnimatedSection className="text-center mb-12 md:mb-14">
-            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
-              From the community
-            </p>
-            <h2
-              id="testimonials-heading"
-              className="text-3xl md:text-4xl font-bold mb-5 leading-tight max-w-2xl mx-auto"
-            >
-              Lifters who train with intent.
-            </h2>
-            <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
-              Real feedback from people using Tempered Strength to stay consistent,
-              swap exercises when kit isn&apos;t available, and train with a plan
-              that fits their week.
-            </p>
-          </AnimatedSection>
+        <Testimonials testimonials={homeTestimonials} />
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-            {homeTestimonials.map((testimonial, i) => (
-              <TestimonialCard
-                key={testimonial.id}
-                quote={testimonial.quote}
-                detail={testimonial.detail}
-                rating={testimonial.rating}
-                delay={i * 0.06}
-              />
-            ))}
-          </div>
-        </section>
+        <Pricing />
 
-        {/* Free vs Pro */}
-        <section className="mb-20 md:mb-28">
-          <AnimatedSection className="text-center mb-12 md:mb-14">
-            <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-[#FFBA6F] font-medium mb-4">
-              Start free
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
-              Free &amp; Pro
-            </h2>
-            <p className="text-neutral-400 max-w-xl mx-auto leading-relaxed">
-              Free means anyone can use it. Pro is a subscription, or a promo
-              code. A few features are in both, with a tighter limit on Free.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <AnimatedSection animation="slide-left">
-              <div className="p-8 rounded-2xl border border-neutral-700 bg-neutral-900/30 backdrop-blur-sm h-full">
-                <div className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
-                  Free
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Get Started</h3>
-                <ul className="space-y-3 mb-8">
-                  {freeTierFeatures.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-neutral-300">
-                      <CheckIcon className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="text-3xl font-bold">
-                  £0
-                  <span className="text-base font-normal text-neutral-500">
-                    {" "}
-                    / forever
-                  </span>
-                </div>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="slide-right" delay={0.1}>
-              <div className="relative p-8 rounded-2xl border border-[#FFBA6F]/50 bg-gradient-to-b from-[#FFBA6F]/5 to-transparent overflow-hidden backdrop-blur-sm h-full">
-                <div className="absolute top-0 right-0 px-4 py-1 bg-[#FFBA6F] text-[#1A1108] text-xs font-bold uppercase">
-                  Pro
-                </div>
-                <div className="text-sm font-medium text-[#FFBA6F] uppercase tracking-wider mb-2">
-                  Pro
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Level Up</h3>
-                <ul className="space-y-3 mb-8">
-                  {proTierFeatures.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-neutral-300">
-                      <CheckIcon className="w-5 h-5 text-[#FFBA6F] flex-shrink-0 mt-0.5" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="text-3xl font-bold text-[#FFBA6F]">
-                  £4.99mo / £49.99yr
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
-
-          <p className="mt-8 max-w-3xl mx-auto text-center text-sm text-neutral-400 leading-relaxed">
-            Coach access is separate from Pro. Coaches, PTs, and gym owners can
-            message{" "}
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#FFBA6F] hover:underline"
-            >
-              @temperedstrength
-            </a>{" "}
-            on Instagram for a free coach upgrade. That unlocks skill workouts,
-            Skills and Cues, and every mobility flow. It does not replace Pro
-            for programmes or the rest of the Pro library, including Tempered
-            Daily when that launches.
-          </p>
-        </section>
-
-        {/* Download CTA */}
-        <AnimatedSection animation="scale">
-          <section className="relative mb-16">
-            <div className="relative p-8 md:p-12 rounded-2xl border border-[#FFBA6F]/30 bg-gradient-to-br from-[#FFBA6F]/5 via-transparent to-transparent overflow-hidden backdrop-blur-sm">
-              <div className="absolute inset-0 shimmer pointer-events-none" />
-
-              <div className="relative text-center space-y-6 max-w-xl mx-auto">
-                <h2 className="text-2xl md:text-3xl font-bold">
-                  Your next programme is one download away.
-                </h2>
-                <p className="text-neutral-400">
-                  Download Tempered Strength for free and start training today.
-                  Upgrade to Pro when you&apos;re ready for the full library.
-                </p>
-
-                <StoreDownloadRow className="pt-2" />
-              </div>
-            </div>
-          </section>
-        </AnimatedSection>
+        <DownloadCta />
 
         {/* Footer */}
         <footer className="text-sm text-neutral-600 pt-8 border-t border-neutral-800">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link
-                href="/patch-notes"
-                className="hover:text-[#FFBA6F] transition-colors"
-              >
-                Patch Notes
-              </Link>
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"

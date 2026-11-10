@@ -13,7 +13,7 @@ type HeroSectionProps = {
 
 export function HeroSection({ freeProgramCount }: HeroSectionProps) {
   return (
-    <section className={styles.hero} aria-labelledby="hero-heading">
+    <section className={styles.hero} aria-labelledby="hero-heading" data-site-hero>
       <div className={styles.copy}>
         <h1
           id="hero-heading"

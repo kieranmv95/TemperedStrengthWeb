@@ -62,7 +62,7 @@ export function PortalSetupForm({ initialError }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
+        className="w-full lift-hover rounded-lg bg-[#FFBA6F] px-4 py-2.5 text-sm font-semibold text-[#1A1108] hover:bg-[#FFCA91] disabled:opacity-60 transition-colors"
       >
         {isPending ? "Saving…" : "Continue to portal"}
       </button>

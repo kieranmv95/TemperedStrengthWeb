@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { DeviceFrame } from "@/components/device/DeviceFrame";
+import { Atmosphere } from "@/components/motion/Atmosphere";
+import conic from "@/components/motion/ConicBorder.module.css";
 import { homeFeatureMap } from "@/data/homeFeatures";
 import styles from "./TemperedDailySpotlight.module.css";
 
@@ -228,8 +230,9 @@ export function TemperedDailySpotlight() {
   }, []);
 
   return (
-    <div className={`${styles.shell} mb-16 md:mb-24`}>
-      <div className={styles.border} aria-hidden="true" />
+    <div id="tempered-daily" className={`${styles.shell} mb-16 md:mb-24 scroll-mt-8`}>
+      <Atmosphere className={styles.atmosphere} />
+      <div className={conic.border} aria-hidden="true" />
       <section
         ref={cardRef}
         aria-labelledby="tempered-daily-heading"

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { memo, useEffect, useRef, type RefObject } from "react";
 import { DeviceFrame } from "@/components/device/DeviceFrame";
+import { Atmosphere } from "@/components/motion/Atmosphere";
 import {
   homeFeatureMap,
   homeFeatureRows,
@@ -426,10 +427,7 @@ export const FeatureBento = memo(function FeatureBento() {
 
   return (
     <section ref={sectionRef} className={`${styles.section} mb-20 md:mb-28`}>
-      <div className={styles.atmosphere} aria-hidden>
-        <div className={`${styles.blob} ${styles.blobA}`} />
-        <div className={`${styles.blob} ${styles.blobB}`} />
-      </div>
+      <Atmosphere />
 
       <div
         data-reveal="heading"
