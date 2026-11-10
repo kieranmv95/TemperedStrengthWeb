@@ -1,0 +1,217 @@
+/* ---------- Shared ---------- */
+
+.phone {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.5));
+}
+
+.label {
+  text-align: center;
+}
+
+.parallax {
+  position: relative;
+}
+
+/* ---------- Mobile carousel ---------- */
+
+.track {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-overshoot: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --slide-w: min(62vw, 280px);
+  display: flex;
+  gap: 0.75rem;
+  /* Bleeds to the viewport edge so the first and last phones can centre. */
+  margin-inline: -1rem;
+  padding: 0.75rem calc(50vw - var(--slide-w) / 2) 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  position: relative;
+  flex: 0 0 var(--slide-w);
+  scroll-snap-align: center;
+}
+
+.item > .phoneWrap {
+  transform: scale(0.86);
+  transform-origin: 50% 60%;
+  opacity: 0.6;
+  transition:
+    transform 0.4s var(--ease-out),
+    opacity 0.4s ease;
+}
+
+.item[data-active] > .phoneWrap {
+  transform: none;
+  opacity: 1;
+}
+
+.item .label {
+  margin-top: 1rem;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.item[data-active] .label {
+  opacity: 1;
+}
+
+/* ---------- Desktop fan ---------- */
+
+@media (min-width: 900px) {
+  .track {
+    --phone-w: 196px;
+    --overlap: 0.26;
+    --step: calc(var(--phone-w) * (1 - var(--overlap)));
+    --drop: 26px;
+    justify-content: center;
+    gap: 0;
+    margin-inline: 0;
+    padding: 0 0 calc(var(--drop) * 2);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .item {
+    --rot: calc(var(--pos) * 5deg);
+    --scale: calc(1 - var(--abs) * 0.075);
+    --y: calc(var(--abs) * var(--drop));
+    --delay: calc(var(--abs) * 80ms);
+    flex: 0 0 var(--phone-w);
+    width: var(--phone-w);
+    z-index: calc(10 - var(--abs));
+  }
+
+  .item + .item {
+    margin-left: calc(var(--phone-w) * var(--overlap) * -1);
+  }
+
+  .item > .phoneWrap,
+  .item[data-active] > .phoneWrap {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* Deal-out: every phone starts stacked behind the centre one. */
+  .deal {
+    opacity: 0;
+    transform: translate3d(calc(var(--pos) * var(--step) * -1), 0, 0);
+    transition:
+      opacity 0.35s ease var(--delay),
+      transform 0.9s var(--ease-overshoot) var(--delay);
+  }
+
+  .track[data-dealt] .deal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .pose {
+    transform-origin: 50% 100%;
+    transform: translate3d(0, var(--y), 0) rotate(var(--rot)) scale(var(--scale));
+    transition:
+      transform 0.45s var(--ease-out),
+      opacity 0.35s ease;
+  }
+
+  .item .label {
+    width: 78%;
+    margin: 1.75rem auto 0;
+    opacity: 0;
+    transform: translate3d(0, calc(var(--y) + 10px), 0);
+    transition:
+      opacity 0.5s ease calc(var(--delay) + 350ms),
+      transform 0.5s var(--ease-out) calc(var(--delay) + 350ms);
+  }
+
+  .track[data-dealt] .label {
+    opacity: 1;
+    transform: translate3d(0, var(--y), 0);
+  }
+
+  .track[data-settled] .label {
+    transition: opacity 0.35s ease;
+  }
+
+  .track[data-hovering] .parallax {
+    will-change: transform;
+  }
+}
+
+@media (min-width: 1100px) {
+  .track {
+    --phone-w: 230px;
+    --drop: 30px;
+  }
+}
+
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  .item:hover {
+    z-index: 20;
+  }
+
+  .item:hover .pose {
+    transform: translate3d(0, calc(var(--y) - 12px), 0) rotate(0deg)
+      scale(calc(var(--scale) + 0.05));
+  }
+
+  .track:has(.item:hover) .item:not(:hover) .pose {
+    opacity: 0.55;
+  }
+
+  .track[data-settled]:has(.item:hover) .item:not(:hover) .label {
+    opacity: 0.4;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .item > .phoneWrap,
+  .item .label {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 900px) {
+  .deal,
+  .pose,
+  .item .label {
+    transition: none;
+  }
+
+  .deal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .item .label {
+    opacity: 1;
+    transform: translate3d(0, var(--y), 0);
+  }
+
+  .item:hover {
+    z-index: calc(10 - var(--abs));
+  }
+
+  .item:hover .pose {
+    transform: translate3d(0, var(--y), 0) rotate(var(--rot)) scale(var(--scale));
+  }
+
+  .track:has(.item:hover) .item:not(:hover) .pose,
+  .track[data-settled]:has(.item:hover) .item:not(:hover) .label {
+    opacity: 1;
+  }
+}

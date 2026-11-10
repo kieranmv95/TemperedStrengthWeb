@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FeatureBento } from "@/components/home/FeatureBento";
 import { HeroSection } from "@/components/home/HeroSection";
+import { ScreenFan } from "@/components/home/ScreenFan";
 import { SessionSpotlight } from "@/components/home/SessionSpotlight";
 import { TemperedDailySpotlight } from "@/components/home/TemperedDailySpotlight";
 import { SiteHeader } from "../components/SiteHeader";
@@ -14,7 +15,6 @@ import { programs } from "@/data/programs";
 import {
   RECOVERY_FLOWS_COUNT,
   WORKOUTS_COUNT,
-  moreAppScreens,
   freeTierFeatures,
   proTierFeatures,
 } from "@/data/homeFeatures";
@@ -201,32 +201,6 @@ function CheckIcon({ className }: { className?: string }) {
   );
 }
 
-function DeviceFrame({
-  src,
-  alt,
-  className = "",
-  priority = false,
-  sizes = "280px",
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-  priority?: boolean;
-  sizes?: string;
-}) {
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={1530}
-      height={3036}
-      priority={priority}
-      sizes={sizes}
-      className={`h-auto w-full drop-shadow-[0_18px_40px_rgba(0,0,0,0.45)] ${className}`}
-    />
-  );
-}
-
 export default function Home() {
   const scrollY = useParallax();
   const freeProgramCount = programs.filter((p) => p.tier === "Free").length;
@@ -304,25 +278,7 @@ export default function Home() {
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-10 md:gap-6">
-            {moreAppScreens.map((screen, i) => (
-              <AnimatedSection key={screen.id} animation="scale" delay={i * 0.05}>
-                <figure className="flex flex-col items-center text-center h-full">
-                  <div className="w-[132px] sm:w-[148px] md:w-[156px]">
-                    <DeviceFrame src={screen.src} alt={screen.alt} sizes="160px" />
-                  </div>
-                  <figcaption className="mt-4">
-                    <h3 className="text-sm md:text-base font-semibold text-white">
-                      {screen.title}
-                    </h3>
-                    <p className="mt-1 text-xs md:text-sm text-neutral-500 leading-relaxed">
-                      {screen.caption}
-                    </p>
-                  </figcaption>
-                </figure>
-              </AnimatedSection>
-            ))}
-          </div>
+          <ScreenFan />
         </section>
 
         {/* Testimonials */}

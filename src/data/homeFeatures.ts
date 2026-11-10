@@ -41,7 +41,8 @@ export const homeFeatures: HomeFeature[] = [
     description:
       "Fourteen blocks, seven of them free, from a weekend full-body plan to Olympic lifting and 5/3/1. Sessions land on set days, with warm-ups and logging. Move a session when the week changes. Onboarding picks a starting point from your interests and experience.",
     mockup: "/iphone-mockups/program-view-top-of-screen-portrait.png",
-    mockupAlt: "Hyperlapse of a 5/3/1 programme session being opened from Home and worked through",
+    mockupAlt:
+      "Hyperlapse of a 5/3/1 programme session being opened from Home and worked through",
     video: {
       src: "/video-mockups/programs_tiny.mp4",
       poster: "/video-mockups/programs-poster.jpg",
@@ -68,7 +69,8 @@ export const homeFeatures: HomeFeature[] = [
     description:
       "168+ workouts you can favourite, filter, and log. CrossFit-style WODs, Hyrox, conditioning, strength, Olympic lifting, Rainhill, Arena Games, and Girl Games. Skill sessions are on Pro, and for coaches. Filter by discipline, equipment, duration, and format.",
     mockup: "/iphone-mockups/workouts-page-portrait.png",
-    mockupAlt: "Scrolling the workouts library, opening Dead Thruster, and switching between its scalings",
+    mockupAlt:
+      "Scrolling the workouts library, opening Dead Thruster, and switching between its scalings",
     video: {
       src: "/video-mockups/workouts_tiny.mp4",
       poster: "/video-mockups/workouts-poster.jpg",
@@ -83,7 +85,8 @@ export const homeFeatures: HomeFeature[] = [
     description:
       "Alternatives come from the same movement pattern and muscle group, with a bodyweight-only filter. Free includes 10 swaps a month, resetting on the 1st. Putting an exercise back does not use a swap. Pro is unlimited.",
     mockup: "/iphone-mockups/exerise-swap-portrait.png",
-    mockupAlt: "Swapping an exercise mid-session for an alternative from the same movement pattern",
+    mockupAlt:
+      "Swapping an exercise mid-session for an alternative from the same movement pattern",
     video: {
       src: "/video-mockups/swap_tiny.mp4",
       poster: "/video-mockups/swap-poster.jpg",
@@ -98,7 +101,8 @@ export const homeFeatures: HomeFeature[] = [
     description:
       "21 guided flows. Six are free: core stability, desk-job recovery, handstand prep, shoulder health, a full-body flush, and a quick full-body flow. The rest, including hips, wrists, running, and climbing, are Pro. Coaches get every flow. Premium flows stay locked in the rest-day carousel on Free.",
     mockup: "/iphone-mockups/mobility-and-flows-list-portrait.png",
-    mockupAlt: "Opening the Recovery section and browsing free and Pro mobility flows",
+    mockupAlt:
+      "Opening the Recovery section and browsing free and Pro mobility flows",
     video: {
       src: "/video-mockups/recovery_flows_tiny.mp4",
       poster: "/video-mockups/recovery_flows-poster.jpg",
@@ -113,7 +117,8 @@ export const homeFeatures: HomeFeature[] = [
     description:
       "Training articles, a glossary, and a shop of partner products. Together We Lift, the mental-health charity the app supports, lives here too. One-rep max, creatine, and water calculators work offline. Skills and Cues, with videos, drills, and coaching notes, are Pro, and free for coaches.",
     mockup: "/iphone-mockups/explore-page-portrait.png",
-    mockupAlt: "Moving through Explore: Skills and Cues, the partner shop, offline tools, and the glossary",
+    mockupAlt:
+      "Moving through Explore: Skills and Cues, the partner shop, offline tools, and the glossary",
     video: {
       src: "/video-mockups/explore_tiny.mp4",
       poster: "/video-mockups/explore-poster.jpg",
@@ -124,7 +129,7 @@ export const homeFeatures: HomeFeature[] = [
 ];
 
 export const homeFeatureMap = Object.fromEntries(
-  homeFeatures.map((feature) => [feature.id, feature])
+  homeFeatures.map((feature) => [feature.id, feature]),
 ) as Record<string, HomeFeature>;
 
 export const sessionBullets = [
@@ -172,14 +177,16 @@ export const moreAppScreens: AppScreen[] = [
   {
     id: "glossary",
     title: "Look it up",
-    caption: "A glossary for the terms in the session, with no account required.",
+    caption:
+      "A glossary for the terms in the session, with no account required.",
     src: "/iphone-mockups/glossary-view-portrait.png",
     alt: "Glossary with training terms such as AMRAP expanded",
   },
   {
     id: "pbs",
     title: "Personal bests",
-    caption: "Records by exercise and rep range, with a strip of recent bests on Home.",
+    caption:
+      "Records by exercise and rep range, with a strip of recent bests on Home.",
     src: "/iphone-mockups/pb-view-portrait.png",
     alt: "Personal bests for clean and jerk and related lifts",
   },
@@ -211,7 +218,7 @@ export const freeTierFeatures = [
 export const proTierFeatures = [
   "Everything in Free",
   "Every programme, including 5/3/1 and Olympic peaking",
-  "Tempered Daily, coming soon",
+  "Tempered Daily",
   "Full library of 168+ workouts, including skill sessions",
   "Unlimited exercise swaps",
   "All 21 recovery flows",
