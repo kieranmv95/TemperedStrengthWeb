@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { HeroSection } from "@/components/home/HeroSection";
 import { SiteHeader } from "../components/SiteHeader";
 import { StoreDownloadRow } from "@/components/store/StoreBadges";
 import { INSTAGRAM_URL } from "@/lib/site";
@@ -463,52 +464,7 @@ export default function Home() {
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-12">
         <SiteHeader className="mb-12 md:mb-16 animate-fade-in" />
 
-        {/* Hero Section */}
-        <section className="mb-20 md:mb-28 animate-fade-in-delay-1">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-            <div className="text-center lg:text-left space-y-6">
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-[#FFBA6F]/35 text-[#FFBA6F] bg-[#FFBA6F]/10">
-                Local-first training · iOS &amp; Android
-              </span>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.12]">
-                Train with a plan
-                <span className="mt-1 block bg-gradient-to-br from-[#FFCA91] via-[#FFBA6F] to-[#FFBA6F] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255, 186, 111,0.25)]">
-                  that adapts to you.
-                </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-neutral-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Programmes, one-off workouts, logging, and recovery, kept on your
-                phone. Run one block at a time, or open a session on its own.{" "}
-                <span className="text-neutral-200 font-medium">
-                  {freeProgramCount} programmes free, forever.
-                </span>
-              </p>
-
-              <div className="space-y-3">
-                <p className="text-sm text-neutral-500 uppercase tracking-wider font-medium">
-                  Free to download · Free to start
-                </p>
-                <StoreDownloadRow className="justify-center lg:justify-start" />
-              </div>
-            </div>
-
-            <div
-              className="relative flex justify-center lg:justify-end"
-              style={{ transform: `translateY(${scrollY * -0.05}px)` }}
-            >
-              <div className="w-[250px] sm:w-[280px] md:w-[300px] lg:w-[340px]">
-                <DeviceFrame
-                  src="/iphone-mockups/home-screen-portrait.png"
-                  alt="Tempered Strength home screen with today’s workout, rest day, and training streak"
-                  priority
-                  sizes="(min-width: 1024px) 340px, 280px"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection freeProgramCount={freeProgramCount} />
 
         {/* Stats Bar */}
         <AnimatedSection className="mb-20 md:mb-28">
@@ -643,42 +599,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-
-        {/* Programs CTA */}
-        <AnimatedSection className="mb-20 md:mb-28">
-          <Link
-            href="/programs"
-            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-5 md:p-6 rounded-xl border border-[#FFBA6F]/25 bg-[#FFBA6F]/5 hover:border-[#FFBA6F]/45 hover:bg-[#FFBA6F]/10 transition-colors text-left"
-          >
-            <div>
-              <p className="text-sm font-semibold text-[#FFBA6F] uppercase tracking-wider mb-1">
-                Full program breakdown
-              </p>
-              <p className="text-neutral-300 text-sm md:text-base">
-                Every programme, the workout library, and {RECOVERY_FLOWS_COUNT}{" "}
-                recovery flows. Level, length, and what each block is for.
-                Tempered Daily is listed there too, marked coming soon.
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-2 text-white font-semibold text-sm shrink-0">
-              Browse all programmes
-              <svg
-                className="w-5 h-5 text-[#FFBA6F]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </span>
-          </Link>
-        </AnimatedSection>
 
         {/* Testimonials */}
         <section className="mb-20 md:mb-28" aria-labelledby="testimonials-heading">
@@ -820,12 +740,6 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} LOCALHOSTDEVELOPMENT LTD</p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link
-                href="/programs"
-                className="hover:text-[#FFBA6F] transition-colors"
-              >
-                Programs
-              </Link>
               <Link
                 href="/patch-notes"
                 className="hover:text-[#FFBA6F] transition-colors"

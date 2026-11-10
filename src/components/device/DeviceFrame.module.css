@@ -1,0 +1,251 @@
+/*
+ * iPhone 17 Pro Max shell. Every length is a percentage of the device width
+ * unless the comment says otherwise. Override any of these on the component
+ * (or a parent) to retune the shell without touching the rules below.
+ */
+.root {
+  --device-w: 78;
+  --device-h: 163;
+  --device-radius: 14;
+  --bezel: 2.6;
+  --metal-rim: 0.85;
+  --screen-w: 1320;
+  --screen-h: 2868;
+  /* Slightly tighter than the body so the two curves stay concentric. */
+  --screen-radius: calc(var(--device-radius) - var(--bezel));
+
+  --button-protrude: 2.55;
+  --button-radius: 0.55;
+  --button-overlap: 0.62; /* share of each button that sits outside the body */
+  --action-top: 11.4; /* % of device height */
+  --action-length: 3.7;
+  --volume-up-top: 18.5;
+  --volume-length: 6.7;
+  --volume-gap: 1.7;
+  --power-top: 20.4;
+  --power-length: 10.8;
+  --camera-top: 37.6;
+  --camera-length: 7.6;
+
+  --glass-opacity: 1;
+  --accent: var(--gold, #ffba6f);
+
+  --metal-highlight: #9a9288;
+  --metal-mid: #34312e;
+  --metal-deep: #121110;
+  --metal-edge: #45403c;
+
+  container-type: inline-size;
+  container-name: device;
+  position: relative;
+  width: var(--frame-width, 100%);
+  isolation: isolate;
+}
+
+.layout {
+  position: relative;
+  padding-inline: calc(var(--button-protrude) * 1cqi);
+}
+
+.glow {
+  position: absolute;
+  z-index: 0;
+  left: -16%;
+  right: -16%;
+  top: -2%;
+  bottom: -8%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    color-mix(in srgb, var(--accent) 46%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 20%, transparent) 42%,
+    transparent 70%
+  );
+  filter: blur(calc(4.5 * 1cqi));
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+
+.shadowWrap {
+  position: relative;
+  z-index: 1;
+}
+
+.shadowSoft {
+  filter: drop-shadow(
+    calc(var(--tilt-y-n, 0) * -0.6px)
+    calc(18px + abs(var(--tilt-x-n, 0)) * 0.45px + abs(var(--tilt-y-n, 0)) * 0.22px)
+    calc(30px + abs(var(--tilt-x-n, 0)) * 0.7px + abs(var(--tilt-y-n, 0)) * 0.4px)
+    rgba(0, 0, 0, 0.5)
+  );
+}
+
+.shadowDeep {
+  filter:
+    drop-shadow(
+      calc(var(--tilt-y-n, 0) * -0.85px)
+      calc(22px + abs(var(--tilt-x-n, 0)) * 0.55px + abs(var(--tilt-y-n, 0)) * 0.28px)
+      calc(36px + abs(var(--tilt-x-n, 0)) * 0.85px + abs(var(--tilt-y-n, 0)) * 0.45px)
+      rgba(0, 0, 0, 0.58)
+    )
+    drop-shadow(
+      calc(var(--tilt-y-n, 0) * -1.25px)
+      calc(34px + abs(var(--tilt-x-n, 0)) * 0.85px)
+      calc(58px + abs(var(--tilt-x-n, 0)) * 1.05px)
+      rgba(0, 0, 0, 0.42)
+    );
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: calc(var(--device-w) / var(--device-h));
+  container-type: size;
+  container-name: device-body;
+}
+
+.stageTilted {
+  transform: perspective(1200px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.body {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: calc(var(--device-radius) * 1cqi);
+  border: calc(var(--metal-rim) * 1cqi) solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(
+      155deg,
+      var(--metal-highlight) 0%,
+      #6a635c 8%,
+      var(--metal-mid) 20%,
+      #241f1d 46%,
+      var(--metal-deep) 68%,
+      #2b2826 84%,
+      var(--metal-edge) 100%
+    ) border-box;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent) 32%, transparent),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.buttons {
+  position: absolute;
+  z-index: 0;
+  inset: calc(var(--metal-rim) * 1cqi);
+  pointer-events: none;
+}
+
+.button {
+  position: absolute;
+  width: calc(var(--button-protrude) * 1cqi);
+  border-radius: calc(var(--button-radius) * 1cqi);
+  background: linear-gradient(
+    var(--button-shade, 90deg),
+    #c8bfb6 0%,
+    #8a827a 32%,
+    #3a3632 68%,
+    #161514 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.buttonLeft {
+  --button-shade: 90deg;
+  left: calc(
+    var(--metal-rim) * -1cqi - var(--button-protrude) * var(--button-overlap) * 1cqi
+  );
+}
+
+.buttonRight {
+  --button-shade: 270deg;
+  right: calc(
+    var(--metal-rim) * -1cqi - var(--button-protrude) * var(--button-overlap) * 1cqi
+  );
+}
+
+.action {
+  top: calc(var(--action-top) * 1%);
+  height: calc(var(--action-length) * 1%);
+}
+
+.volumeUp {
+  top: calc(var(--volume-up-top) * 1%);
+  height: calc(var(--volume-length) * 1%);
+}
+
+.volumeDown {
+  top: calc((var(--volume-up-top) + var(--volume-length) + var(--volume-gap)) * 1%);
+  height: calc(var(--volume-length) * 1%);
+}
+
+.power {
+  top: calc(var(--power-top) * 1%);
+  height: calc(var(--power-length) * 1%);
+}
+
+.camera {
+  top: calc(var(--camera-top) * 1%);
+  height: calc(var(--camera-length) * 1%);
+}
+
+.screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  /* Fit the native screen ratio inside the body, keeping at least --bezel inset. */
+  width: min(
+    calc(100cqi - 2 * var(--bezel) * 1cqi),
+    calc((100cqb - 2 * var(--bezel) * 1cqi) * var(--screen-w) / var(--screen-h))
+  );
+  aspect-ratio: calc(var(--screen-w) / var(--screen-h));
+  overflow: hidden;
+  border-radius: calc(var(--screen-radius) * 1cqi);
+  background: #000;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+  transition: opacity 0.2s linear;
+}
+
+.pending {
+  opacity: 0;
+}
+
+.glass {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--glass-opacity);
+  background: linear-gradient(
+    118deg,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.04) 13%,
+    rgba(255, 255, 255, 0) 28%,
+    rgba(255, 255, 255, 0) 72%,
+    rgba(255, 255, 255, 0.045) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stageTilted,
+  .glow,
+  .media {
+    transition: none;
+  }
+}

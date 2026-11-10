@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: u("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: u("/programs"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: u("/articles"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     ...articles.map((a) => ({
       url: u(`/articles/${a.slug}`),

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/programs", destination: "/", permanent: true },
       {
         source: "/portal/admin/competition",
         destination: "/portal/competition",

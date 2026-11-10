@@ -153,16 +153,3 @@ export const programs: Program[] = [
       "Kettlebell and dumbbell circuits, skill work, and finishers. No barbell required.",
   },
 ];
-
-export const temperedDaily = {
-  name: "Tempered Daily",
-  tier: "Pro" as const,
-  comingSoon: true,
-  sessionsPerWeek: "7 sessions",
-  totalRunTime: "New week every Monday",
-  typicalSession: "RX and Scaled",
-  description:
-    "Coming soon. A new week will drop every Monday at 00:01. Seven sessions, each with an RX and a Scaled version. Do the days you can. Pro will open the full week. Free accounts will see the shape of the session, then a lock. On a rest day that is also today, Pro will be able to open that day’s session from the rest-day screen.",
-  blocks:
-    "Each week has a theme, and the theme changes. Strength, metcon, and the work in between, so the training builds a well-rounded athlete rather than one style.",
-};
